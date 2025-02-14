@@ -1,4 +1,6 @@
 #import "TruVideoReactTurboCameraSdk.h"
+#import <React/RCTBridgeModule.h>
+#import "truvideo_react_turbo_camera_sdk-Swift.h"
 
 @implementation TruVideoReactTurboCameraSdk
 RCT_EXPORT_MODULE()
@@ -8,6 +10,16 @@ RCT_EXPORT_MODULE()
 
     return result;
 }
+
+- (void)initCameraScreen:(NSString *)configuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
+  TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
+  [truvideo initCameraScreenWithJsonData:configuration onResolve:^(NSString *result) {
+    resolve(result);
+  } onReject:^(NSString *result) {
+    reject(@"Error", result, nil);
+  }];
+}
+
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
