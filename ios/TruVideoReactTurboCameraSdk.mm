@@ -13,11 +13,7 @@ RCT_EXPORT_MODULE()
 
 - (void)initCameraScreen:(NSString *)configuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
   TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
-  [truvideo initCameraScreenWithJsonData:configuration onResolve:^(NSString *result) {
-    resolve(result);
-  } onReject:^(NSString *result) {
-    reject(@"Error", result, nil);
-  }];
+  [truvideo initCameraScreenWithJsonData:configuration resolve:resolve reject:reject];
 }
 
 
