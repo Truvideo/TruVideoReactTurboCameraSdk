@@ -38,9 +38,9 @@ import AVFoundation
                 for (key, value) in item {
                   if key == "type" {
                     if (value as AnyObject).description == "TruvideoSdkCamera.TruvideoSdkCameraMediaType.photo"  {
-                      sanitizedItem["type"] = (value as AnyObject).description
+                      sanitizedItem["type"] = "PICTURE"
                     } else {
-                      sanitizedItem["type"] = (value as AnyObject).description
+                      sanitizedItem["type"] = "VIDEO"
                     }
                   }
                   if JSONSerialization.isValidJSONObject([key: value]) {
