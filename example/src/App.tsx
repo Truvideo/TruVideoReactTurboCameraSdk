@@ -1,11 +1,11 @@
 import { Text, View, StyleSheet,Button } from 'react-native';
-import { multiply,initCameraScreen,LensFacing,
+import { initCameraScreen,LensFacing,
   FlashMode,
   Orientation,
   Mode,
   type CameraConfiguration } from 'truvideo-react-turbo-camera-sdk';
 
-const result = multiply(3, 7);
+const result = 3;
 const configuration: CameraConfiguration = {
   lensFacing: LensFacing.Front,
   flashMode: FlashMode.Off,
