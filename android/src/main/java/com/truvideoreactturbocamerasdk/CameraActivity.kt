@@ -53,7 +53,7 @@ class CameraActivity : AppCompatActivity() {
     openCamera(this@CameraActivity,cameraScreen)
   }
   fun getEvent(){
-    TruvideoSdkCamera.events.observe(this){event : TruvideoSdkCameraEvent ->
+    TruvideoSdkCamera.events.observeForever{event : TruvideoSdkCameraEvent ->
       val gson = Gson()
       val jsonResult = gson.toJson(event)
       sendEvent(reactContext = TruVideoReactTurboCameraSdkModule.reactContext,eventName = "cameraEvent",event = jsonResult.toString())
