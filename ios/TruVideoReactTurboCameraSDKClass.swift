@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 import React
 import AVFoundation
-
+import Combine
 
 @objc final public class TruVideoReactCameraSdkClass: NSObject {
   
- 
+  var disposeBag = Set<AnyCancellable>()
   @objc public func initCameraScreen(jsonData: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     print(jsonData)
   
@@ -158,6 +158,8 @@ import AVFoundation
         }
       }
     }
+    
+  
   }
   
   func checkCameraPermissions(completion: @escaping (Bool) -> Void) {
@@ -175,7 +177,215 @@ import AVFoundation
       completion(false)
     }
   }
+  private func subscribeToEventsPublisher() {
+           TruvideoSdkCamera
+               .events
+               .sink { cameraEvent in
+                 print("cameraEvent: ",cameraEvent)
+                 //self.sendEvent(withName: "cameraEvent", body: cameraEvent)
+                 self.sendEventToReact(event: cameraEvent)
+               }
+               .store(in: &disposeBag)
+  }
   
+  
+  private func sendEventToReact(event: TruvideoSdkCameraEvent) {
+          // Initialize the data dictionary that will contain all the event data
+          var eventData: [String: Any] = [:]
+          
+          // Switch through the event types and add the corresponding data
+          switch event.type {
+          case .truvideoSdkCameraEventFlashModeChanged(let flashMode):
+              eventData["flashMode"] = convertFlashModeTOString(flashMode: flashMode)
+              
+          case .truvideoSdkCameraEventCameraFlipped(let lensFacing):
+              eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
+              
+          case .truvideoSdkCameraEventMediaContinue(let media):
+              eventData["media"] = convertMediaArrayToDictionary(mediaArray: media)
+              
+              
+          case .truvideoSdkCameraEventMediaDeleted(let media):
+              eventData["media"] = convertMediaToDictionary(media: media)
+              
+          case .truvideoSdkCameraEventMediaDiscard(let media):
+              eventData["media"] = convertMediaArrayToDictionary(mediaArray: media)
+              
+          case .truvideoSdkCameraEventPictureTaken(let media):
+              eventData["media"] = convertMediaToDictionary(media: media)
+              
+          case .truvideoSdkCameraEventRecordingFinished(let media):
+              eventData["media"] = convertMediaToDictionary(media: media)
+              
+          case .truvideoSdkCameraEventRecordingPaused(let resolution, let orientation, let lensFacing):
+              eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
+              eventData["orientation"] = convertOrientationToString(orientation: orientation)
+              eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
+              
+          case .truvideoSdkCameraEventRecordingResumed(let resolution, let orientation, let lensFacing):
+              eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
+              eventData["orientation"] = convertOrientationToString(orientation: orientation)
+              eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
+              
+          case .truvideoSdkCameraEventRecordingStarted(let resolution, let orientation, let lensFacing):
+              eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
+              eventData["orientation"] = convertOrientationToString(orientation: orientation)
+              eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
+              
+          case .truvideoSdkCameraEventResolutionChanged(let resolution):
+              eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
+              
+          case .truvideoSdkCameraEventZoomChanged(let zoom):
+              eventData["zoom"] = zoom
+          @unknown default:
+              eventData["empty"] = ""
+          }
+          // print(event)
+          let eventToSend: [String: Any] = [
+              "type": eventTypeToString(event.type),
+              "data": eventData
+          ]
+          self.sendEvent(withName: "cameraEvent", body: eventToSend)
+//          do {
+//              if let jsonData = try? JSONSerialization.data(withJSONObject: eventToSend, options: []),
+//                 let jsonString = String(data: jsonData, encoding: .utf8) {
+//                self.sendEvent(withName: "cameraEvent", body: eventToSend)
+//              } else {
+//                  print("Failed to serialize event to JSON")
+//              }
+//          } catch {
+//              print("Error converting object to JSON: \(error.localizedDescription)")
+//          }
+      }
+  
+  private func eventTypeToString(_ eventType: TruvideoSdkCameraEventType) -> String {
+          switch eventType {
+          case .truvideoSdkCameraEventFlashModeChanged(_):
+              return "FlashModeChanged"
+              
+          case .truvideoSdkCameraEventCameraFlipped(_):
+              return "CameraFlipped"
+              
+          case .truvideoSdkCameraEventMediaContinue(_):
+              return "Continue"
+              
+          case .truvideoSdkCameraEventMediaDeleted(_):
+              return "MediaDeleted"
+              
+          case .truvideoSdkCameraEventMediaDiscard(_):
+              return "MediaDiscard"
+              
+          case .truvideoSdkCameraEventPictureTaken(_):
+              return "PictureTaken"
+              
+          case .truvideoSdkCameraEventRecordingFinished(_):
+              return "RecordingFinished"
+              
+          case .truvideoSdkCameraEventRecordingPaused(_, _, _):
+              return "RecordingPaused"
+              
+          case .truvideoSdkCameraEventRecordingResumed(_, _, _):
+              return "RecordingResumed"
+              
+          case .truvideoSdkCameraEventRecordingStarted(_, _, _):
+              return "RecordingStarted"
+              
+          case .truvideoSdkCameraEventResolutionChanged(_):
+              return "ResolutionChanged"
+              
+          case .truvideoSdkCameraEventZoomChanged(_):
+              return "ZoomChanged"
+              
+          @unknown default:
+              return "ZoomChanged"
+          }
+      }
+      
+  func convertLensTOString(lensFacing: TruvideoSdkCameraLensFacing) -> String{
+          if lensFacing == .back{
+              return "back"
+          }else if lensFacing == .front{
+              return "front"
+          }else {
+              return "back"
+          }
+      }
+      
+      func convertFlashModeTOString(flashMode: TruvideoSdkCameraFlashMode) -> String{
+          if flashMode == .on{
+              return "on"
+          }else if flashMode == .off{
+              return "off"
+          }else {
+              return "off"
+          }
+      }
+      
+      func convertResolutionToDictionary(resolution: TruvideoSdkCameraResolution) -> [String: Int] {
+          var resolutionData : [String: Int] = [:]
+          if let width = Int(resolution.width) as? Int , let height = Int(resolution.height) as? Int {
+              resolutionData["width"] = width
+              resolutionData["height"] = height
+              return resolutionData
+          }
+          return resolutionData
+      }
+      
+      func convertOrientationToString(orientation: TruvideoSdkCameraOrientation) -> String{
+          switch orientation{
+          case .landscapeLeft:
+              return "landscapeLeft"
+          case .landscapeRight:
+              return "landscapeRight"
+          case .portrait:
+              return "portrait"
+          case .portraitReverse:
+              return "portraitReverse"
+          @unknown default:
+              return "portrait"
+          }
+      }
+      
+      func convertMediaTypeToString(type :TruvideoSdkCameraMediaType) -> String{
+          switch type {
+          case .clip:
+              return "clip"
+          case .photo:
+              return "photo"
+          @unknown default:
+              return "default"
+          }
+      }
+      
+      func convertMediaToDictionary(media: TruvideoSdkCameraMedia) -> [String: Any] {
+          print(media)
+          var mediaData: [String: Any] = [:]
+          if let createdAt = media.createdAt as? Double,
+             let filePath = media.filePath as? String,
+             let type = convertMediaTypeToString(type: media.type) as? String,
+             let cameraLensFacing = convertLensTOString(lensFacing: media.cameraLensFacing) as? String,
+             let rotation = convertOrientationToString(orientation: media.rotation) as? String,
+             let resolution = convertResolutionToDictionary(resolution: media.resolution)as? [String:Int] ,
+             let duration = Int(media.duration) as? Int {
+              mediaData["createdAt"] = "\(createdAt)"
+              mediaData["filePath"] = filePath
+              mediaData["type"] = type
+              mediaData["cameraLensFacing"] = cameraLensFacing
+              mediaData["rotation"] = rotation
+              mediaData["resolution"] = resolution
+              mediaData["duration"] = duration
+          }
+          return mediaData
+      }
+      
+      func convertMediaArrayToDictionary(mediaArray: [TruvideoSdkCameraMedia]) -> [[String: Any]] {
+          return mediaArray.map { convertMediaToDictionary(media: $0) }
+      }
+  //self.sendEvent(withName: "onComplete", body: mainResponse)
+  private func sendEvent(withName name: String, body: [String: Any]) {
+      guard let bridge = RCTBridge.current() else { return }
+      bridge.eventDispatcher().sendAppEvent(withName: name, body: body)
+  }
   
 }
 extension TruvideoSdkCameraResult {
