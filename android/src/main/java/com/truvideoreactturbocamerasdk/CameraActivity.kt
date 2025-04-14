@@ -27,7 +27,7 @@ class CameraActivity : AppCompatActivity() {
   var lensFacing = TruvideoSdkCameraLensFacing.BACK
   var flashMode = TruvideoSdkCameraFlashMode.OFF
   var orientation: TruvideoSdkCameraOrientation? = null
-  var mode = TruvideoSdkCameraMode.videoAndPicture()
+  var mode = TruvideoSdkCameraMode.videoAndImage()
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
@@ -142,9 +142,9 @@ class CameraActivity : AppCompatActivity() {
     }
     if(jsonConfiguration.has("mode")){
       when(jsonConfiguration.getString("mode")) {
-        "videoAndPicture" -> mode = TruvideoSdkCameraMode.videoAndPicture()
+        "videoAndPicture" -> mode = TruvideoSdkCameraMode.videoAndImage()
         "video" -> mode = TruvideoSdkCameraMode.video()
-        "picture" -> mode = TruvideoSdkCameraMode.picture()
+        "picture" -> mode = TruvideoSdkCameraMode.image()
       }
     }
   }
