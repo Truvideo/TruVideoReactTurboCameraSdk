@@ -76,6 +76,15 @@ import Combine
   }
   
   
+  @objc public func environment(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    resolve("")
+  }
+  
+  @objc public func image(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    let mode: TruvideoSdkCameraMediaMode = .picture()
+    
+  }
+
   
   private func cameraInitiate(configuration: [String:Any], completion: @escaping (_ cameraResult: TruvideoSdkCameraResult) -> Void) {
     DispatchQueue.main.async {
