@@ -144,26 +144,44 @@ class CameraActivity : AppCompatActivity() {
 
       when(jsonMode.getString("mode")) {
         "videoAndImage" -> {
-          if(jsonMode.getString("durationLimit") != null && jsonMode.getString("maxCount") != null){
+          if(jsonMode.getString("durationLimit") != "" && jsonMode.getString("maxCount") != ""){
             mode = TruvideoSdkCameraMode.videoAndImage(
               durationLimit = jsonMode.getString("durationLimit").toInt(),
               maxCount = jsonMode.getString("maxCount").toInt())
-          }else if (jsonMode.getString("videoMaxCount") != null && jsonMode.getString("imageMaxCount") != null && jsonMode.getString("durationLimit") != null){
+          }else if (jsonMode.getString("videoMaxCount") != "" && jsonMode.getString("imageMaxCount") != "" && jsonMode.getString("durationLimit") != ""){
             mode = TruvideoSdkCameraMode.videoAndImage(
               durationLimit = jsonMode.getString("durationLimit").toInt(),
               imageMaxCount = jsonMode.getString("imageMaxCount").toInt(),
               videoMaxCount = jsonMode.getString("videoMaxCount").toInt())
-          }else if (jsonMode.getString("durationLimit") != null){
+          }else if (jsonMode.getString("durationLimit") != ""){
             mode = TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("durationLimit").toInt())
           }else{
             mode = TruvideoSdkCameraMode.videoAndImage()
           }
         }
         "video" -> {
-          mode = TruvideoSdkCameraMode.video()
+          if(jsonMode.getString("videoMaxCount") != "" && jsonMode.getString("durationLimit") != ""){
+            mode = TruvideoSdkCameraMode.video(
+              maxCount = jsonMode.getString("videoMaxCount").toInt(),
+              durationLimit = jsonMode.getString("durationLimit").toInt()
+            )
+          }else if (jsonMode.getString("videoMaxCount") != ""){
+            mode = TruvideoSdkCameraMode.video(
+              maxCount = jsonMode.getString("videoMaxCount").toInt()
+            )
+          }else {
+            mode = TruvideoSdkCameraMode.video()
+          }
+
         }
         "image" -> {
-          mode = TruvideoSdkCameraMode.image()
+          if (jsonMode.getString("imageMaxCount") != ""){
+            mode = TruvideoSdkCameraMode.image(
+              maxCount = jsonMode.getString("imageMaxCount").toInt()
+            )
+          }else {
+            mode = TruvideoSdkCameraMode.image()
+          }
         }
       }
     }

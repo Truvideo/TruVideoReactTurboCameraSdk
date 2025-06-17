@@ -69,11 +69,11 @@ export interface CameraConfiguration {
 }
 
 export class CameraMode {
-  videoLimit: number | null = null;
-  imageLimit: number | null = null;
-  mediaLimit: number | null = null;
-  mode: String = 'videoAndImage';
-  videoDurationLimit: number | null = null;
+  videoLimit: string = "";
+  imageLimit: string = "";
+  mediaLimit: string = "";
+  mode: string = 'videoAndImage';
+  videoDurationLimit: string = "";
   autoClose: boolean = false;
   private constructor(
     mode: string,
@@ -84,10 +84,10 @@ export class CameraMode {
     autoClose: boolean
   ) {
     this.mode = mode;
-    this.videoLimit = videoLimit;
-    this.imageLimit = imageLimit;
-    this.mediaLimit = mediaLimit;
-    this.videoDurationLimit = videoDurationLimit;
+    this.videoLimit = videoLimit != null ? videoLimit.toString() : "";
+    this.imageLimit = imageLimit != null ? imageLimit.toString() : "";
+    this.mediaLimit = mediaLimit != null ? mediaLimit.toString() : "";
+    this.videoDurationLimit = videoDurationLimit != null ? videoDurationLimit.toString() : "";
     this.autoClose = autoClose;
   }
 
