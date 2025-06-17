@@ -143,9 +143,28 @@ class CameraActivity : AppCompatActivity() {
       val jsonMode = jsonConfiguration.getJSONObject("mode")
 
       when(jsonMode.getString("mode")) {
-        "videoAndImage" -> mode = TruvideoSdkCameraMode.videoAndImage()
-        "video" -> mode = TruvideoSdkCameraMode.video()
-        "image" -> mode = TruvideoSdkCameraMode.image()
+        "videoAndImage" -> {
+          if(jsonMode.getString("durationLimit") != null && jsonMode.getString("maxCount") != null){
+            mode = TruvideoSdkCameraMode.videoAndImage(
+              durationLimit = jsonMode.getString("durationLimit").toInt(),
+              maxCount = jsonMode.getString("maxCount").toInt())
+          }else if (jsonMode.getString("videoMaxCount") != null && jsonMode.getString("imageMaxCount") != null && jsonMode.getString("durationLimit") != null){
+            mode = TruvideoSdkCameraMode.videoAndImage(
+              durationLimit = jsonMode.getString("durationLimit").toInt(),
+              imageMaxCount = jsonMode.getString("imageMaxCount").toInt(),
+              videoMaxCount = jsonMode.getString("videoMaxCount").toInt())
+          }else if (jsonMode.getString("durationLimit") != null){
+            mode = TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("durationLimit").toInt())
+          }else{
+            mode = TruvideoSdkCameraMode.videoAndImage()
+          }
+        }
+        "video" -> {
+          mode = TruvideoSdkCameraMode.video()
+        }
+        "image" -> {
+          mode = TruvideoSdkCameraMode.image()
+        }
       }
     }
   }
