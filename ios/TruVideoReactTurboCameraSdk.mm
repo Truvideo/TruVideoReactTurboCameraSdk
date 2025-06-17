@@ -21,61 +21,28 @@ RCT_EXPORT_MODULE()
   [truvideo  environmentWithResolve:resolve reject:reject ];
 }
 
-- (void)image:(NSString *)maxCount resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
-}
-
-
-- (void)isAugmentedRealityInstalled:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
+- (void)isAugmentedRealityInstalled:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+  TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
+  [truvideo  isAugmentedRealityInstalledWithResolve:resolve reject:reject ];
 }
 
 
 - (void)isAugmentedRealitySupported:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
+  TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
+  [truvideo  isAugmentedRealitySupportedWithResolve :resolve reject:reject ];
 }
 
 
 - (void)requestInstallAugmentedReality:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
-}
-
-
-- (void)singleImage:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
-}
-
-
-- (void)singleVideo:(NSString *)videoDuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
-}
-
-
-- (void)singleVideoOrImage:(NSString *)durationLimit resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
+  
 }
 
 
 - (void)version:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
+  resolve(@"1");
 }
 
 
-- (void)video:(NSString *)maxCount durationLimit:(NSString *)durationLimit resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
-}
-
-
-- (void)videoAndImage:(NSString *)jsonString resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  <#code#>
-}
-
-
-
-- (void)image:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
-  [truvideo  imageWithResolve:resolve reject:reject ];
-}
 
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:

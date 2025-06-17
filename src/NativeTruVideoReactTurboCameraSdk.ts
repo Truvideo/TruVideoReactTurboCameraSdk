@@ -9,12 +9,6 @@ export interface Spec extends TurboModule {
   isAugmentedRealityInstalled(): Promise<string>;
   isAugmentedRealitySupported(): Promise<string>;
   requestInstallAugmentedReality(): Promise<string>;
-  videoAndImage(jsonString: string): Promise<string>;
-  singleVideo(videoDuration: string): Promise<string>;
-  singleImage(): Promise<string>;
-  singleVideoOrImage(durationLimit: string): Promise<string>;
-  video(maxCount: string, durationLimit: string): Promise<string>;
-  image(maxCount: string): Promise<string>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>(

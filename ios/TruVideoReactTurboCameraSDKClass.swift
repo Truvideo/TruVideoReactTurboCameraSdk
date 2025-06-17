@@ -77,15 +77,21 @@ import Combine
   
   
   @objc public func environment(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
-    resolve("")
+    resolve("true")
   }
   
-  @objc public func image(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
-    let mode: TruvideoSdkCameraMediaMode = .picture()
-    
-  }
-
   
+  @objc public func isAugmentedRealityInstalled(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
+    resolve("true")
+  }
+  
+  @objc public func isAugmentedRealitySupported(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
+    resolve("true")
+  }
+  
+  
+  
+ 
   private func cameraInitiate(configuration: [String:Any], completion: @escaping (_ cameraResult: TruvideoSdkCameraResult) -> Void) {
     DispatchQueue.main.async {
       guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {

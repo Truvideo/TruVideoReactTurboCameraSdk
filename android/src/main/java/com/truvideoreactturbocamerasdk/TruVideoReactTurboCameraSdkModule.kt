@@ -49,68 +49,6 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     promise?.resolve(true)
   }
 
-  override fun videoAndImage(jsonString: String, promise: Promise){
-    val jsonObject = JSONObject(jsonString)
-    if(jsonObject.has("videoMaxCount") && jsonObject.has("imageMaxCount") && jsonObject.has("durationLimit")){
-        val videoMaxCount = jsonObject.getInt("videoMaxCount")
-        val imageMaxCount = jsonObject.getInt("imageMaxCount")
-        val durationLimit = jsonObject.getInt("durationLimit")
-        promise.resolve(TruvideoSdkCameraMode.videoAndImage(videoMaxCount.toInt(),imageMaxCount.toInt(),durationLimit.toInt()).toJson())
-    }else if(jsonObject.has("maxCount") && jsonObject.has("durationLimit")){
-        val maxCount = jsonObject.getInt("maxCount")
-        val durationLimit = jsonObject.getInt("durationLimit")
-      promise.resolve(TruvideoSdkCameraMode.videoAndImage(maxCount.toInt(),durationLimit.toInt()).toJson())
-    }else if (jsonObject.has("durationLimit")){
-      val durationLimit = jsonObject.getInt("durationLimit")
-      promise.resolve(TruvideoSdkCameraMode.videoAndImage(durationLimit.toInt()).toJson())
-    }else {
-      promise.resolve(TruvideoSdkCameraMode.videoAndImage().toJson())
-    }
-  }
-
-  override fun singleVideo(videoDuration: String?, promise: Promise?) {
-    if(videoDuration == ""){
-      promise!!.resolve(TruvideoSdkCameraMode.singleVideo().toJson())
-    }else{
-      promise!!.resolve(TruvideoSdkCameraMode.singleVideo(videoDuration!!.toInt()).toJson())
-    }
-  }
-
-
-  override fun singleImage(promise: Promise) {
-    promise.resolve(TruvideoSdkCameraMode.singleImage().toJson())
-  }
-
-  override fun singleVideoOrImage(durationLimit: String?, promise: Promise?) {
-    if(durationLimit == ""){
-      promise!!.resolve(TruvideoSdkCameraMode.singleVideoOrImage().toJson())
-    }else{
-      promise!!.resolve(TruvideoSdkCameraMode.singleVideoOrImage(durationLimit!!.toInt()).toJson())
-    }
-  }
-
-  override fun video(maxCount: String?, durationLimit: String?, promise: Promise?) {
-    if(durationLimit == ""){
-      if(maxCount == ""){
-        promise!!.resolve(TruvideoSdkCameraMode.video().toJson())
-      }else{
-        promise!!.resolve(TruvideoSdkCameraMode.video(maxCount = maxCount!!.toInt()).toJson())
-      }
-    }else if (maxCount == ""){
-      promise!!.resolve(TruvideoSdkCameraMode.video(durationLimit = durationLimit!!.toInt()).toJson())
-    }else {
-      promise!!.resolve(TruvideoSdkCameraMode.video(maxCount = maxCount!!.toInt(),durationLimit = durationLimit!!.toInt()).toJson())
-    }
-  }
-
-  override fun image(maxCount: String?, promise: Promise?) {
-    if(maxCount == ""){
-      promise!!.resolve(TruvideoSdkCameraMode.image().toJson())
-    }else {
-      promise!!.resolve(TruvideoSdkCameraMode.image(maxCount = maxCount!!.toInt()).toJson())
-    }
-  }
-
 
   override fun initCameraScreen(configuration:String,promise: Promise){
     Log.d("initCameraScreen","initCameraScreen")
