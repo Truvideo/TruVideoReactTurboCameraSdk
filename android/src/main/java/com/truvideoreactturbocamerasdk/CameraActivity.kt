@@ -129,7 +129,6 @@ class CameraActivity : AppCompatActivity() {
       when (jsonConfiguration.getString("flashMode")) {
         "on" -> flashMode = TruvideoSdkCameraFlashMode.ON
         "off" -> flashMode = TruvideoSdkCameraFlashMode.OFF
-
       }
     }
     if(jsonConfiguration.has("orientation")) {
@@ -141,10 +140,12 @@ class CameraActivity : AppCompatActivity() {
       }
     }
     if(jsonConfiguration.has("mode")){
-      when(jsonConfiguration.getString("mode")) {
-        "videoAndPicture" -> mode = TruvideoSdkCameraMode.videoAndImage()
+      val jsonMode = jsonConfiguration.getJSONObject("mode")
+
+      when(jsonMode.getString("mode")) {
+        "videoAndImage" -> mode = TruvideoSdkCameraMode.videoAndImage()
         "video" -> mode = TruvideoSdkCameraMode.video()
-        "picture" -> mode = TruvideoSdkCameraMode.image()
+        "image" -> mode = TruvideoSdkCameraMode.image()
       }
     }
   }
