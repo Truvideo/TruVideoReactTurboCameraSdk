@@ -144,30 +144,30 @@ class CameraActivity : AppCompatActivity() {
 
       when(jsonMode.getString("mode")) {
         "videoAndImage" -> {
-          if(jsonMode.getString("durationLimit") != "" && jsonMode.getString("maxCount") != ""){
+          if(jsonMode.getString("videoDurationLimit") != "" && jsonMode.getString("mediaLimit") != ""){
             mode = TruvideoSdkCameraMode.videoAndImage(
-              durationLimit = jsonMode.getString("durationLimit").toInt(),
-              maxCount = jsonMode.getString("maxCount").toInt())
-          }else if (jsonMode.getString("videoMaxCount") != "" && jsonMode.getString("imageMaxCount") != "" && jsonMode.getString("durationLimit") != ""){
+              durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
+              maxCount = jsonMode.getString("mediaLimit").toInt())
+          }else if (jsonMode.getString("videoLimit") != "" && jsonMode.getString("imageLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
             mode = TruvideoSdkCameraMode.videoAndImage(
-              durationLimit = jsonMode.getString("durationLimit").toInt(),
-              imageMaxCount = jsonMode.getString("imageMaxCount").toInt(),
-              videoMaxCount = jsonMode.getString("videoMaxCount").toInt())
-          }else if (jsonMode.getString("durationLimit") != ""){
-            mode = TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("durationLimit").toInt())
+              durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
+              imageMaxCount = jsonMode.getString("imageLimit").toInt(),
+              videoMaxCount = jsonMode.getString("videoLimit").toInt())
+          }else if (jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
           }else{
             mode = TruvideoSdkCameraMode.videoAndImage()
           }
         }
         "video" -> {
-          if(jsonMode.getString("videoMaxCount") != "" && jsonMode.getString("durationLimit") != ""){
+          if(jsonMode.getString("videoLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
             mode = TruvideoSdkCameraMode.video(
-              maxCount = jsonMode.getString("videoMaxCount").toInt(),
-              durationLimit = jsonMode.getString("durationLimit").toInt()
+              maxCount = jsonMode.getString("videoLimit").toInt(),
+              durationLimit = jsonMode.getString("videoDurationLimit").toInt()
             )
-          }else if (jsonMode.getString("videoMaxCount") != ""){
+          }else if (jsonMode.getString("videoLimit") != ""){
             mode = TruvideoSdkCameraMode.video(
-              maxCount = jsonMode.getString("videoMaxCount").toInt()
+              maxCount = jsonMode.getString("videoLimit").toInt()
             )
           }else {
             mode = TruvideoSdkCameraMode.video()
@@ -175,9 +175,9 @@ class CameraActivity : AppCompatActivity() {
 
         }
         "image" -> {
-          if (jsonMode.getString("imageMaxCount") != ""){
+          if (jsonMode.getString("imageLimit") != ""){
             mode = TruvideoSdkCameraMode.image(
-              maxCount = jsonMode.getString("imageMaxCount").toInt()
+              maxCount = jsonMode.getString("imageLimit").toInt()
             )
           }else {
             mode = TruvideoSdkCameraMode.image()
