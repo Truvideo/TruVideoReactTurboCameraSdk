@@ -93,11 +93,11 @@ export class CameraMode {
 
   static videoAndImage(): CameraMode;
   static videoAndImage(durationLimit?: number): CameraMode;
-  static videoAndImage(mediaCount?: number, durationLimit?: number): CameraMode;
+  static videoAndImage( durationLimit?: number,mediaCount?: number): CameraMode;
   static videoAndImage(
+    durationLimit?: number,
     videoMaxCount?: number,
-    imageMaxCount?: number,
-    durationLimit?: number
+    imageMaxCount?: number
   ): CameraMode;
 
   static videoAndImage(
@@ -160,9 +160,9 @@ export class CameraMode {
 
   static video(): CameraMode;
   static video(videoMaxCount?: number): CameraMode;
-  static video(durationLimit?: number, videoMaxCount?: number): CameraMode;
+  static video(videoMaxCount?: number,durationLimit?: number): CameraMode;
 
-  static video(durationLimit?: number, videoMaxCount?: number): CameraMode {
+  static video(videoMaxCount?: number,durationLimit?: number): CameraMode {
     return new CameraMode(
       'video',
       videoMaxCount ?? null,

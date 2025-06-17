@@ -45,6 +45,7 @@ class CameraActivity : AppCompatActivity() {
   fun startCamera(){
     val cameraScreen = registerForActivityResult(TruvideoSdkCameraContract()){
       // result
+
       val gson = Gson()
       val jsonResult = gson.toJson(it)
       TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
@@ -181,6 +182,23 @@ class CameraActivity : AppCompatActivity() {
             )
           }else {
             mode = TruvideoSdkCameraMode.image()
+          }
+        }
+        "singleImage" ->{
+          mode = TruvideoSdkCameraMode.singleImage()
+        }
+        "singleVideo" ->{
+          if (jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.singleVideo(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+          }else {
+            mode = TruvideoSdkCameraMode.singleVideo()
+          }
+        }
+        "singleVideoOrImage" -> {
+          if (jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.singleVideoOrImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+          }else {
+            mode = TruvideoSdkCameraMode.singleVideoOrImage()
           }
         }
       }
