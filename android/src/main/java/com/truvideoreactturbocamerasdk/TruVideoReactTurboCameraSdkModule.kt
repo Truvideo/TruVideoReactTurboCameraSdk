@@ -58,6 +58,22 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     currentActivity!!.startActivity(Intent(currentActivity, CameraActivity::class.java).putExtra("configuration",configuration))
   }
 
+  override fun initARCameraScreen(configuration:String,promise: Promise){
+    Log.d("initCameraScreen","initCameraScreen")
+    promise2 = promise
+    reactContext = reactApplicationContext
+    Log.d("initCameraScreen","$configuration")
+    currentActivity!!.startActivity(Intent(currentActivity, CameraActivity::class.java).putExtra("configuration",configuration))
+  }
+
+  override fun initScanerScreen(configuration:String,promise: Promise){
+    Log.d("initCameraScreen","initCameraScreen")
+    promise2 = promise
+    reactContext = reactApplicationContext
+    Log.d("initCameraScreen","$configuration")
+    currentActivity!!.startActivity(Intent(currentActivity, CameraActivity::class.java).putExtra("configuration",configuration))
+  }
+
   companion object {
     const val NAME = "TruVideoReactTurboCameraSdk"
     lateinit var reactContext : ReactApplicationContext

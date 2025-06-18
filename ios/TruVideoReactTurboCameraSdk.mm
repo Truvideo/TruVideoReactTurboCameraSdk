@@ -42,6 +42,16 @@ RCT_EXPORT_MODULE()
   resolve(@"1");
 }
 
+- (void)initARCameraScreen:(NSString *)configuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
+  
+}
+
+
+- (void)initScanerScreen:(NSString *)configuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
+  
+}
+
+
 
 
 

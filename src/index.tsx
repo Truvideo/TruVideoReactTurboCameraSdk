@@ -1,17 +1,55 @@
 import TruVideoReactTurboCameraSdk from './NativeTruVideoReactTurboCameraSdk';
 
+interface Configuration {
+  lensFacing: LensFacing;
+  flashMode: FlashMode;
+  orientation: Orientation;
+  outputPath: string;
+  frontResolutions: Resolution[] | null;
+  frontResolution: Resolution | null;
+  backResolutions: Resolution[] | null;
+  backResolution: Resolution | null;
+  mode: string;
+}
+
 export function initCameraScreen(
   configuration: CameraConfiguration
 ): Promise<string> {
+  let data = {
+      mode: configuration.mode.mode,
+      videoLimit: configuration.mode.videoLimit,
+      imageLimit: configuration.mode.imageLimit,
+      mediaLimit: configuration.mode.mediaLimit,
+      videoDurationLimit: configuration.mode.videoDurationLimit,
+      autoClose: configuration.mode.autoClose,
+    };
+  var cameraConfiguration  :  Configuration = {
+            lensFacing: configuration.lensFacing,
+            flashMode: configuration.flashMode,
+            orientation: configuration.orientation,
+            outputPath: configuration.outputPath,
+            frontResolutions: configuration.frontResolutions,
+            frontResolution: configuration.frontResolution,
+            backResolutions: configuration.backResolutions,
+            backResolution: configuration.backResolution,
+            mode: JSON.stringify(data),
+        }
   return TruVideoReactTurboCameraSdk.initCameraScreen(
-    JSON.stringify(configuration)
+    JSON.stringify(cameraConfiguration)
   );
 }
 
 export function initARCameraScreen(
   configuration: CameraConfiguration
 ): Promise<string> {
-  return TruVideoReactTurboCameraSdk.initCameraScreen(
+  return TruVideoReactTurboCameraSdk.initARCameraScreen(
+    JSON.stringify(configuration)
+  );
+}
+export function initScanerScreen(
+  configuration: CameraConfiguration
+): Promise<string> {
+  return TruVideoReactTurboCameraSdk.initScanerScreen(
     JSON.stringify(configuration)
   );
 }
