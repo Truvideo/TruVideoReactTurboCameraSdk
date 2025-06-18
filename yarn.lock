@@ -5362,9 +5362,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.160":
-  version: 1.5.169
-  resolution: "electron-to-chromium@npm:1.5.169"
-  checksum: 299a0dc36ce00460aafb5cbc4029b70c12c6842d3c81c5bf0ec070f8fda80bea54b545a8ddebfdead8969127aa04c93d440f8255db2a4723ef2e275d1cf89016
+  version: 1.5.170
+  resolution: "electron-to-chromium@npm:1.5.170"
+  checksum: 220700e1633f7bab4ded06445251fffd2bd5a08d2d40bbf6eb9cd0200f9978890f1c109cfa033a9c8c6675c8badc9d8bdb0d2f51315c9293f1c8e4b8272a3fbb
   languageName: node
   linkType: hard
 
@@ -12018,8 +12018,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.15.0":
-  version: 5.42.0
-  resolution: "terser@npm:5.42.0"
+  version: 5.43.0
+  resolution: "terser@npm:5.43.0"
   dependencies:
     "@jridgewell/source-map": ^0.3.3
     acorn: ^8.14.0
@@ -12027,7 +12027,7 @@ __metadata:
     source-map-support: ~0.5.20
   bin:
     terser: bin/terser
-  checksum: 1fde6c60d490a58ba92551f524b81a541fd75c41f97aef3e6a12262447b3da66c7d71cf475e0990f82b4decc1a30c3ba3663dc5e940bcbd0db1d263932d2cace
+  checksum: aa2f09dfa25449088a41588eca213ddc5f44f474b0de015c7afeff651ecd0d0c46bbc41ea0f7323be7f369e95224914802ccdd9179f024d4a6acfa614e39fbd3
   languageName: node
   linkType: hard
 
@@ -12175,6 +12175,7 @@ __metadata:
     react: 18.3.1
     react-native: 0.77.0
     react-native-builder-bob: ^0.32.0
+    truvideo-react-turbo-core-sdk: "git+https://github.com/Truvideo/TruVideoReactTurboCoreSdk.git"
     yarn: ^1.22.22
   languageName: unknown
   linkType: soft
@@ -12205,6 +12206,16 @@ __metadata:
     react-native: "*"
   languageName: unknown
   linkType: soft
+
+"truvideo-react-turbo-core-sdk@git+https://github.com/Truvideo/TruVideoReactTurboCoreSdk.git":
+  version: 0.1.0
+  resolution: "truvideo-react-turbo-core-sdk@https://github.com/Truvideo/TruVideoReactTurboCoreSdk.git#commit=ba83b46fd173a154ab6be50d97409a0f174e2bca"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 9a5c32f1151f7dd5cc20e9214f32bbec2962b1062f475b1a3f10379f32d017e240e9bac69f575e10cbd23ab9d77830b5eb2815cf2a2c81d32654c75b6b7dbffc
+  languageName: node
+  linkType: hard
 
 "ts-node@npm:^10.8.1":
   version: 10.9.2
