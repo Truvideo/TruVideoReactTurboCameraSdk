@@ -141,8 +141,9 @@ class CameraActivity : AppCompatActivity() {
       }
     }
     if(jsonConfiguration.has("mode")){
-      val jsonMode = jsonConfiguration.getJSONObject("mode")
+      //val jsonMode = jsonConfiguration.getString("mode")
 
+      val jsonMode = JSONObject(jsonConfiguration.getString("mode"))
       when(jsonMode.getString("mode")) {
         "videoAndImage" -> {
           if(jsonMode.getString("videoDurationLimit") != "" && jsonMode.getString("mediaLimit") != ""){
