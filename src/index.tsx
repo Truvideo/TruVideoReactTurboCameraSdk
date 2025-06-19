@@ -128,10 +128,23 @@ export class CameraMode {
     this.videoDurationLimit = videoDurationLimit != null ? videoDurationLimit.toString() : "";
     this.autoClose = autoClose;
   }
+  static singleMedia(): CameraMode;
+  static singleMedia( durationLimit?: number,mediaCount?: number): CameraMode;
+  static singleMedia(
+    durationLimit?: number,
+    mediaCount?: number,
+  ): CameraMode {
+    return new CameraMode(
+      'singleMedia',
+      null,
+      null,
+      mediaCount ?? null,
+      durationLimit ?? null,
+      false
+    );
+  }
 
   static videoAndImage(): CameraMode;
-  static videoAndImage(durationLimit?: number): CameraMode;
-  static videoAndImage( durationLimit?: number,mediaCount?: number): CameraMode;
   static videoAndImage(
     durationLimit?: number,
     videoMaxCount?: number,
@@ -139,7 +152,6 @@ export class CameraMode {
   ): CameraMode;
 
   static videoAndImage(
-    mediaCount?: number,
     durationLimit?: number,
     videoMaxCount?: number,
     imageMaxCount?: number
@@ -148,7 +160,7 @@ export class CameraMode {
       'videoAndImage',
       videoMaxCount ?? null,
       imageMaxCount ?? null,
-      mediaCount ?? null,
+      null,
       durationLimit ?? null,
       false
     );
