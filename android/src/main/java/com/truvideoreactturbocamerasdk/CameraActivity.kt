@@ -45,13 +45,17 @@ class CameraActivity : AppCompatActivity() {
   fun startCamera(){
     val cameraScreen = registerForActivityResult(TruvideoSdkCameraContract()){
       // result
-
       val gson = Gson()
       val jsonResult = gson.toJson(it)
       TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
       finish()
     }
-    openCamera(this@CameraActivity,cameraScreen)
+    try{
+      openCamera(this@CameraActivity,cameraScreen)
+    }catch (e : Exception){
+      TruVideoReactTurboCameraSdkModule.promise2!!.reject("Exception",e.message)
+      finish()
+    }
   }
   fun getEvent(){
     TruvideoSdkCamera.events.observeForever{event : TruvideoSdkCameraEvent ->

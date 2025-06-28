@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.truvideoreactturbocamerasdk">
+  package="com.truvideoreactturbocamerasdk">
 
-    <application>
-        <activity
-            android:name=".CameraActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_camera2"
-            android:theme="@style/Theme.Truvideoreactturbocamerasdkexample" />
-        <activity
-            android:name=".CameraActivity"
-            android:exported="false" />
-    </application>
+  <application>
+    <activity
+      android:name=".ScannerActivity"
+      android:exported="false" />
+    <activity
+      android:name=".ArCameraActivity"
+      android:exported="false" />
+    <activity
+      android:name=".CameraActivity2"
+      android:exported="false"
+      android:label="@string/title_activity_camera2"
+      android:theme="@style/Theme.Truvideoreactturbocamerasdkexample" />
+    <activity
+      android:name=".CameraActivity"
+      android:exported="false" />
+  </application>
 
 </manifest>
