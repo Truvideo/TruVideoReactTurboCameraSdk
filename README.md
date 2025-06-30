@@ -10,12 +10,12 @@ npm install https://github.com/Truvideo/TruVideoReactTurboCameraSdk.git
 
 ```js
 import {
-  initCameraScreen,
-  LensFacing,
-  FlashMode,
-  Orientation,
-  Mode,
-  type CameraConfiguration,
+    initCameraScreen,
+    LensFacing,
+    FlashMode,
+    Orientation,
+    CameraMode,
+    CameraConfiguration
 } from 'truvideo-react-turbo-camera-sdk';
 
 // ...
@@ -28,7 +28,7 @@ const configuration: CameraConfiguration = {
     frontResolution: 'nil',
     backResolutions: [],
     backResolution: 'nil',
-    mode: Mode.Picture, // Picture,Video and VideoAndPicture options are there
+    mode: Mode.videoAndImage()(), // image(),video() and videoAndImage() options are there
   };
 
 const inItCamera = () => {

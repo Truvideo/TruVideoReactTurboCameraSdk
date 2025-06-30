@@ -1,31 +1,40 @@
-import { Text, View, StyleSheet,Button } from 'react-native';
-import { initCameraScreen,LensFacing,
+import { Text, View, StyleSheet, Button } from 'react-native';
+import {
+  LensFacing,
   FlashMode,
+  initCameraScreen,
   Orientation,
-  Mode,
-  type CameraConfiguration } from 'truvideo-react-turbo-camera-sdk';
+  CameraMode,
+} from 'truvideo-react-turbo-camera-sdk';
+import type { CameraConfiguration } from 'truvideo-react-turbo-camera-sdk';
 
 const result = 3;
 const configuration: CameraConfiguration = {
   lensFacing: LensFacing.Front,
   flashMode: FlashMode.Off,
   orientation: Orientation.Portrait,
-  outputPath: "file://\(outputPath)",
+  outputPath: 'file://\(outputPath)',
   frontResolutions: [],
-  frontResolution: 'nil',
+  frontResolution: null,
   backResolutions: [],
-  backResolution: 'nil',
-  mode: Mode.VideoAndPicture,
+  backResolution: null,
+  mode: CameraMode.videoAndImage(),
 };
-const initCamera =() =>{
+const initCamera = () => {
   initCameraScreen(configuration).then((res) => {
     console.log('typeOf res', typeof res);
     console.log('res', JSON.parse(res));
     let obj = JSON.parse(res);
     console.log('filePath', obj[0].filePath);
   });
-  
-}
+
+  // videoAndImage().then((res) => {
+  //   console.log('typeOf res', typeof res);
+  //   console.log('res', JSON.parse(res));
+  //   let obj = JSON.parse(res);
+  //   console.log('filePath', obj[0].filePath);
+  // });
+};
 
 export default function App() {
   return (

@@ -76,7 +76,22 @@ import Combine
   }
   
   
+  @objc public func environment(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    resolve("true")
+  }
   
+  
+  @objc public func isAugmentedRealityInstalled(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
+    resolve("true")
+  }
+  
+  @objc public func isAugmentedRealitySupported(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
+    resolve("true")
+  }
+  
+  
+  
+ 
   private func cameraInitiate(configuration: [String:Any], completion: @escaping (_ cameraResult: TruvideoSdkCameraResult) -> Void) {
     DispatchQueue.main.async {
       guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
@@ -114,17 +129,103 @@ import Combine
         return
       }
       
-      let mode: TruvideoSdkCameraMediaMode
-      switch modeString {
-      case "picture":
-        mode = .picture()
-      case "video":
-        mode = .video()
-      case "videoAndPicture":
-        mode = .videoAndPicture()
-      default:
-        print("Unknown mode:", modeString)
-        return
+      var mode: TruvideoSdkCameraMediaMode = .videoAndPicture()
+      
+      do {
+        guard let data = modeString.data(using: .utf8) else { return }
+        let modeData = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+        let mainMode  = modeData["mode"] as? String;
+        switch mainMode {
+            case "videoAndImage":
+                if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+                   let mediaLimitStr = modeData["mediaLimit"] as? String,
+                   !videoDurationLimitStr.isEmpty, !mediaLimitStr.isEmpty,
+                   let durationLimit = Int(videoDurationLimitStr),
+                   let maxCount = Int(mediaLimitStr) {
+                  mode = .videoAndPicture(mediaCount: maxCount, videoDuration: durationLimit)
+                } else if let videoLimitStr = modeData["videoLimit"] as? String,
+                          let imageLimitStr = modeData["imageLimit"] as? String,
+                          let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+                          !videoLimitStr.isEmpty, !imageLimitStr.isEmpty, !videoDurationLimitStr.isEmpty,
+                          let videoMaxCount = Int(videoLimitStr),
+                          let imageMaxCount = Int(imageLimitStr),
+                          let durationLimit = Int(videoDurationLimitStr) {
+                    mode = .videoAndPicture(videoCount: videoMaxCount,pictureCount: imageMaxCount,videoDuration: durationLimit)
+                } else if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+                          !videoDurationLimitStr.isEmpty,
+                          let durationLimit = Int(videoDurationLimitStr) {
+                  mode = .videoAndPicture(videoDuration: durationLimit)
+                } else {
+                    mode = .videoAndPicture()
+                }
+
+            case "video":
+                if let videoLimitStr = modeData["videoLimit"] as? String,
+                   let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+                   !videoLimitStr.isEmpty, !videoDurationLimitStr.isEmpty,
+                   let maxCount = Int(videoLimitStr),
+                   let durationLimit = Int(videoDurationLimitStr) {
+                    mode = .video(videoCount:  maxCount, videoDuration: durationLimit)
+                } else if let videoLimitStr = modeData["videoLimit"] as? String,
+                          !videoLimitStr.isEmpty,
+                          let maxCount = Int(videoLimitStr) {
+                    mode = .video(videoCount: maxCount)
+                } else {
+                    mode = .video()
+                }
+
+            case "image":
+                if let imageLimitStr = modeData["imageLimit"] as? String,
+                   !imageLimitStr.isEmpty,
+                   let maxCount = Int(imageLimitStr) {
+                    mode = .picture(pictureCount: maxCount)
+                } else {
+                    mode = .picture()
+                }
+
+            case "singleImage":
+                mode = .singlePicture()
+
+            case "singleVideo":
+                if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+                   !videoDurationLimitStr.isEmpty,
+                   let durationLimit = Int(videoDurationLimitStr) {
+                    mode = .singleVideo(videoDuration: durationLimit)
+                } else {
+                    mode = .singleVideo()
+                }
+
+            case "singleVideoOrImage":
+                if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+                   !videoDurationLimitStr.isEmpty,
+                   let durationLimit = Int(videoDurationLimitStr) {
+                    mode = .singleVideoOrPicture(videoDuration: durationLimit)
+                } else {
+                    mode = .singleVideoOrPicture()
+                }
+
+            default:
+                break
+            }
+        
+        
+        
+//        switch modeString {
+//        case "picture":
+//          
+//          mode = .picture()
+//        case "video":
+//          mode = .video()
+//        case "videoAndPicture":
+//          mode = .videoAndPicture()
+//        default:
+//          print("Unknown mode:", modeString)
+//          return
+//        }
+//        
+
+      }catch {
+        
       }
       
       // Configuring the camera with various parameters based on specific requirements.
@@ -137,11 +238,11 @@ import Combine
         frontResolution: nil,
         backResolutions: [],
         backResolution: nil,
-        mode: .videoAndPicture()
+        mode: mode
       )
       
       self.checkCameraPermissions { [weak self] granted in
-        guard let self = self else { return }
+        guard self != nil else { return }
         
         if granted {
           DispatchQueue.main.async {

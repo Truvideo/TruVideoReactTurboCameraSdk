@@ -50,7 +50,12 @@ class CameraActivity : AppCompatActivity() {
       TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
       finish()
     }
-    openCamera(this@CameraActivity,cameraScreen)
+    try{
+      openCamera(this@CameraActivity,cameraScreen)
+    }catch (e : Exception){
+      TruVideoReactTurboCameraSdkModule.promise2!!.reject("Exception",e.message)
+      finish()
+    }
   }
   fun getEvent(){
     TruvideoSdkCamera.events.observeForever{event : TruvideoSdkCameraEvent ->
@@ -129,7 +134,6 @@ class CameraActivity : AppCompatActivity() {
       when (jsonConfiguration.getString("flashMode")) {
         "on" -> flashMode = TruvideoSdkCameraFlashMode.ON
         "off" -> flashMode = TruvideoSdkCameraFlashMode.OFF
-
       }
     }
     if(jsonConfiguration.has("orientation")) {
@@ -141,10 +145,67 @@ class CameraActivity : AppCompatActivity() {
       }
     }
     if(jsonConfiguration.has("mode")){
-      when(jsonConfiguration.getString("mode")) {
-        "videoAndPicture" -> mode = TruvideoSdkCameraMode.videoAndImage()
-        "video" -> mode = TruvideoSdkCameraMode.video()
-        "picture" -> mode = TruvideoSdkCameraMode.image()
+      //val jsonMode = jsonConfiguration.getString("mode")
+
+      val jsonMode = JSONObject(jsonConfiguration.getString("mode"))
+      when(jsonMode.getString("mode")) {
+        "videoAndImage" -> {
+          if(jsonMode.getString("videoDurationLimit") != "" && jsonMode.getString("mediaLimit") != ""){
+            mode = TruvideoSdkCameraMode.videoAndImage(
+              durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
+              maxCount = jsonMode.getString("mediaLimit").toInt())
+          }else if (jsonMode.getString("videoLimit") != "" && jsonMode.getString("imageLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.videoAndImage(
+              durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
+              imageMaxCount = jsonMode.getString("imageLimit").toInt(),
+              videoMaxCount = jsonMode.getString("videoLimit").toInt())
+          }else if (jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+          }else{
+            mode = TruvideoSdkCameraMode.videoAndImage()
+          }
+        }
+        "video" -> {
+          if(jsonMode.getString("videoLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.video(
+              maxCount = jsonMode.getString("videoLimit").toInt(),
+              durationLimit = jsonMode.getString("videoDurationLimit").toInt()
+            )
+          }else if (jsonMode.getString("videoLimit") != ""){
+            mode = TruvideoSdkCameraMode.video(
+              maxCount = jsonMode.getString("videoLimit").toInt()
+            )
+          }else {
+            mode = TruvideoSdkCameraMode.video()
+          }
+
+        }
+        "image" -> {
+          if (jsonMode.getString("imageLimit") != ""){
+            mode = TruvideoSdkCameraMode.image(
+              maxCount = jsonMode.getString("imageLimit").toInt()
+            )
+          }else {
+            mode = TruvideoSdkCameraMode.image()
+          }
+        }
+        "singleImage" ->{
+          mode = TruvideoSdkCameraMode.singleImage()
+        }
+        "singleVideo" ->{
+          if (jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.singleVideo(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+          }else {
+            mode = TruvideoSdkCameraMode.singleVideo()
+          }
+        }
+        "singleVideoOrImage" -> {
+          if (jsonMode.getString("videoDurationLimit") != ""){
+            mode = TruvideoSdkCameraMode.singleVideoOrImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+          }else {
+            mode = TruvideoSdkCameraMode.singleVideoOrImage()
+          }
+        }
       }
     }
   }
