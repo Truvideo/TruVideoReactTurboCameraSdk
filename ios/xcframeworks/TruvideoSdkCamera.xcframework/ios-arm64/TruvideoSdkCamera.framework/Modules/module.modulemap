@@ -1,0 +1,11 @@
+framework module TruvideoSdkCamera {
+  umbrella header "TruvideoSdkCamera.h"
+  export *
+
+  module * { export * }
+}
+
+module TruvideoSdkCamera.Swift {
+  header "TruvideoSdkCamera-Swift.h"
+  requires objc
+}
