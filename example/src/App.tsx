@@ -8,6 +8,7 @@ import {
 } from 'truvideo-react-turbo-camera-sdk';
 import type { CameraConfiguration } from 'truvideo-react-turbo-camera-sdk';
 
+
 const result = 3;
 const configuration: CameraConfiguration = {
   lensFacing: LensFacing.Front,
@@ -18,8 +19,9 @@ const configuration: CameraConfiguration = {
   frontResolution: null,
   backResolutions: [],
   backResolution: null,
-  mode: CameraMode.videoAndImage(),
+  mode: CameraMode.singleImage(),
 };
+
 const initCamera = () => {
   initCameraScreen(configuration).then((res) => {
     console.log('typeOf res', typeof res);
@@ -40,6 +42,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
+     
       <Button
         onPress={() => initCamera()}
         title="Press to initialize camera"
@@ -57,3 +60,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+

@@ -110,8 +110,11 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation ("org.kodein.di:kodein-di:7.20.2")
+    implementation ("com.russhwolf:multiplatform-settings:1.0.0")
+  implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
 
-    if (hermesEnabled.toBoolean()) {
+  if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor

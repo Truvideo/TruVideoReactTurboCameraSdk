@@ -1,0 +1,353 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name TruvideoSdkCamera
+import ARKit
+import AVFoundation
+import AVKit
+import Combine
+import CoreImage
+import CoreMedia
+import CoreMotion
+import DeveloperToolsSupport
+import Foundation
+import Metal
+import MetalKit
+import RealityKit
+import Swift
+import SwiftUI
+@_exported import TruvideoSdkCamera
+import UIKit
+import _AVKit_SwiftUI
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import simd
+public let TruvideoSdkCamera: any TruvideoSdkCamera.TruvideoSdkCameraEventsInterface & TruvideoSdkCamera.TruvideoSdkCameraInterface
+@_inheritsConvenienceInitializers @objc public class TruvideoSdkCameraProvider : ObjectiveC.NSObject {
+  @objc public static let shared: any TruvideoSdkCamera.TruvideoSdkCameraInterface
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol TruvideoSdkCameraInterface {
+  @objc var camera: any TruvideoSdkCamera.TruvideoSdkCameraDelegate { get }
+  @objc func configureTruvideoSdkAppDelegate(_ appDelegate: any TruvideoSdkCamera.TruvideoSdkCameraAppDelegate)
+}
+public protocol TruvideoSdkCameraEventsInterface {
+  var events: TruvideoSdkCamera.TruvideoSdkCameraEventObserver { get }
+}
+@objc public protocol TruvideoSdkCameraDelegate {
+  @objc func getTruvideoSdkCameraInformation() -> TruvideoSdkCamera.TruvideoSdkCameraInformation
+}
+extension SwiftUI.View {
+  public func presentTruvideoSdkScannerCameraView(isPresented: SwiftUI.Binding<Swift.Bool>, preset: TruvideoSdkCamera.TruvideoSdkScannerCameraConfiguration = .init(
+            flashMode: .off,
+            orientation: nil
+        ), onComplete: @escaping TruvideoSdkCamera.TruvideoSdkScannerCameraViewCallback) -> some SwiftUI.View
+  
+}
+
+@objc extension UIKit.UIViewController {
+  @objc @_Concurrency.MainActor(unsafe) dynamic public func presentTruvideoSdkCameraView(preset: TruvideoSdkCamera.TruvideoSdkCameraConfiguration = .init(
+            lensFacing: .back,
+            flashMode: .off,
+            orientation: nil,
+            outputPath: "",
+            frontResolutions: [],
+            frontResolution: nil,
+            backResolutions: [],
+            backResolution: nil,
+            mode: .videoAndPicture()
+        ), onComplete: @escaping (TruvideoSdkCamera.TruvideoSdkCameraResult) -> Swift.Void)
+}
+@objc extension UIKit.UIViewController {
+  @objc @_Concurrency.MainActor(unsafe) dynamic public func presentTruvideoSdkScannerCameraView(preset: TruvideoSdkCamera.TruvideoSdkScannerCameraConfiguration = .init(
+            flashMode: .off,
+            orientation: nil
+        ), onComplete: @escaping (TruvideoSdkCamera.TruvideoSdkCameraScannerCode?) -> Swift.Void)
+}
+
+public struct TruVideoError : Foundation.LocalizedError {
+  public let column: Swift.Int
+  public let line: Swift.Int
+  public let kind: TruvideoSdkCamera.TruVideoError.ErrorKind
+  public let underlyingError: (any Swift.Error)?
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public enum ErrorKind {
+    case accessDenied
+    case cannotAddAudioOutput
+    case cannotAddDevice
+    case cannotAddPhotoOutput
+    case cannotAddVideoOutput
+    case cannotSetPresset
+    case exporter
+    case failedToCapturePhoto
+    case failedToPauseRecording
+    case failedToStopRecording
+    case failedToSetTorch
+    case notAuthorized
+    case recordInProgress
+    case torchNotAvailable
+    case torchNotSupported
+    case trimFailed
+    case unknown
+    case failedToLoadAR
+    public static func == (a: TruvideoSdkCamera.TruVideoError.ErrorKind, b: TruvideoSdkCamera.TruVideoError.ErrorKind) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public init(kind: TruvideoSdkCamera.TruVideoError.ErrorKind, underlyingError: (any Swift.Error)? = nil, column: Swift.Int = #column, line: Swift.Int = #line)
+}
+@_hasMissingDesignatedInitializers @objc public class TruvideoSdkCameraMediaMode : ObjectiveC.NSObject {
+  public static func videoAndPicture(videoCount: Swift.Int? = nil, pictureCount: Swift.Int? = nil, videoDuration: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  public static func singleVideo(videoDuration: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  public static func singlePicture() -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  public static func singleVideoOrPicture(videoDuration: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  public static func video(videoCount: Swift.Int? = nil, videoDuration: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  public static func picture(pictureCount: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  public static func videoAndPicture(mediaCount: Swift.Int, videoDuration: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public static func NSVideoAndPicture(videoCount: Foundation.NSNumber? = nil, pictureCount: Foundation.NSNumber? = nil, videoDuration: Foundation.NSNumber? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public static func NSSingleVideo(videoDuration: Foundation.NSNumber? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public static func NSSinglePicture() -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public static func NSSingleVideoOrPicture(videoDuration: Foundation.NSNumber? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public static func NSVideo(videoCount: Foundation.NSNumber? = nil, videoDuration: Foundation.NSNumber? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public static func NSPicture(pictureCount: Foundation.NSNumber? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public static func NSVideoAndPicture(mediaCount: Foundation.NSNumber, videoDuration: Foundation.NSNumber? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc deinit
+}
+
+
+
+@_hasMissingDesignatedInitializers @objc public class TruvideoSdkCameraResult : ObjectiveC.NSObject, Swift.Encodable {
+  @objc final public let media: [TruvideoSdkCamera.TruvideoSdkCameraMedia]
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc public enum TruvideoSdkCameraMediaType : Swift.Int, Swift.Codable, Swift.RawRepresentable {
+  case clip
+  case photo
+  public typealias RawValue = Swift.String
+  public var rawValue: TruvideoSdkCamera.TruvideoSdkCameraMediaType.RawValue {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+  public init?(rawValue: TruvideoSdkCamera.TruvideoSdkCameraMediaType.RawValue)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc public class TruvideoSdkCameraMedia : ObjectiveC.NSObject, Swift.Encodable {
+  @objc final public let createdAt: Swift.Double
+  @objc final public let filePath: Swift.String
+  @objc final public let type: TruvideoSdkCamera.TruvideoSdkCameraMediaType
+  @objc final public let cameraLensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing
+  @objc final public let rotation: TruvideoSdkCamera.TruvideoSdkCameraOrientation
+  @objc final public let resolution: TruvideoSdkCamera.TruvideoSdkCameraResolution
+  @objc final public let duration: Swift.Int64
+  public init(createdAt: Swift.Double, filePath: Swift.String, type: TruvideoSdkCamera.TruvideoSdkCameraMediaType, cameraLensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing, rotation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, resolution: TruvideoSdkCamera.TruvideoSdkCameraResolution, duration: Swift.Int64)
+  public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension SwiftUI.View {
+  public func presentTruvideoSdkCameraView(isPresented: SwiftUI.Binding<Swift.Bool>, preset: TruvideoSdkCamera.TruvideoSdkCameraConfiguration = .init(
+            lensFacing: .back,
+            flashMode: .off,
+            orientation: nil,
+            outputPath: "",
+            frontResolutions: [],
+            frontResolution: nil,
+            backResolutions: [],
+            backResolution: nil,
+            mode: .videoAndPicture()
+        ), onComplete: @escaping (TruvideoSdkCamera.TruvideoSdkCameraResult) -> Swift.Void) -> some SwiftUI.View
+  
+}
+public enum TruvideoSdkCameraEventType {
+  case truvideoSdkCameraEventFlashModeChanged(flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode)
+  case truvideoSdkCameraEventCameraFlipped(lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing)
+  case truvideoSdkCameraEventMediaContinue(media: [TruvideoSdkCamera.TruvideoSdkCameraMedia])
+  case truvideoSdkCameraEventMediaDeleted(media: TruvideoSdkCamera.TruvideoSdkCameraMedia)
+  case truvideoSdkCameraEventMediaDiscard(media: [TruvideoSdkCamera.TruvideoSdkCameraMedia])
+  case truvideoSdkCameraEventPictureTaken(media: TruvideoSdkCamera.TruvideoSdkCameraMedia)
+  case truvideoSdkCameraEventRecordingFinished(media: TruvideoSdkCamera.TruvideoSdkCameraMedia)
+  case truvideoSdkCameraEventRecordingPaused(resolution: TruvideoSdkCamera.TruvideoSdkCameraResolution, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing)
+  case truvideoSdkCameraEventRecordingResumed(resolution: TruvideoSdkCamera.TruvideoSdkCameraResolution, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing)
+  case truvideoSdkCameraEventRecordingStarted(resolution: TruvideoSdkCamera.TruvideoSdkCameraResolution, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing)
+  case truvideoSdkCameraEventResolutionChanged(resolution: TruvideoSdkCamera.TruvideoSdkCameraResolution)
+  case truvideoSdkCameraEventZoomChanged(zoom: Swift.Float)
+}
+
+public typealias TruvideoSdkCameraEventObserver = Combine.AnyPublisher<TruvideoSdkCamera.TruvideoSdkCameraEvent, Swift.Never>
+public struct TruvideoSdkCameraEvent {
+  public let type: TruvideoSdkCamera.TruvideoSdkCameraEventType
+  public let createdAt: Foundation.Date
+}
+@objc public class TruvideoSdkARCameraConfiguration : ObjectiveC.NSObject {
+  @objc final public let flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode
+  @objc final public let mode: TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc final public let orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation
+  public init(flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode = .off, mode: TruvideoSdkCamera.TruvideoSdkCameraMediaMode = .videoAndPicture(), orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation? = nil)
+  @objc public static func instantiate(with flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode = .off, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, mode: TruvideoSdkCamera.TruvideoSdkCameraMediaMode = .videoAndPicture()) -> TruvideoSdkCamera.TruvideoSdkARCameraConfiguration
+  @objc deinit
+}
+extension SwiftUI.View {
+  public func presentTruvideoSdkARCameraView(isPresented: SwiftUI.Binding<Swift.Bool>, preset: TruvideoSdkCamera.TruvideoSdkARCameraConfiguration = .init(flashMode: .off, mode: .videoAndPicture()), onComplete: @escaping (TruvideoSdkCamera.TruvideoSdkCameraResult) -> Swift.Void) -> some SwiftUI.View
+  
+}
+
+@objc public protocol TruvideoSdkCameraAppDelegate : UIKit.UIApplicationDelegate {
+  @objc var orientationLock: UIKit.UIInterfaceOrientationMask { get set }
+  @objc dynamic func application(_ application: UIKit.UIApplication, supportedInterfaceOrientationsFor window: UIKit.UIWindow?) -> UIKit.UIInterfaceOrientationMask
+}
+
+
+@objc public enum TruvideoSdkCameraLensFacing : Swift.Int, Swift.Codable, Swift.RawRepresentable {
+  case back
+  case front
+  public typealias RawValue = Swift.String
+  public var rawValue: TruvideoSdkCamera.TruvideoSdkCameraLensFacing.RawValue {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+  public init?(rawValue: TruvideoSdkCamera.TruvideoSdkCameraLensFacing.RawValue)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc public enum TruvideoSdkCameraOrientation : Swift.Int, Swift.Encodable, Swift.RawRepresentable {
+  case portrait
+  case landscapeLeft
+  case landscapeRight
+  case portraitReverse
+  public typealias RawValue = Swift.String
+  public var rawValue: TruvideoSdkCamera.TruvideoSdkCameraOrientation.RawValue {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+  public init?(rawValue: TruvideoSdkCamera.TruvideoSdkCameraOrientation.RawValue)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc public enum TruvideoSdkCameraFlashMode : Swift.Int, Swift.Codable, Swift.RawRepresentable {
+  case off
+  case on
+  public typealias RawValue = Swift.String
+  public var rawValue: TruvideoSdkCamera.TruvideoSdkCameraFlashMode.RawValue {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+  public init?(rawValue: TruvideoSdkCamera.TruvideoSdkCameraFlashMode.RawValue)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc public enum TruvideoSdkCameraImageFormat : Swift.Int, Swift.RawRepresentable {
+  case jpeg
+  case png
+  public typealias RawValue = Swift.String
+  public var rawValue: TruvideoSdkCamera.TruvideoSdkCameraImageFormat.RawValue {
+    get
+  }
+  public init?(rawValue: TruvideoSdkCamera.TruvideoSdkCameraImageFormat.RawValue)
+}
+@objc public class TruvideoSdkCameraConfiguration : ObjectiveC.NSObject {
+  @objc final public let lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing
+  @objc final public let flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode
+  @objc final public let orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation
+  @objc final public let outputPath: Swift.String
+  @objc final public let mode: TruvideoSdkCamera.TruvideoSdkCameraMediaMode
+  @objc public var isHighResolutionPhotoEnabled: Swift.Bool
+  @objc public var isNewLayoutEnabled: Swift.Bool
+  @objc public var imageFormat: TruvideoSdkCamera.TruvideoSdkCameraImageFormat
+  @objc public var pauseVideoWhenMovingToBackground: Swift.Bool
+  public init(lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing, flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation?, outputPath: Swift.String, frontResolutions: [TruvideoSdkCamera.TruvideoSdkCameraResolution], frontResolution: TruvideoSdkCamera.TruvideoSdkCameraResolution?, backResolutions: [TruvideoSdkCamera.TruvideoSdkCameraResolution], backResolution: TruvideoSdkCamera.TruvideoSdkCameraResolution?, mode: TruvideoSdkCamera.TruvideoSdkCameraMediaMode, imageFormat: TruvideoSdkCamera.TruvideoSdkCameraImageFormat = .png)
+  @objc public static func instantiate(with lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing, flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, outputPath: Swift.String, frontResolutions: [TruvideoSdkCamera.TruvideoSdkCameraResolution], frontResolution: TruvideoSdkCamera.TruvideoSdkCameraResolution?, backResolutions: [TruvideoSdkCamera.TruvideoSdkCameraResolution], backResolution: TruvideoSdkCamera.TruvideoSdkCameraResolution?, mode: TruvideoSdkCamera.TruvideoSdkCameraMediaMode, imageFormat: TruvideoSdkCamera.TruvideoSdkCameraImageFormat = .png) -> TruvideoSdkCamera.TruvideoSdkCameraConfiguration
+  @objc deinit
+}
+@objc public enum TruvideoSdkCameraScannerCodeFormat : Swift.Int, Swift.CaseIterable, Swift.Codable, Swift.RawRepresentable {
+  case code39
+  case code93
+  case codeQR
+  case dataMatrix
+  public typealias RawValue = Swift.String
+  public var rawValue: TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat.RawValue {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+  public init?(rawValue: TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat.RawValue)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public typealias AllCases = [TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat]
+  public static var allCases: [TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat] {
+    get
+  }
+}
+public struct TruvideoSdkCameraScannerValidationResult {
+  public let accept: Swift.Bool
+  public let message: Swift.String?
+  public init(accept: Swift.Bool, message: Swift.String? = nil)
+  public static func success() -> TruvideoSdkCamera.TruvideoSdkCameraScannerValidationResult
+  public static func fail(message: Swift.String) -> TruvideoSdkCamera.TruvideoSdkCameraScannerValidationResult
+}
+public typealias TruvideoSdkCameraScannerValidation = (TruvideoSdkCamera.TruvideoSdkCameraScannerCode) -> TruvideoSdkCamera.TruvideoSdkCameraScannerValidationResult
+@objc public class TruvideoSdkScannerCameraConfiguration : ObjectiveC.NSObject {
+  @objc final public let flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode
+  @objc final public let orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation
+  final public let codeFormats: [TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat]
+  final public let validator: TruvideoSdkCamera.TruvideoSdkCameraScannerValidation?
+  @objc final public let autoClose: Swift.Bool
+  public init(flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation? = nil, codeFormats: [TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat] = TruvideoSdkCameraScannerCodeFormat.allCases, autoClose: Swift.Bool = false, validator: TruvideoSdkCamera.TruvideoSdkCameraScannerValidation? = nil)
+  @objc public static func instantiate(with flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, autoClose: Swift.Bool = false) -> TruvideoSdkCamera.TruvideoSdkScannerCameraConfiguration
+  @objc deinit
+}
+public typealias TruvideoSdkScannerCameraViewCallback = (TruvideoSdkCamera.TruvideoSdkCameraScannerCode?) -> Swift.Void
+
+@objc extension UIKit.UIViewController {
+  @objc @_Concurrency.MainActor(unsafe) dynamic public func presentTruvideoSdkARCameraView(preset: TruvideoSdkCamera.TruvideoSdkARCameraConfiguration = .init(flashMode: .off, mode: .videoAndPicture(), orientation: nil), onComplete: @escaping (TruvideoSdkCamera.TruvideoSdkCameraResult) -> Swift.Void)
+}
+@_hasMissingDesignatedInitializers @objc public class TruvideoSdkCameraResolution : ObjectiveC.NSObject, Swift.Comparable, Swift.Encodable {
+  @objc final public let width: Swift.Int32
+  @objc final public let height: Swift.Int32
+  public static func == (lhs: TruvideoSdkCamera.TruvideoSdkCameraResolution, rhs: TruvideoSdkCamera.TruvideoSdkCameraResolution) -> Swift.Bool
+  public static func < (lhs: TruvideoSdkCamera.TruvideoSdkCameraResolution, rhs: TruvideoSdkCamera.TruvideoSdkCameraResolution) -> Swift.Bool
+  required public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+
+@_hasMissingDesignatedInitializers @objc public class TruvideoSdkCameraScannerCode : ObjectiveC.NSObject {
+  @objc final public let data: Swift.String
+  @objc final public let format: TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat
+  @objc deinit
+}
+
+
+
+
+@_hasMissingDesignatedInitializers @objc public class TruvideoSdkCameraDevice : ObjectiveC.NSObject, Swift.Encodable {
+  @objc final public let id: Swift.String
+  @objc final public let lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing
+  @objc final public let resolutions: [TruvideoSdkCamera.TruvideoSdkCameraResolution]
+  @objc final public let withFlash: Swift.Bool
+  @objc final public let isTapToFocusEnabled: Swift.Bool
+  @objc final public let sensorOrientation: Swift.Int
+  public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class TruvideoSdkCameraInformation : ObjectiveC.NSObject, Swift.Encodable {
+  @objc final public let frontCamera: TruvideoSdkCamera.TruvideoSdkCameraDevice?
+  @objc final public let backCamera: TruvideoSdkCamera.TruvideoSdkCameraDevice?
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+
+
+extension TruvideoSdkCamera.TruVideoError.ErrorKind : Swift.Equatable {}
+extension TruvideoSdkCamera.TruVideoError.ErrorKind : Swift.Hashable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraMediaType : Swift.Equatable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraMediaType : Swift.Hashable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraLensFacing : Swift.Equatable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraLensFacing : Swift.Hashable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraOrientation : Swift.Equatable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraOrientation : Swift.Hashable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraFlashMode : Swift.Equatable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraFlashMode : Swift.Hashable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraImageFormat : Swift.Equatable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraImageFormat : Swift.Hashable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat : Swift.Equatable {}
+extension TruvideoSdkCamera.TruvideoSdkCameraScannerCodeFormat : Swift.Hashable {}
