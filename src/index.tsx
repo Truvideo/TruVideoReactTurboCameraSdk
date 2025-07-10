@@ -11,6 +11,10 @@ interface Configuration {
   backResolution: Resolution | null;
   mode: string;
 }
+interface ARConfiguration {
+  outputPath: string;
+  mode: string;
+}
 
 export function initCameraScreen(
   configuration: CameraConfiguration
@@ -40,17 +44,27 @@ export function initCameraScreen(
 }
 
 export function initARCameraScreen(
-  configuration: CameraConfiguration
+  configuration: ARCameraConfiguration
 ): Promise<string> {
+  let data = {
+      mode: configuration.mode.mode,
+      videoLimit: configuration.mode.videoLimit,
+      imageLimit: configuration.mode.imageLimit,
+      mediaLimit: configuration.mode.mediaLimit,
+      videoDurationLimit: configuration.mode.videoDurationLimit,
+      autoClose: configuration.mode.autoClose,
+    };
+  var cameraConfiguration  :  ARConfiguration = {
+            outputPath: configuration.outputPath,
+            mode: JSON.stringify(data),
+        }
   return TruVideoReactTurboCameraSdk.initARCameraScreen(
-    JSON.stringify(configuration)
+    JSON.stringify(cameraConfiguration)
   );
 }
-export function initScanerScreen(
-  configuration: CameraConfiguration
-): Promise<string> {
+export function initScanerScreen(): Promise<string> {
   return TruVideoReactTurboCameraSdk.initScanerScreen(
-    JSON.stringify(configuration)
+    JSON.stringify("")
   );
 }
 
@@ -103,6 +117,10 @@ export interface CameraConfiguration {
   frontResolution: Resolution | null;
   backResolutions: Resolution[] | null;
   backResolution: Resolution | null;
+  mode: CameraMode;
+}
+export interface ARCameraConfiguration {
+  outputPath: string;
   mode: CameraMode;
 }
 

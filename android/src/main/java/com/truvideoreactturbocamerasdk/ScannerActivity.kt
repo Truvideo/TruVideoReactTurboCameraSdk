@@ -27,9 +27,8 @@ class ScannerActivity : AppCompatActivity() {
             insets
         }
         scanner = registerForActivityResult(TruvideoSdkCameraScannerContract()){
-          val gson = Gson()
-          val jsonResult = gson.toJson(it)
-          TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
+
+          TruVideoReactTurboCameraSdkModule.promise2!!.resolve(it?.data ?: "")
           finish()
         }
         try{

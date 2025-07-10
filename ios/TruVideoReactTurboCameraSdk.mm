@@ -43,12 +43,14 @@ RCT_EXPORT_MODULE()
 }
 
 - (void)initARCameraScreen:(NSString *)configuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  
+  TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
+  [truvideo initARCameraScreenWithConfiguration:configuration resolve:resolve reject:reject];
 }
 
 
-- (void)initScanerScreen:(NSString *)configuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
-  
+- (void)initScanerScreen:(NSString *)configuration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+  TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
+  [truvideo initScanerScreenWithConfiguration:configuration resolve:resolve reject:reject];
 }
 
 
