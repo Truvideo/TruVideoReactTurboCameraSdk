@@ -6,13 +6,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.gson.Gson
 import com.truvideo.sdk.camera.interfaces.TruvideoSdkCameraScannerValidation
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraScannerCode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraScannerConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraScannerValidationResult
-import com.truvideo.sdk.camera.model.TruvideoSdkScannerConfiguration
-import com.truvideo.sdk.camera.ui.activities.camera.TruvideoSdkCameraContract
 import com.truvideo.sdk.camera.ui.activities.scanner.TruvideoSdkCameraScannerContract
 
 class ScannerActivity : AppCompatActivity() {
