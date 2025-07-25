@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.modules.core.DeviceEventManagerModule
-import com.google.gson.Gson
 import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraEvent
@@ -20,6 +19,7 @@ import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraResolution
 import com.truvideo.sdk.camera.ui.activities.camera.TruvideoSdkCameraContract
+import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 class CameraActivity : AppCompatActivity() {
@@ -45,8 +45,7 @@ class CameraActivity : AppCompatActivity() {
   fun startCamera(){
     val cameraScreen = registerForActivityResult(TruvideoSdkCameraContract()){
       // result
-      val gson = Gson()
-      val jsonResult = gson.toJson(it)
+      val jsonResult = Json.encodeToString(it)
       TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
       finish()
     }
@@ -59,8 +58,7 @@ class CameraActivity : AppCompatActivity() {
   }
   fun getEvent(){
     TruvideoSdkCamera.events.observeForever{event : TruvideoSdkCameraEvent ->
-      val gson = Gson()
-      val jsonResult = gson.toJson(event)
+      val jsonResult = Json.encodeToString(event)
       sendEvent(reactContext = TruVideoReactTurboCameraSdkModule.reactContext,eventName = "cameraEvent",event = jsonResult.toString())
     }
   }
