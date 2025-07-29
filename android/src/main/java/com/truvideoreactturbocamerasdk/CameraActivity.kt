@@ -15,10 +15,12 @@ import com.truvideo.sdk.camera.model.TruvideoSdkCameraConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraEvent
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraFlashMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraLensFacing
+import com.truvideo.sdk.camera.model.TruvideoSdkCameraMedia
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraResolution
 import com.truvideo.sdk.camera.ui.activities.camera.TruvideoSdkCameraContract
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
@@ -45,7 +47,7 @@ class CameraActivity : AppCompatActivity() {
   fun startCamera(){
     val cameraScreen = registerForActivityResult(TruvideoSdkCameraContract()){
       // result
-      val jsonResult = Json.encodeToString(it)
+      val jsonResult = Json.encodeToString(ListSerializer(TruvideoSdkCameraMedia.serializer()),it)
       TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
       finish()
     }
@@ -58,7 +60,7 @@ class CameraActivity : AppCompatActivity() {
   }
   fun getEvent(){
     TruvideoSdkCamera.events.observeForever{event : TruvideoSdkCameraEvent ->
-      val jsonResult = Json.encodeToString(event)
+      val jsonResult = Json.encodeToString(TruvideoSdkCameraEvent.serializer(),event)
       sendEvent(reactContext = TruVideoReactTurboCameraSdkModule.reactContext,eventName = "cameraEvent",event = jsonResult.toString())
     }
   }
