@@ -2,7 +2,6 @@ package com.truvideoreactturbocamerasdk
 
 import android.content.Context
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
@@ -15,10 +14,12 @@ import com.truvideo.sdk.camera.model.TruvideoSdkCameraConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraEvent
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraFlashMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraLensFacing
+import com.truvideo.sdk.camera.model.TruvideoSdkCameraMedia
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraResolution
 import com.truvideo.sdk.camera.ui.activities.camera.TruvideoSdkCameraContract
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
@@ -45,7 +46,10 @@ class CameraActivity : AppCompatActivity() {
   fun startCamera(){
     val cameraScreen = registerForActivityResult(TruvideoSdkCameraContract()){
       // result
-      val jsonResult = Json.encodeToString(it)
+      val jsonResult = Json.encodeToString(
+        ListSerializer(TruvideoSdkCameraMedia.serializer()),
+        it
+      )
       TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
       finish()
     }
@@ -58,8 +62,11 @@ class CameraActivity : AppCompatActivity() {
   }
   fun getEvent(){
     TruvideoSdkCamera.events.observeForever{event : TruvideoSdkCameraEvent ->
-      val jsonResult = Json.encodeToString(event)
-      sendEvent(reactContext = TruVideoReactTurboCameraSdkModule.reactContext,eventName = "cameraEvent",event = jsonResult.toString())
+      val jsonResult = Json.encodeToString(
+        TruvideoSdkCameraEvent.serializer(),
+        event
+      )
+      sendEvent(reactContext = TruVideoReactTurboCameraSdkModule.reactContext,eventName = "cameraEvent",event = jsonResult)
     }
   }
   fun sendEvent(reactContext: ReactApplicationContext, eventName: String, event: String) {
@@ -148,60 +155,60 @@ class CameraActivity : AppCompatActivity() {
       val jsonMode = JSONObject(jsonConfiguration.getString("mode"))
       when(jsonMode.getString("mode")) {
         "videoAndImage" -> {
-          if(jsonMode.getString("videoDurationLimit") != "" && jsonMode.getString("mediaLimit") != ""){
-            mode = TruvideoSdkCameraMode.videoAndImage(
+          mode = if(jsonMode.getString("videoDurationLimit") != "" && jsonMode.getString("mediaLimit") != ""){
+            TruvideoSdkCameraMode.videoAndImage(
               durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
               maxCount = jsonMode.getString("mediaLimit").toInt())
           }else if (jsonMode.getString("videoLimit") != "" && jsonMode.getString("imageLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.videoAndImage(
+            TruvideoSdkCameraMode.videoAndImage(
               durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
               imageMaxCount = jsonMode.getString("imageLimit").toInt(),
               videoMaxCount = jsonMode.getString("videoLimit").toInt())
           }else if (jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+            TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
           }else{
-            mode = TruvideoSdkCameraMode.videoAndImage()
+            TruvideoSdkCameraMode.videoAndImage()
           }
         }
         "video" -> {
-          if(jsonMode.getString("videoLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.video(
+          mode = if(jsonMode.getString("videoLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
+            TruvideoSdkCameraMode.video(
               maxCount = jsonMode.getString("videoLimit").toInt(),
               durationLimit = jsonMode.getString("videoDurationLimit").toInt()
             )
           }else if (jsonMode.getString("videoLimit") != ""){
-            mode = TruvideoSdkCameraMode.video(
+            TruvideoSdkCameraMode.video(
               maxCount = jsonMode.getString("videoLimit").toInt()
             )
           }else {
-            mode = TruvideoSdkCameraMode.video()
+            TruvideoSdkCameraMode.video()
           }
 
         }
         "image" -> {
-          if (jsonMode.getString("imageLimit") != ""){
-            mode = TruvideoSdkCameraMode.image(
+          mode = if (jsonMode.getString("imageLimit") != ""){
+            TruvideoSdkCameraMode.image(
               maxCount = jsonMode.getString("imageLimit").toInt()
             )
           }else {
-            mode = TruvideoSdkCameraMode.image()
+            TruvideoSdkCameraMode.image()
           }
         }
         "singleImage" ->{
           mode = TruvideoSdkCameraMode.singleImage()
         }
         "singleVideo" ->{
-          if (jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.singleVideo(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+          mode = if (jsonMode.getString("videoDurationLimit") != ""){
+            TruvideoSdkCameraMode.singleVideo(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
           }else {
-            mode = TruvideoSdkCameraMode.singleVideo()
+            TruvideoSdkCameraMode.singleVideo()
           }
         }
         "singleVideoOrImage" -> {
-          if (jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.singleVideoOrImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
+          mode = if (jsonMode.getString("videoDurationLimit") != ""){
+            TruvideoSdkCameraMode.singleVideoOrImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
           }else {
-            mode = TruvideoSdkCameraMode.singleVideoOrImage()
+            TruvideoSdkCameraMode.singleVideoOrImage()
           }
         }
       }
