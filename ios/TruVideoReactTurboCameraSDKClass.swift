@@ -40,9 +40,9 @@ import Combine
                                     if key == "type", let mediaType = value as? TruvideoSdkCamera.TruvideoSdkCameraMediaType {
                                         switch mediaType {
                                         case .photo:
-                                            sanitizedItem["type"] = "Image"
+                                            sanitizedItem["type"] = "IMAGE"
                                         case .clip:
-                                            sanitizedItem["type"] = "Video"
+                                            sanitizedItem["type"] = "VIDEO"
                                         default:
                                             sanitizedItem["type"] = "Unknown"
                                         }
