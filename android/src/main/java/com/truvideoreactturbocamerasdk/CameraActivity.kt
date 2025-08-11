@@ -51,10 +51,10 @@ class CameraActivity : AppCompatActivity() {
       //val jsonArray = Json.encodeToString(ListSerializer(TruvideoSdkCameraMedia.serializer()),it)
       val jsonArray = JSONArray()
       it.forEach { media ->
-        val resolutionObj = JSONObject().apply {
-          put("width", media.resolution.width)
-          put("height", media.resolution.height)
-        }
+//        val resolutionObj = JSONObject().apply {
+//          put("width", media.resolution.width)
+//          put("height", media.resolution.height)
+//        }
         val obj = JSONObject().apply {
           put("id", media.id)
           put("createdAt", media.createdAt)
@@ -62,7 +62,7 @@ class CameraActivity : AppCompatActivity() {
           put("type", media.type.name)          // enum as string
           put("lensFacing", media.lensFacing.name)
           put("orientation", media.orientation.name)
-          put("resolution", resolutionObj)
+          put("resolution", media.resolution.toJson())
           put("duration", media.duration)
         }
         jsonArray.put(obj)
