@@ -20,10 +20,8 @@ import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraResolution
 import com.truvideo.sdk.camera.ui.activities.camera.TruvideoSdkCameraContract
-import kotlinx.serialization.builtins.ListSerializer
 import org.json.JSONArray
 import org.json.JSONObject
-import kotlinx.serialization.json.Json
 
 class CameraActivity : AppCompatActivity() {
   var configuration = ""

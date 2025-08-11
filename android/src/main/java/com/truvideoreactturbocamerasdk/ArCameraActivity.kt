@@ -8,11 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkArCameraConfiguration
-import com.truvideo.sdk.camera.model.TruvideoSdkCameraMedia
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.ui.activities.arcamera.TruvideoSdkArCameraContract
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import org.json.JSONObject
 

@@ -9,9 +9,6 @@ import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import org.json.JSONObject
 
 @ReactModule(name = TruVideoReactTurboCameraSdkModule.NAME)
 class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
