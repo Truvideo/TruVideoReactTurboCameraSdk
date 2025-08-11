@@ -36,7 +36,7 @@ class ScannerActivity : AppCompatActivity() {
         }
     }
   fun openScanner(){
-    var scannerConfiguration = TruvideoSdkCameraScannerConfiguration(
+    val scannerConfiguration = TruvideoSdkCameraScannerConfiguration(
       validator = object : TruvideoSdkCameraScannerValidation{
         override fun validate(code: TruvideoSdkCameraScannerCode): TruvideoSdkCameraScannerValidationResult {
           return TruvideoSdkCameraScannerValidationResult.success()

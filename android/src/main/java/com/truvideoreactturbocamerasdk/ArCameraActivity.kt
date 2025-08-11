@@ -136,7 +136,7 @@ class ArCameraActivity : AppCompatActivity() {
         }
       }
     }
-    var configuration = TruvideoSdkArCameraConfiguration(
+    val configuration = TruvideoSdkArCameraConfiguration(
       outputPath = outputPath,
       mode = mode
     )

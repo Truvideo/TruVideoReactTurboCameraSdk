@@ -7,13 +7,10 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 @ReactModule(name = TruVideoReactTurboCameraSdkModule.NAME)
 class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
   NativeTruVideoReactTurboCameraSdkSpec(reactContext) {
-  private val scope = CoroutineScope(Dispatchers.Main)
 
   override fun getName(): String {
     return NAME
@@ -51,7 +48,7 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     Log.d("initCameraScreen","initCameraScreen")
     promise2 = promise
     reactContext = reactApplicationContext
-    Log.d("initCameraScreen","$configuration")
+    Log.d("initCameraScreen", configuration)
     currentActivity!!.startActivity(Intent(currentActivity, CameraActivity::class.java).putExtra("configuration",configuration))
   }
 
@@ -59,7 +56,7 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     Log.d("initCameraScreen","initCameraScreen")
     promise2 = promise
     reactContext = reactApplicationContext
-    Log.d("initCameraScreen","$configuration")
+    Log.d("initCameraScreen", configuration)
     currentActivity!!.startActivity(Intent(currentActivity, ArCameraActivity::class.java).putExtra("configuration",configuration))
   }
 
@@ -74,6 +71,5 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     const val NAME = "TruVideoReactTurboCameraSdk"
     lateinit var reactContext : ReactApplicationContext
     var promise2 : Promise? = null
-    var type : TruvideoSdkCameraMode? = null
   }
 }

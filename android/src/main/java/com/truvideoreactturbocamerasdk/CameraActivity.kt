@@ -2,7 +2,6 @@ package com.truvideoreactturbocamerasdk
 
 import android.content.Context
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,6 @@ import com.truvideo.sdk.camera.model.TruvideoSdkCameraConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraEvent
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraFlashMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraLensFacing
-import com.truvideo.sdk.camera.model.TruvideoSdkCameraMedia
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraResolution
