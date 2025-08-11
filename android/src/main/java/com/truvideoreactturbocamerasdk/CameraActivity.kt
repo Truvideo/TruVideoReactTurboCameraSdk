@@ -48,25 +48,25 @@ class CameraActivity : AppCompatActivity() {
   fun startCamera(){
     val cameraScreen = registerForActivityResult(TruvideoSdkCameraContract()){
       // result
-      val jsonArray = Json.encodeToString(ListSerializer(TruvideoSdkCameraMedia.serializer()),it)
-//      val jsonArray = JSONArray()
-//      it.forEach { media ->
-//        val resolutionObj = JSONObject().apply {
-//          put("width", media.resolution.width)
-//          put("height", media.resolution.height)
-//        }
-//        val obj = JSONObject().apply {
-//          put("id", media.id)
-//          put("createdAt", media.createdAt)
-//          put("filePath", media.filePath)
-//          put("type", media.type.name)          // enum as string
-//          put("lensFacing", media.lensFacing.name)
-//          put("orientation", media.orientation.name)
-//          put("resolution", resolutionObj)
-//          put("duration", media.duration)
-//        }
-//        jsonArray.put(obj)
-//      }
+      //val jsonArray = Json.encodeToString(ListSerializer(TruvideoSdkCameraMedia.serializer()),it)
+      val jsonArray = JSONArray()
+      it.forEach { media ->
+        val resolutionObj = JSONObject().apply {
+          put("width", media.resolution.width)
+          put("height", media.resolution.height)
+        }
+        val obj = JSONObject().apply {
+          put("id", media.id)
+          put("createdAt", media.createdAt)
+          put("filePath", media.filePath)
+          put("type", media.type.name)          // enum as string
+          put("lensFacing", media.lensFacing.name)
+          put("orientation", media.orientation.name)
+          put("resolution", resolutionObj)
+          put("duration", media.duration)
+        }
+        jsonArray.put(obj)
+      }
       TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonArray.toString())
       finish()
     }
