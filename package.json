@@ -1,7 +1,8 @@
 {
-  "name": "truvideo-react-turbo-camera-sdk",
-  "version": "0.1.0",
+  "name": "@trunpm/truvideo-react-turbo-camera-sdk",
+  "version": "1.0.0",
   "description": "none",
+  "private": false,
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -52,16 +53,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akshay2801-rgb/TruVideoReactTurboCameraSdk.git"
+    "url": "git+https://github.com/Truvideo/TruVideoReactTurboCameraSdk.git"
   },
-  "author": "Akshay Chouhan <akshay.chouhan@5exceptions.com> (https://github.com/akshay2801-rgb)",
+  "author": "Truvideo <info@truvideo.com> (https://github.com/Truvideo)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/akshay2801-rgb/TruVideoReactTurboCameraSdk/issues"
+    "url": "https://github.com/Truvideo/TruVideoReactTurboCameraSdk/issues"
   },
-  "homepage": "https://github.com/akshay2801-rgb/TruVideoReactTurboCameraSdk#readme",
+  "homepage": "https://github.com/Truvideo/TruVideoReactTurboCameraSdk#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "restricted"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
@@ -187,5 +189,9 @@
     "type": "turbo-module",
     "languages": "kotlin-objc",
     "version": "0.45.5"
+  },
+  "directories": {
+    "example": "example",
+    "lib": "lib"
   }
 }

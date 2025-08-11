@@ -10,17 +10,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.modules.core.DeviceEventManagerModule
-import com.google.gson.Gson
 import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraEvent
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraFlashMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraLensFacing
+import com.truvideo.sdk.camera.model.TruvideoSdkCameraMedia
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraResolution
 import com.truvideo.sdk.camera.ui.activities.camera.TruvideoSdkCameraContract
+import kotlinx.serialization.builtins.ListSerializer
+import org.json.JSONArray
 import org.json.JSONObject
+import kotlinx.serialization.json.Json
 
 class CameraActivity : AppCompatActivity() {
   var configuration = ""
@@ -45,9 +48,26 @@ class CameraActivity : AppCompatActivity() {
   fun startCamera(){
     val cameraScreen = registerForActivityResult(TruvideoSdkCameraContract()){
       // result
-      val gson = Gson()
-      val jsonResult = gson.toJson(it)
-      TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
+      val jsonArray = Json.encodeToString(ListSerializer(TruvideoSdkCameraMedia.serializer()),it)
+//      val jsonArray = JSONArray()
+//      it.forEach { media ->
+//        val resolutionObj = JSONObject().apply {
+//          put("width", media.resolution.width)
+//          put("height", media.resolution.height)
+//        }
+//        val obj = JSONObject().apply {
+//          put("id", media.id)
+//          put("createdAt", media.createdAt)
+//          put("filePath", media.filePath)
+//          put("type", media.type.name)          // enum as string
+//          put("lensFacing", media.lensFacing.name)
+//          put("orientation", media.orientation.name)
+//          put("resolution", resolutionObj)
+//          put("duration", media.duration)
+//        }
+//        jsonArray.put(obj)
+//      }
+      TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonArray.toString())
       finish()
     }
     try{
@@ -59,9 +79,11 @@ class CameraActivity : AppCompatActivity() {
   }
   fun getEvent(){
     TruvideoSdkCamera.events.observeForever{event : TruvideoSdkCameraEvent ->
-      val gson = Gson()
-      val jsonResult = gson.toJson(event)
-      sendEvent(reactContext = TruVideoReactTurboCameraSdkModule.reactContext,eventName = "cameraEvent",event = jsonResult.toString())
+      val obj = JSONObject().apply {
+        put("data", event.data)
+        put("type",event.type.name)
+      }
+      sendEvent(reactContext = TruVideoReactTurboCameraSdkModule.reactContext,eventName = "cameraEvent",event = obj.toString())
     }
   }
   fun sendEvent(reactContext: ReactApplicationContext, eventName: String, event: String) {

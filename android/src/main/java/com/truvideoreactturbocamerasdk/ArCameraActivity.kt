@@ -6,11 +6,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.gson.Gson
 import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkArCameraConfiguration
+import com.truvideo.sdk.camera.model.TruvideoSdkCameraMedia
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.ui.activities.arcamera.TruvideoSdkArCameraContract
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.json.Json
+import org.json.JSONArray
 import org.json.JSONObject
 
 class ArCameraActivity : AppCompatActivity() {
@@ -26,9 +29,26 @@ class ArCameraActivity : AppCompatActivity() {
         }
         val configuration = intent.getStringExtra("configuration")!!
         launcher = registerForActivityResult(TruvideoSdkArCameraContract()){
-          val gson = Gson()
-          val jsonResult = gson.toJson(it)
-          TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonResult)
+          val jsonArray = Json.encodeToString(ListSerializer(TruvideoSdkCameraMedia.serializer()),it)
+//          val jsonArray = JSONArray()
+//          it.forEach { media ->
+//            val resolutionObj = JSONObject().apply {
+//              put("width", media.resolution.width)
+//              put("height", media.resolution.height)
+//            }
+//            val obj = JSONObject().apply {
+//              put("id", media.id)
+//              put("createdAt", media.createdAt)
+//              put("filePath", media.filePath)
+//              put("type", media.type.name)          // enum as string
+//              put("lensFacing", media.lensFacing.name)
+//              put("orientation", media.orientation.name)
+//              put("resolution", resolutionObj)
+//              put("duration", media.duration)
+//            }
+//            jsonArray.put(obj)
+//          }
+          TruVideoReactTurboCameraSdkModule.promise2!!.resolve(jsonArray.toString())
           finish()
         }
         try {
