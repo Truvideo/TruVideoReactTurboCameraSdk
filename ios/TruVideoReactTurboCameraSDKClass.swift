@@ -115,6 +115,19 @@ import Combine
                 let modeData = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let mainMode  = modeData["mode"] as? String;
                 switch mainMode {
+                case "singleMedia":
+                    if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+                       let mediaLimitStr = modeData["mediaLimit"] as? String,
+                       !videoDurationLimitStr.isEmpty, !mediaLimitStr.isEmpty,
+                       let durationLimit = Int(videoDurationLimitStr),
+                       let maxCount = Int(mediaLimitStr) {
+                        mode = .videoAndPicture(mediaCount: maxCount, videoDuration: durationLimit)
+                    } else {
+                        mode = .videoAndPicture()
+                    }
+                    
+          
+                  
                 case "videoAndImage":
                     if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
                        let mediaLimitStr = modeData["mediaLimit"] as? String,
@@ -322,6 +335,7 @@ import Combine
                 let modeData = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let mainMode  = modeData["mode"] as? String;
                 switch mainMode {
+                
                 case "videoAndImage":
                     if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
                        let mediaLimitStr = modeData["mediaLimit"] as? String,
