@@ -6,7 +6,6 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import com.truvideo.sdk.camera.TruvideoSdkCamera
-import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 
 @ReactModule(name = TruVideoReactTurboCameraSdkModule.NAME)
 class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :

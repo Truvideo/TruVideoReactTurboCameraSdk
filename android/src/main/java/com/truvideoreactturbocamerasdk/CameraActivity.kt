@@ -183,6 +183,15 @@ class CameraActivity : AppCompatActivity() {
             mode = TruvideoSdkCameraMode.videoAndImage()
           }
         }
+        "singleMedia" -> {
+          if(jsonMode.getString("videoDurationLimit") != "" && jsonMode.getString("mediaLimit") != ""){
+            mode = TruvideoSdkCameraMode.videoAndImage(
+              durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
+              maxCount = jsonMode.getString("mediaLimit").toInt())
+          }else{
+            mode = TruvideoSdkCameraMode.videoAndImage()
+          }
+        }
         "video" -> {
           if(jsonMode.getString("videoLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
             mode = TruvideoSdkCameraMode.video(
