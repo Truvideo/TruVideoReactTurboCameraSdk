@@ -13,6 +13,7 @@ interface Configuration {
 }
 interface ARConfiguration {
   outputPath: string;
+  orientation: Orientation;
   mode: string;
 }
 
@@ -56,6 +57,7 @@ export function initARCameraScreen(
     };
   var cameraConfiguration  :  ARConfiguration = {
             outputPath: configuration.outputPath,
+            orientation: configuration.orientation,
             mode: JSON.stringify(data),
         }
   return TruVideoReactTurboCameraSdk.initARCameraScreen(
@@ -121,6 +123,7 @@ export interface CameraConfiguration {
 }
 export interface ARCameraConfiguration {
   outputPath: string;
+  orientation: Orientation;
   mode: CameraMode;
 }
 

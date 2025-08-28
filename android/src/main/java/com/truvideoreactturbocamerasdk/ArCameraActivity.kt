@@ -9,12 +9,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkArCameraConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
+import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
 import com.truvideo.sdk.camera.ui.activities.arcamera.TruvideoSdkArCameraContract
 import org.json.JSONArray
 import org.json.JSONObject
 
 class ArCameraActivity : AppCompatActivity() {
     lateinit var launcher : ActivityResultLauncher<TruvideoSdkArCameraConfiguration>
+    var orientation: TruvideoSdkCameraOrientation? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -72,71 +74,65 @@ class ArCameraActivity : AppCompatActivity() {
         outputPath = newOutputPath
       }
     }
+    if(jsonConfiguration.has("orientation")) {
+      when(jsonConfiguration.getString("orientation")){
+        "portrait" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT
+        "landscapeLeft" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_LEFT
+        "landscapeRight" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_RIGHT
+        "portraitReverse" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT_REVERSE
+      }
+    }
     if(jsonConfiguration.has("mode")){
-      //val jsonMode = jsonConfiguration.getString("mode")
-
       val jsonMode = JSONObject(jsonConfiguration.getString("mode"))
+      val videoDurationLimit : String? = if(jsonMode.getString("videoDurationLimit") != "" ) jsonMode.getString("videoDurationLimit") else null
+      val mediaLimit : String? = if(jsonMode.getString("mediaLimit") != "" ) jsonMode.getString("mediaLimit") else null
+      val videoLimit : String? = if(jsonMode.getString("videoLimit") != "" ) jsonMode.getString("videoLimit") else null
+      val imageLimit : String? = if(jsonMode.getString("imageLimit") != "" ) jsonMode.getString("imageLimit") else null
       when(jsonMode.getString("mode")) {
         "videoAndImage" -> {
-          if(jsonMode.getString("videoDurationLimit") != "" && jsonMode.getString("mediaLimit") != ""){
+          if(imageLimit != null || videoLimit != null){
             mode = TruvideoSdkCameraMode.videoAndImage(
-              durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
-              maxCount = jsonMode.getString("mediaLimit").toInt())
-          }else if (jsonMode.getString("videoLimit") != "" && jsonMode.getString("imageLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
+              imageMaxCount = imageLimit?.toInt(),
+              videoMaxCount = videoLimit?.toInt(),
+              durationLimit = videoDurationLimit?.toInt()
+            )
+          }else if(mediaLimit != null){
             mode = TruvideoSdkCameraMode.videoAndImage(
-              durationLimit = jsonMode.getString("videoDurationLimit").toInt(),
-              imageMaxCount = jsonMode.getString("imageLimit").toInt(),
-              videoMaxCount = jsonMode.getString("videoLimit").toInt())
-          }else if (jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.videoAndImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
-          }else{
+              maxCount = mediaLimit.toInt(),
+              durationLimit = videoDurationLimit?.toInt()
+            )
+          }else {
             mode = TruvideoSdkCameraMode.videoAndImage()
           }
         }
         "video" -> {
-          if(jsonMode.getString("videoLimit") != "" && jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.video(
-              maxCount = jsonMode.getString("videoLimit").toInt(),
-              durationLimit = jsonMode.getString("videoDurationLimit").toInt()
-            )
-          }else if (jsonMode.getString("videoLimit") != ""){
-            mode = TruvideoSdkCameraMode.video(
-              maxCount = jsonMode.getString("videoLimit").toInt()
-            )
-          }else {
-            mode = TruvideoSdkCameraMode.video()
-          }
-
+          mode = TruvideoSdkCameraMode.video(
+            maxCount = videoLimit?.toInt(),
+            durationLimit = videoDurationLimit?.toInt()
+          )
         }
         "image" -> {
-          if (jsonMode.getString("imageLimit") != ""){
-            mode = TruvideoSdkCameraMode.image(
-              maxCount = jsonMode.getString("imageLimit").toInt()
-            )
-          }else {
-            mode = TruvideoSdkCameraMode.image()
-          }
+          mode = TruvideoSdkCameraMode.image(
+            maxCount = imageLimit?.toInt()
+          )
         }
         "singleImage" ->{
           mode = TruvideoSdkCameraMode.singleImage()
         }
         "singleVideo" ->{
-          if (jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.singleVideo(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
-          }else {
-            mode = TruvideoSdkCameraMode.singleVideo()
-          }
+          mode = TruvideoSdkCameraMode.singleVideo(
+            durationLimit = videoDurationLimit?.toInt()
+          )
         }
         "singleVideoOrImage" -> {
-          if (jsonMode.getString("videoDurationLimit") != ""){
-            mode = TruvideoSdkCameraMode.singleVideoOrImage(durationLimit = jsonMode.getString("videoDurationLimit").toInt())
-          }else {
-            mode = TruvideoSdkCameraMode.singleVideoOrImage()
-          }
+          mode = TruvideoSdkCameraMode.singleVideoOrImage(
+            durationLimit = videoDurationLimit?.toInt()
+          )
         }
       }
     }
     val configuration = TruvideoSdkArCameraConfiguration(
+      orientation = orientation,
       outputPath = outputPath,
       mode = mode
     )
