@@ -13,17 +13,17 @@ import AVFoundation
 import Combine
 
 @objc final public class TruVideoReactCameraSdkClass: NSObject {
-    
+
     var disposeBag = Set<AnyCancellable>()
     @objc public func initCameraScreen(jsonData: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         print(jsonData)
-        
+
         guard let data = jsonData.data(using: .utf8) else {
             print("Invalid JSON string")
             reject("Invalid_Data", "Invalid JSON string", NSError(domain: "Invalid_Data", code: 400, userInfo: nil))
             return
         }
-        
+
         do {
             if let configuration = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 print(configuration)
@@ -33,7 +33,7 @@ import Combine
                         let cameraResultDict = cameraResult.toDictionary()
                         if let mediaData = cameraResultDict["media"] as? [[String: Any]] {
                             var sanitizedMediaData: [[String: Any]] = []
-                            
+
                             for item in mediaData {
                                 var sanitizedItem: [String: Any] = [:]
                                 for (key, value) in item {
@@ -83,17 +83,17 @@ import Combine
             reject("Error_parsing", "Error parsing JSON: \(error.localizedDescription)", error)
         }
     }
-    
-    
+
+
     @objc public func environment(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         resolve("true")
     }
-    
-    
+
+
     @objc public func isAugmentedRealityInstalled(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
         resolve("true")
     }
-    
+
     @objc public func isAugmentedRealitySupported(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
         resolve("true")
     }
@@ -125,9 +125,9 @@ import Combine
                     } else {
                         mode = .videoAndPicture()
                     }
-                    
-          
-                  
+
+
+
                 case "videoAndImage":
                     if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
                        let mediaLimitStr = modeData["mediaLimit"] as? String,
@@ -150,7 +150,7 @@ import Combine
                     } else {
                         mode = .videoAndPicture()
                     }
-                    
+
                 case "video":
                     if let videoLimitStr = modeData["videoLimit"] as? String,
                        let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
@@ -165,7 +165,7 @@ import Combine
                     } else {
                         mode = .video()
                     }
-                    
+
                 case "image":
                     if let imageLimitStr = modeData["imageLimit"] as? String,
                        !imageLimitStr.isEmpty,
@@ -174,10 +174,10 @@ import Combine
                     } else {
                         mode = .picture()
                     }
-                    
+
                 case "singleImage":
                     mode = .singlePicture()
-                    
+
                 case "singleVideo":
                     if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
                        !videoDurationLimitStr.isEmpty,
@@ -186,7 +186,7 @@ import Combine
                     } else {
                         mode = .singleVideo()
                     }
-                    
+
                 case "singleVideoOrImage":
                     if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
                        !videoDurationLimitStr.isEmpty,
@@ -195,21 +195,21 @@ import Combine
                     } else {
                         mode = .singleVideoOrPicture()
                     }
-                    
+
                 default:
                     break
                 }
             }
         }catch{
-            
+
         }
-        
+
         initiateARCamera(viewController: rootViewController,mode : mode){cameraResult in
             do {
                 let cameraResultDict = cameraResult.toDictionary()
                 if let mediaData = cameraResultDict["media"] as? [[String: Any]] {
                     var sanitizedMediaData: [[String: Any]] = []
-                    
+
                     for item in mediaData {
                         var sanitizedItem: [String: Any] = [:]
                         for (key, value) in item {
@@ -242,7 +242,7 @@ import Combine
                 reject("Serialization_Error", "Error serializing camera result", error)
             }
         }
-        
+
     }
     func initiateARCamera(viewController: UIViewController,mode : TruvideoSdkCameraMediaMode,  completion: @escaping (_ cameraResult: TruvideoSdkCameraResult) -> Void)  {
         DispatchQueue.main.async {
@@ -259,7 +259,7 @@ import Combine
             }
         }
     }
-    
+
     @objc public func initScanerScreen(configuration: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
             print("E_NO_ROOT_VIEW_CONTROLLER", "No root view controller found")
@@ -274,11 +274,11 @@ import Combine
             // Retrieving information about the device's camera functionality.
             let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
             print("Camera Info:", cameraInfo)
-            
+
             let configuration = TruvideoSdkScannerCameraConfiguration(flashMode: .off,orientation: .portrait,codeFormats: [.code39,.codeQR], autoClose: false,validator: .none)
-            
+
             DispatchQueue.main.async {
-                
+
                 self.subscribeToEventsPublisher()
                 viewController.presentTruvideoSdkScannerCameraView(preset: configuration, onComplete: { result in
                     if let result = result as? TruvideoSdkCameraScannerCode{
@@ -288,9 +288,9 @@ import Combine
             }
         }
     }
-    
-    
-    
+
+
+
     private func cameraInitiate(configuration: [String:Any], completion: @escaping (_ cameraResult: TruvideoSdkCameraResult) -> Void) {
         DispatchQueue.main.async {
             guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
@@ -308,11 +308,11 @@ import Combine
             // Retrieving information about the device's camera functionality.
             let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
             print("Camera Info:", cameraInfo)
-            
+
             let lensType: TruvideoSdkCameraLensFacing = lensFacingString == "back" ? .back: .front
-            
+
             let flashMode: TruvideoSdkCameraFlashMode = flashModeString == "on" ? .on: .off
-            
+
             let orientation: TruvideoSdkCameraOrientation
             switch orientationString {
             case "portrait":
@@ -327,89 +327,129 @@ import Combine
                 print("Unknown orientation:", orientationString)
                 return
             }
-            
+
             var mode: TruvideoSdkCameraMediaMode = .videoAndPicture()
-            
+
             do {
                 guard let data = modeString.data(using: .utf8) else { return }
                 let modeData = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let mainMode  = modeData["mode"] as? String;
+              
+              let videoDurationLimit : String? = (modeData["videoDurationLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+              let mediaLimit : String? = (modeData["mediaLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+              let videoLimit : String? = (modeData["videoLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+              let imageLimit : String? = (modeData["imageLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+
                 switch mainMode {
-                
+
                 case "videoAndImage":
-                    if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
-                       let mediaLimitStr = modeData["mediaLimit"] as? String,
-                       !videoDurationLimitStr.isEmpty, !mediaLimitStr.isEmpty,
-                       let durationLimit = Int(videoDurationLimitStr),
-                       let maxCount = Int(mediaLimitStr) {
-                        mode = .videoAndPicture(mediaCount: maxCount, videoDuration: durationLimit)
-                    } else if let videoLimitStr = modeData["videoLimit"] as? String,
-                              let imageLimitStr = modeData["imageLimit"] as? String,
-                              let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
-                              !videoLimitStr.isEmpty, !imageLimitStr.isEmpty, !videoDurationLimitStr.isEmpty,
-                              let videoMaxCount = Int(videoLimitStr),
-                              let imageMaxCount = Int(imageLimitStr),
-                              let durationLimit = Int(videoDurationLimitStr) {
-                        mode = .videoAndPicture(videoCount: videoMaxCount,pictureCount: imageMaxCount,videoDuration: durationLimit)
-                    } else if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
-                              !videoDurationLimitStr.isEmpty,
-                              let durationLimit = Int(videoDurationLimitStr) {
-                        mode = .videoAndPicture(videoDuration: durationLimit)
-                    } else {
-                        mode = .videoAndPicture()
-                    }
-                    
+                  //mode = .videoAndPicture()
+                  if videoLimit != nil || imageLimit != nil {
+                    mode = .videoAndPicture(
+                      videoCount: videoLimit.flatMap { Int($0) },
+                      pictureCount: imageLimit.flatMap { Int($0) },
+                      videoDuration: videoDurationLimit.flatMap { Int($0) }
+                    )
+                  }else if mediaLimit != nil {
+                    let mediaLimitInt = Int(mediaLimit ?? "0") ?? 0
+                    mode = .videoAndPicture(
+                      mediaCount: mediaLimitInt,
+                      videoDuration: videoDurationLimit.flatMap { Int($0) }
+                    )
+                  }else {
+                    mode = .videoAndPicture()
+                  }
+                  
+                  
+//                    if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+//                       let mediaLimitStr = modeData["mediaLimit"] as? String,
+//                       !videoDurationLimitStr.isEmpty, !mediaLimitStr.isEmpty,
+//                       let durationLimit = Int(videoDurationLimitStr),
+//                       let maxCount = Int(mediaLimitStr) {
+//                        mode = .videoAndPicture(mediaCount: maxCount, videoDuration: durationLimit)
+//                    } else if let videoLimitStr = modeData["videoLimit"] as? String,
+//                              let imageLimitStr = modeData["imageLimit"] as? String,
+//                              let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+//                              !videoLimitStr.isEmpty, !imageLimitStr.isEmpty, !videoDurationLimitStr.isEmpty,
+//                              let videoMaxCount = Int(videoLimitStr),
+//                              let imageMaxCount = Int(imageLimitStr),
+//                              let durationLimit = Int(videoDurationLimitStr) {
+//                        mode = .videoAndPicture(videoCount: videoMaxCount,pictureCount: imageMaxCount,videoDuration: durationLimit)
+//                    } else if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+//                              !videoDurationLimitStr.isEmpty,
+//                              let durationLimit = Int(videoDurationLimitStr) {
+//                        mode = .videoAndPicture(videoDuration: durationLimit)
+//                    } else {
+//                        mode = .videoAndPicture()
+//                    }
+
                 case "video":
-                    if let videoLimitStr = modeData["videoLimit"] as? String,
-                       let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
-                       !videoLimitStr.isEmpty, !videoDurationLimitStr.isEmpty,
-                       let maxCount = Int(videoLimitStr),
-                       let durationLimit = Int(videoDurationLimitStr) {
-                        mode = .video(videoCount:  maxCount, videoDuration: durationLimit)
-                    } else if let videoLimitStr = modeData["videoLimit"] as? String,
-                              !videoLimitStr.isEmpty,
-                              let maxCount = Int(videoLimitStr) {
-                        mode = .video(videoCount: maxCount)
-                    } else {
-                        mode = .video()
-                    }
-                    
+                  mode = .video(
+                    videoCount :videoLimit.flatMap { Int($0) },
+                    videoDuration: videoDurationLimit.flatMap { Int($0) }
+                  )
+                  
+//                    if let videoLimitStr = modeData["videoLimit"] as? String,
+//                       let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+//                       !videoLimitStr.isEmpty, !videoDurationLimitStr.isEmpty,
+//                       let maxCount = Int(videoLimitStr),
+//                       let durationLimit = Int(videoDurationLimitStr) {
+//                        mode = .video(videoCount:  maxCount, videoDuration: durationLimit)
+//                    } else if let videoLimitStr = modeData["videoLimit"] as? String,
+//                              !videoLimitStr.isEmpty,
+//                              let maxCount = Int(videoLimitStr) {
+//                        mode = .video(videoCount: maxCount)
+//                    } else {
+//                        mode = .video()
+//                    }
+
                 case "image":
-                    if let imageLimitStr = modeData["imageLimit"] as? String,
-                       !imageLimitStr.isEmpty,
-                       let maxCount = Int(imageLimitStr) {
-                        mode = .picture(pictureCount: maxCount)
-                    } else {
-                        mode = .picture()
-                    }
-                    
+                  mode = .picture(
+                    pictureCount :imageLimit.flatMap { Int($0) }
+                  )
+                  
+//                    if let imageLimitStr = modeData["imageLimit"] as? String,
+//                       !imageLimitStr.isEmpty,
+//                       let maxCount = Int(imageLimitStr) {
+//                        mode = .picture(pictureCount: maxCount)
+//                    } else {
+//                        mode = .picture()
+//                    }
+
                 case "singleImage":
                     mode = .singlePicture()
-                    
+
                 case "singleVideo":
-                    if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
-                       !videoDurationLimitStr.isEmpty,
-                       let durationLimit = Int(videoDurationLimitStr) {
-                        mode = .singleVideo(videoDuration: durationLimit)
-                    } else {
-                        mode = .singleVideo()
-                    }
-                    
+                  mode = .singleVideo(
+                    videoDuration : videoDurationLimit.flatMap { Int($0) }
+                  )
+//                    if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+//                       !videoDurationLimitStr.isEmpty,
+//                       let durationLimit = Int(videoDurationLimitStr) {
+//                        mode = .singleVideo(videoDuration: durationLimit)
+//                    } else {
+//                        mode = .singleVideo()
+//                    }
+
                 case "singleVideoOrImage":
-                    if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
-                       !videoDurationLimitStr.isEmpty,
-                       let durationLimit = Int(videoDurationLimitStr) {
-                        mode = .singleVideoOrPicture(videoDuration: durationLimit)
-                    } else {
-                        mode = .singleVideoOrPicture()
-                    }
-                    
+                  
+                  mode = .singleVideoOrPicture(
+                    videoDuration : videoDurationLimit.flatMap { Int($0) }
+                  )
+//                    if let videoDurationLimitStr = modeData["videoDurationLimit"] as? String,
+//                       !videoDurationLimitStr.isEmpty,
+//                       let durationLimit = Int(videoDurationLimitStr) {
+//                        mode = .singleVideoOrPicture(videoDuration: durationLimit)
+//                    } else {
+//                        mode = .singleVideoOrPicture()
+//                    }
+
                 default:
                     break
                 }
-                
-                
-                
+
+
+
                 //        switch modeString {
                 //        case "picture":
                 //
@@ -423,11 +463,11 @@ import Combine
                 //          return
                 //        }
                 //
-                
+
             }catch {
-                
+
             }
-            
+
             // Configuring the camera with various parameters based on specific requirements.
             let configuration = TruvideoSdkCameraConfiguration(
                 lensFacing: lensType,
@@ -440,10 +480,10 @@ import Combine
                 backResolution: nil,
                 mode: mode
             )
-            
+
             self.checkCameraPermissions { [weak self] granted in
                 guard self != nil else { return }
-                
+
                 if granted {
                     DispatchQueue.main.async {
                         rootViewController.presentTruvideoSdkCameraView(
@@ -459,10 +499,10 @@ import Combine
                 }
             }
         }
-        
-        
+
+
     }
-    
+
     func checkCameraPermissions(completion: @escaping (Bool) -> Void) {
         let status = AVCaptureDevice.authorizationStatus(for: .video)
         switch status {
@@ -488,54 +528,54 @@ import Combine
             }
             .store(in: &disposeBag)
     }
-    
-    
+
+
     private func sendEventToReact(event: TruvideoSdkCameraEvent) {
         // Initialize the data dictionary that will contain all the event data
         var eventData: [String: Any] = [:]
-        
+
         // Switch through the event types and add the corresponding data
         switch event.type {
         case .truvideoSdkCameraEventFlashModeChanged(let flashMode):
             eventData["flashMode"] = convertFlashModeTOString(flashMode: flashMode)
-            
+
         case .truvideoSdkCameraEventCameraFlipped(let lensFacing):
             eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
-            
+
         case .truvideoSdkCameraEventMediaContinue(let media):
             eventData["media"] = convertMediaArrayToDictionary(mediaArray: media)
-            
-            
+
+
         case .truvideoSdkCameraEventMediaDeleted(let media):
             eventData["media"] = convertMediaToDictionary(media: media)
-            
+
         case .truvideoSdkCameraEventMediaDiscard(let media):
             eventData["media"] = convertMediaArrayToDictionary(mediaArray: media)
-            
+
         case .truvideoSdkCameraEventPictureTaken(let media):
             eventData["media"] = convertMediaToDictionary(media: media)
-            
+
         case .truvideoSdkCameraEventRecordingFinished(let media):
             eventData["media"] = convertMediaToDictionary(media: media)
-            
+
         case .truvideoSdkCameraEventRecordingPaused(let resolution, let orientation, let lensFacing):
             eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
             eventData["orientation"] = convertOrientationToString(orientation: orientation)
             eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
-            
+
         case .truvideoSdkCameraEventRecordingResumed(let resolution, let orientation, let lensFacing):
             eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
             eventData["orientation"] = convertOrientationToString(orientation: orientation)
             eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
-            
+
         case .truvideoSdkCameraEventRecordingStarted(let resolution, let orientation, let lensFacing):
             eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
             eventData["orientation"] = convertOrientationToString(orientation: orientation)
             eventData["lensFacing"] = convertLensTOString(lensFacing: lensFacing)
-            
+
         case .truvideoSdkCameraEventResolutionChanged(let resolution):
             eventData["resolution"] = convertResolutionToDictionary(resolution: resolution)
-            
+
         case .truvideoSdkCameraEventZoomChanged(let zoom):
             eventData["zoom"] = zoom
         @unknown default:
@@ -558,50 +598,50 @@ import Combine
         //              print("Error converting object to JSON: \(error.localizedDescription)")
         //          }
     }
-    
+
     private func eventTypeToString(_ eventType: TruvideoSdkCameraEventType) -> String {
         switch eventType {
         case .truvideoSdkCameraEventFlashModeChanged(_):
             return "FlashModeChanged"
-            
+
         case .truvideoSdkCameraEventCameraFlipped(_):
             return "CameraFlipped"
-            
+
         case .truvideoSdkCameraEventMediaContinue(_):
             return "Continue"
-            
+
         case .truvideoSdkCameraEventMediaDeleted(_):
             return "MediaDeleted"
-            
+
         case .truvideoSdkCameraEventMediaDiscard(_):
             return "MediaDiscard"
-            
+
         case .truvideoSdkCameraEventPictureTaken(_):
             return "PictureTaken"
-            
+
         case .truvideoSdkCameraEventRecordingFinished(_):
             return "RecordingFinished"
-            
+
         case .truvideoSdkCameraEventRecordingPaused(_, _, _):
             return "RecordingPaused"
-            
+
         case .truvideoSdkCameraEventRecordingResumed(_, _, _):
             return "RecordingResumed"
-            
+
         case .truvideoSdkCameraEventRecordingStarted(_, _, _):
             return "RecordingStarted"
-            
+
         case .truvideoSdkCameraEventResolutionChanged(_):
             return "ResolutionChanged"
-            
+
         case .truvideoSdkCameraEventZoomChanged(_):
             return "ZoomChanged"
-            
+
         @unknown default:
             return "ZoomChanged"
         }
     }
-    
+
     func convertLensTOString(lensFacing: TruvideoSdkCameraLensFacing) -> String{
         if lensFacing == .back{
             return "back"
@@ -611,7 +651,7 @@ import Combine
             return "back"
         }
     }
-    
+
     func convertFlashModeTOString(flashMode: TruvideoSdkCameraFlashMode) -> String{
         if flashMode == .on{
             return "on"
@@ -621,7 +661,7 @@ import Combine
             return "off"
         }
     }
-    
+
     func convertResolutionToDictionary(resolution: TruvideoSdkCameraResolution) -> [String: Int] {
         var resolutionData : [String: Int] = [:]
         if let width = Int(resolution.width) as? Int , let height = Int(resolution.height) as? Int {
@@ -631,7 +671,7 @@ import Combine
         }
         return resolutionData
     }
-    
+
     func convertOrientationToString(orientation: TruvideoSdkCameraOrientation) -> String{
         switch orientation{
         case .landscapeLeft:
@@ -646,7 +686,7 @@ import Combine
             return "portrait"
         }
     }
-    
+
     func convertMediaTypeToString(type :TruvideoSdkCameraMediaType) -> String{
         switch type {
         case .clip:
@@ -657,7 +697,7 @@ import Combine
             return "default"
         }
     }
-    
+
     func convertMediaToDictionary(media: TruvideoSdkCameraMedia) -> [String: Any] {
         print(media)
         var mediaData: [String: Any] = [:]
@@ -678,7 +718,7 @@ import Combine
         }
         return mediaData
     }
-    
+
     func convertMediaArrayToDictionary(mediaArray: [TruvideoSdkCameraMedia]) -> [[String: Any]] {
         return mediaArray.map { convertMediaToDictionary(media: $0) }
     }
@@ -687,7 +727,7 @@ import Combine
         guard let bridge = RCTBridge.current() else { return }
         bridge.eventDispatcher().sendAppEvent(withName: name, body: body)
     }
-    
+
 }
 extension TruvideoSdkCameraResult {
     func toDictionary() -> [String: Any] {
@@ -709,8 +749,8 @@ extension TruvideoSdkCamera.TruvideoSdkCameraMedia {
             "duration": duration
         ]
     }
-    
-    
+
+
 }
 
 extension TruvideoSdkCamera.TruvideoSdkCameraResolution {
@@ -720,7 +760,7 @@ extension TruvideoSdkCamera.TruvideoSdkCameraResolution {
             "height": self.height
         ]
     }
-    
+
     func resulDict() -> [String: Any] {
         //width: Int32, height: Int32
         return [
