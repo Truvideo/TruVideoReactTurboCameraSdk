@@ -1,4 +1,8 @@
 import TruVideoReactTurboCameraSdk from './NativeTruVideoReactTurboCameraSdk';
+import { 
+  //NativeModules,
+  //NativeEventEmitter,
+  DeviceEventEmitter,type EmitterSubscription } from 'react-native';
 
 interface Configuration {
   lensFacing: LensFacing;
@@ -248,5 +252,36 @@ export class CameraMode {
   static image(imageMaxCount?: number): CameraMode;
   static image(imageMaxCount?: number): CameraMode {
     return new CameraMode('image', 0, imageMaxCount ?? null, null, null, false);
+  }
+}
+
+export interface CameraEventCallbacks {
+  event?: (event: string) => void;
+}
+
+export class CameraEvents {
+  private listener: EmitterSubscription | null = null;
+
+  getEvent(callbacks: CameraEventCallbacks) {
+    // Remove old listener if already exists
+    this.removeEventListeners();
+
+    if (callbacks?.event) {
+      this.listener = DeviceEventEmitter.addListener("event", (eventJson: string) => {
+        try {
+          const event = JSON.parse(eventJson);
+          callbacks.event?.(event);
+        } catch (e) {
+          console.warn("Invalid event JSON:", eventJson);
+        }
+      });
+    }
+  }
+
+  removeEventListeners(): void {
+    if (this.listener) {
+      this.listener.remove();
+      this.listener = null;
+    }
   }
 }
