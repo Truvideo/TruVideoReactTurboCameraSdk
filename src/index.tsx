@@ -22,7 +22,7 @@ interface ARConfiguration {
   mode: string;
 }
 
-interface Type {
+export interface Type {
   image: 'IMAGE',
   video: 'VIDEO',
 }
