@@ -22,7 +22,7 @@ interface ARConfiguration {
   mode: string;
 }
 
-export interface Type {
+export interface MediaType {
   image: 'IMAGE',
   video: 'VIDEO',
 }
@@ -31,7 +31,7 @@ export interface CameraResult {
   id: string,
   createdAt: number,
   filePath: string,
-  type: Type,
+  type: MediaType,
   lensFacing: LensFacing,
   orientation: Orientation,
   resolution: Resolution,
