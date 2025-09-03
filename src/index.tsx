@@ -14,6 +14,7 @@ interface Configuration {
   backResolutions: Resolution[] | null;
   backResolution: Resolution | null;
   mode: string;
+  imageFormat: String;
 }
 interface ARConfiguration {
   outputPath: string;
@@ -42,6 +43,7 @@ export function initCameraScreen(
             backResolutions: configuration.backResolutions,
             backResolution: configuration.backResolution,
             mode: JSON.stringify(data),
+            imageFormat : configuration.imageFormat ? configuration.imageFormat : ImageFormat.JPEG,
         }
   return TruVideoReactTurboCameraSdk.initCameraScreen(
     JSON.stringify(cameraConfiguration)
@@ -113,6 +115,10 @@ export interface Resolution {
   width: number;
   height: number;
 }
+enum ImageFormat {
+  JPEG = 'jpeg',
+  PNG = 'png'
+}
 
 export interface CameraConfiguration {
   lensFacing: LensFacing;
@@ -124,6 +130,7 @@ export interface CameraConfiguration {
   backResolutions: Resolution[] | null;
   backResolution: Resolution | null;
   mode: CameraMode;
+  imageFormat?: ImageFormat;
 }
 export interface ARCameraConfiguration {
   outputPath: string;

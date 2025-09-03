@@ -276,6 +276,7 @@ import Combine
             guard let lensFacingString = configuration["lensFacing"] as? String,
                   let flashModeString = configuration["flashMode"] as? String,
                   let orientationString = configuration["orientation"] as? String,
+                  let imageFormatString = configuration["imageFormat"] as? String,
                   let outputPath = configuration["outputPath"] as? String,
                   let modeString = configuration["mode"] as? String else {
                 print("Error: Missing or invalid configuration values")
@@ -303,6 +304,17 @@ import Combine
                 print("Unknown orientation:", orientationString)
                 return
             }
+          
+          let imageFormat: TruvideoSdkCameraImageFormat
+            switch imageFormatString {
+            case "jpeg":
+              imageFormat = .jpeg
+            case "png":
+              imageFormat = .png
+            default:
+                print("Unknown imageFormat:", imageFormatString)
+                return
+          }
 
             var mode: TruvideoSdkCameraMediaMode = .videoAndPicture()
 
@@ -370,7 +382,9 @@ import Combine
                 frontResolution: nil,
                 backResolutions: [],
                 backResolution: nil,
-                mode: mode
+                mode: mode,
+                imageFormat: imageFormat
+                
             )
 
             self.checkCameraPermissions { [weak self] granted in

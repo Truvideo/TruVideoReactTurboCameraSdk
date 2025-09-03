@@ -13,6 +13,7 @@ import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraConfiguration
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraEvent
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraFlashMode
+import com.truvideo.sdk.camera.model.TruvideoSdkCameraImageFormat
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraLensFacing
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
@@ -25,6 +26,8 @@ class CameraActivity : AppCompatActivity() {
   var configuration = ""
   var lensFacing = TruvideoSdkCameraLensFacing.BACK
   var flashMode = TruvideoSdkCameraFlashMode.OFF
+  var imageFormat = TruvideoSdkCameraImageFormat.JPEG
+  var videoStabilizationEnabled = true
   var orientation: TruvideoSdkCameraOrientation? = null
   var mode = TruvideoSdkCameraMode.videoAndImage()
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,7 +136,9 @@ class CameraActivity : AppCompatActivity() {
       frontResolution = frontResolution,
       backResolutions = backResolutions,
       backResolution = backResolution,
-      mode = mode
+      mode = mode,
+      imageFormat = imageFormat,
+      videoStabilizationEnabled = videoStabilizationEnabled
     )
 
     cameraScreen.launch(configuration)
@@ -162,6 +167,21 @@ class CameraActivity : AppCompatActivity() {
         "portraitReverse" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT_REVERSE
       }
     }
+
+    if(jsonConfiguration.has("imageFormat")) {
+      when(jsonConfiguration.getString("imageFormat")){
+        "jpeg" -> imageFormat = TruvideoSdkCameraImageFormat.JPEG
+        "png" -> imageFormat = TruvideoSdkCameraImageFormat.PNG
+      }
+    }
+
+    if(jsonConfiguration.has("videoStabilizationEnabled")) {
+      when(jsonConfiguration.getString("videoStabilizationEnabled")){
+        "true" -> videoStabilizationEnabled = true
+        "false" -> videoStabilizationEnabled = false
+      }
+    }
+
     if(jsonConfiguration.has("mode")){
       val jsonMode = JSONObject(jsonConfiguration.getString("mode"))
       val videoDurationLimit : String? = if(jsonMode.getString("videoDurationLimit") != "" ) jsonMode.getString("videoDurationLimit") else null
@@ -174,12 +194,12 @@ class CameraActivity : AppCompatActivity() {
             mode = TruvideoSdkCameraMode.videoAndImage(
               imageMaxCount = imageLimit?.toInt(),
               videoMaxCount = videoLimit?.toInt(),
-              durationLimit = videoDurationLimit?.toInt()
+              durationLimit = videoDurationLimit?.toDouble()
             )
           }else if(mediaLimit != null){
             mode = TruvideoSdkCameraMode.videoAndImage(
               maxCount = mediaLimit.toInt(),
-              durationLimit = videoDurationLimit?.toInt()
+              durationLimit = videoDurationLimit?.toDouble()
             )
           }else {
             mode = TruvideoSdkCameraMode.videoAndImage()
@@ -188,7 +208,7 @@ class CameraActivity : AppCompatActivity() {
         "video" -> {
           mode = TruvideoSdkCameraMode.video(
             maxCount = videoLimit?.toInt(),
-            durationLimit = videoDurationLimit?.toInt()
+            durationLimit = videoDurationLimit?.toDouble()
           )
         }
         "image" -> {
@@ -201,12 +221,12 @@ class CameraActivity : AppCompatActivity() {
         }
         "singleVideo" ->{
           mode = TruvideoSdkCameraMode.singleVideo(
-            durationLimit = videoDurationLimit?.toInt()
+            durationLimit = videoDurationLimit?.toDouble()
           )
         }
         "singleVideoOrImage" -> {
           mode = TruvideoSdkCameraMode.singleVideoOrImage(
-            durationLimit = videoDurationLimit?.toInt()
+            durationLimit = videoDurationLimit?.toDouble()
           )
         }
       }
