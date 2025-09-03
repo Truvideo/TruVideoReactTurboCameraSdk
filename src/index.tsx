@@ -27,7 +27,7 @@ interface Type {
   video: 'VIDEO',
 }
 
-interface CameraResult {
+export interface CameraResult {
   id: string,
   createdAt: number,
   filePath: string,
