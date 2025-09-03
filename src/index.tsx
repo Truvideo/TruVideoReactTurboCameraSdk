@@ -22,9 +22,25 @@ interface ARConfiguration {
   mode: string;
 }
 
-export function initCameraScreen(
+interface Type {
+  image: 'IMAGE',
+  video: 'VIDEO',
+}
+
+interface CameraResult {
+  id: string,
+  createdAt: number,
+  filePath: string,
+  type: Type,
+  lensFacing: LensFacing,
+  orientation: Orientation,
+  resolution: Resolution,
+  duration: number,
+}
+
+export async function initCameraScreen(
   configuration: CameraConfiguration
-): Promise<string> {
+): Promise<CameraResult[] | null> {
   let data = {
       mode: configuration.mode.mode,
       videoLimit: configuration.mode.videoLimit,
@@ -47,7 +63,15 @@ export function initCameraScreen(
         }
   return TruVideoReactTurboCameraSdk.initCameraScreen(
     JSON.stringify(cameraConfiguration)
-  );
+  ).then((response: string) => {
+      try {
+        const parsed: CameraResult[] = JSON.parse(response);
+        return parsed;
+      } catch (e) {
+        console.error("Failed to parse MediaData JSON:", e);
+        return null;
+      }
+    });
 }
 
 export function initARCameraScreen(

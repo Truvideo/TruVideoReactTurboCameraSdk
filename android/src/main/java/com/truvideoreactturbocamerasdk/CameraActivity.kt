@@ -59,8 +59,13 @@ class CameraActivity : AppCompatActivity() {
           put("createdAt", media.createdAt)
           put("filePath", media.filePath)
           put("type", media.type.name)          // enum as string
-          put("lensFacing", media.lensFacing.name)
-          put("orientation", media.orientation.name)
+          put("lensFacing", media.lensFacing.name.lowercase())
+          put("orientation", when(media.orientation){
+            TruvideoSdkCameraOrientation.PORTRAIT -> "portrait"
+            TruvideoSdkCameraOrientation.LANDSCAPE_LEFT -> "landscapeLeft"
+            TruvideoSdkCameraOrientation.LANDSCAPE_RIGHT -> "landscapeRight"
+            TruvideoSdkCameraOrientation.PORTRAIT_REVERSE -> "portraitReverse"
+          })
           put("resolution", resolutionObj)
           put("duration", media.duration)
         }
