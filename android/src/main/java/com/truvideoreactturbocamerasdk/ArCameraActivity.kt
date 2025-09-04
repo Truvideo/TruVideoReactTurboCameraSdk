@@ -81,10 +81,10 @@ class ArCameraActivity : AppCompatActivity() {
     }
     if(jsonConfiguration.has("orientation")) {
       when(jsonConfiguration.getString("orientation")){
-        "portrait" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT
-        "landscapeLeft" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_LEFT
-        "landscapeRight" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_RIGHT
-        "portraitReverse" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT_REVERSE
+        "PORTRAIT" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT
+        "LANDSCAPE_LEFT" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_LEFT
+        "LANDSCAPE_RIGHT" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_RIGHT
+        "PORTRAIT_REVERSE" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT_REVERSE
       }
     }
     if(jsonConfiguration.has("mode")){

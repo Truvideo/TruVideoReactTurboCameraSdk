@@ -123,13 +123,13 @@ import Combine
                 let imageLimit : String? = (modeData["imageLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
                 
                 switch orientationString {
-                case "portrait":
+                case "PORTRAIT":
                     orientation = .portrait
-                case "portraitReverse":
+                case "PORTRAIT_REVERSE":
                     orientation = .portraitReverse
-                case "landscapeLeft":
+                case "LANDSCAPE_LEFT":
                     orientation = .landscapeLeft
-                case "landscapeRight":
+                case "LANDSCAPE_RIGHT":
                     orientation = .landscapeRight
                 default:
                   print("Unknown orientation:", orientationString ?? "")
@@ -286,19 +286,19 @@ import Combine
             let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
             print("Camera Info:", cameraInfo)
 
-            let lensType: TruvideoSdkCameraLensFacing = lensFacingString == "back" ? .back: .front
+            let lensType: TruvideoSdkCameraLensFacing = lensFacingString == "BACK" ? .back: .front
 
             let flashMode: TruvideoSdkCameraFlashMode = flashModeString == "on" ? .on: .off
 
             let orientation: TruvideoSdkCameraOrientation
             switch orientationString {
-            case "portrait":
+            case "PORTRAIT":
                 orientation = .portrait
-            case "portraitReverse":
+            case "PORTRAIT_REVERSE":
                 orientation = .portraitReverse
-            case "landscapeLeft":
+            case "LANDSCAPE_LEFT":
                 orientation = .landscapeLeft
-            case "landscapeRight":
+            case "LANDSCAPE_RIGHT":
                 orientation = .landscapeRight
             default:
                 print("Unknown orientation:", orientationString)

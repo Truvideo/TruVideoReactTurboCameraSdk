@@ -59,13 +59,8 @@ class CameraActivity : AppCompatActivity() {
           put("createdAt", media.createdAt)
           put("filePath", media.filePath)
           put("type", media.type.name)          // enum as string
-          put("lensFacing", media.lensFacing.name.lowercase())
-          put("orientation", when(media.orientation){
-            TruvideoSdkCameraOrientation.PORTRAIT -> "portrait"
-            TruvideoSdkCameraOrientation.LANDSCAPE_LEFT -> "landscapeLeft"
-            TruvideoSdkCameraOrientation.LANDSCAPE_RIGHT -> "landscapeRight"
-            TruvideoSdkCameraOrientation.PORTRAIT_REVERSE -> "portraitReverse"
-          })
+          put("lensFacing", media.lensFacing.name)
+          put("orientation",media.orientation.name)
           put("resolution", resolutionObj)
           put("duration", media.duration)
         }
@@ -154,8 +149,8 @@ class CameraActivity : AppCompatActivity() {
     val jsonConfiguration = JSONObject(configuration)
     if (jsonConfiguration.has("lensFacing")) {
       when (jsonConfiguration.getString("lensFacing")) {
-        "back" -> lensFacing = TruvideoSdkCameraLensFacing.BACK
-        "front" -> lensFacing = TruvideoSdkCameraLensFacing.FRONT
+        "BACK" -> lensFacing = TruvideoSdkCameraLensFacing.BACK
+        "FRONT" -> lensFacing = TruvideoSdkCameraLensFacing.FRONT
       }
     }
     if(jsonConfiguration.has("flashMode")) {
@@ -166,10 +161,10 @@ class CameraActivity : AppCompatActivity() {
     }
     if(jsonConfiguration.has("orientation")) {
       when(jsonConfiguration.getString("orientation")){
-        "portrait" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT
-        "landscapeLeft" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_LEFT
-        "landscapeRight" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_RIGHT
-        "portraitReverse" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT_REVERSE
+        "PORTRAIT" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT
+        "LANDSCAPE_LEFT" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_LEFT
+        "LANDSCAPE_RIGHT" -> orientation = TruvideoSdkCameraOrientation.LANDSCAPE_RIGHT
+        "PORTRAIT_REVERSE" -> orientation = TruvideoSdkCameraOrientation.PORTRAIT_REVERSE
       }
     }
 

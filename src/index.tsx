@@ -119,8 +119,8 @@ export function requestInstallAugmentedReality(): Promise<string> {
 }
 
 export enum LensFacing {
-  Back = 'back',
-  Front = 'front',
+  Back = 'BACK',
+  Front = 'FRONT',
 }
 
 export enum FlashMode {
@@ -129,10 +129,10 @@ export enum FlashMode {
 }
 
 export enum Orientation {
-  Portrait = 'portrait',
-  LandscapeLeft = 'landscapeLeft',
-  LandscapeRight = 'landscapeRight',
-  PortraitReverse = 'portraitReverse',
+  Portrait = 'PORTRAIT',
+  LandscapeLeft = 'LANDSCAPE_LEFT',
+  LandscapeRight = 'LANDSCAPE_RIGHT',
+  PortraitReverse = 'PORTRAIT_REVERSE',
 }
 
 export interface Resolution {
