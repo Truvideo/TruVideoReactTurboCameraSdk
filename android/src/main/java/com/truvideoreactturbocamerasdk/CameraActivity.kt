@@ -56,13 +56,13 @@ class CameraActivity : AppCompatActivity() {
         }
         val obj = JSONObject().apply {
           put("id", media.id)
-          put("createdAt", media.createdAt)
+          put("createdAt", (media.createdAt/1000))
           put("filePath", media.filePath)
           put("type", media.type.name)          // enum as string
           put("lensFacing", media.lensFacing.name)
           put("orientation",media.orientation.name)
           put("resolution", resolutionObj)
-          put("duration", media.duration)
+          put("duration", (media.duration/1000))
         }
         jsonArray.put(obj)
       }
