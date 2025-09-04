@@ -610,15 +610,16 @@ import Combine
         if let createdAt = media.createdAt as? Double,
            let filePath = media.filePath as? String,
            let type = convertMediaTypeToString(type: media.type) as? String,
-           let cameraLensFacing = convertLensTOString(lensFacing: media.cameraLensFacing) as? String,
-           let rotation = convertOrientationToString(orientation: media.rotation) as? String,
+           let cameraLensFacing = convertLensTOString(lensFacing: media.lensFacing) as? String,
+           let rotation = convertOrientationToString(orientation: media.orientation) as? String,
            let resolution = convertResolutionToDictionary(resolution: media.resolution)as? [String:Int] ,
            let duration = Int(media.duration) as? Int {
+            mediaData["id"] = media.id
             mediaData["createdAt"] = "\(createdAt)"
             mediaData["filePath"] = filePath
             mediaData["type"] = type
-            mediaData["cameraLensFacing"] = cameraLensFacing
-            mediaData["rotation"] = rotation
+            mediaData["lensFacing"] = cameraLensFacing
+            mediaData["orientation"] = rotation
             mediaData["resolution"] = resolution
             mediaData["duration"] = duration
         }
@@ -646,13 +647,14 @@ extension TruvideoSdkCameraResult {
 extension TruvideoSdkCamera.TruvideoSdkCameraMedia {
     func toDictionary() -> [String: Any] {
         return [
-            "createdAt": createdAt,
-            "filePath": filePath,
-            "type": type,
-            "cameraLensFacing": cameraLensFacing.rawValue,
-            "rotation": rotation.rawValue,
-            "resolution": resolution,
-            "duration": duration
+          "id": id,
+          "createdAt": createdAt,
+          "filePath": filePath,
+          "type": type,
+          "lensFacing": lensFacing.rawValue,
+          "orientation": orientation.rawValue,
+          "resolution": resolution,
+          "duration": duration
         ]
     }
 
