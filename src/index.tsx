@@ -139,7 +139,7 @@ export interface Resolution {
   width: number;
   height: number;
 }
-enum ImageFormat {
+export enum ImageFormat {
   JPEG = 'jpeg',
   PNG = 'png'
 }

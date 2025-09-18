@@ -304,6 +304,36 @@ import Combine
                 print("Unknown orientation:", orientationString)
                 return
             }
+          // Front Resolutions
+          let frontResolutions: [TruvideoSdkCameraResolution] = {
+              if let array = configuration["frontResolutions"] as? [[String: Any]] {
+                return self.parseResolutions(array)
+              }
+              return []
+          }()
+
+          let frontResolution: TruvideoSdkCameraResolution? = {
+              if let dict = configuration["frontResolution"] as? [String: Any] {
+                return self.parseResolution(dict)
+              }
+              return nil
+          }()
+
+          // Back Resolutions
+          let backResolutions: [TruvideoSdkCameraResolution] = {
+              if let array = configuration["backResolutions"] as? [[String: Any]] {
+                return self.parseResolutions(array)
+              }
+              return []
+          }()
+
+          let backResolution: TruvideoSdkCameraResolution? = {
+              if let dict = configuration["backResolution"] as? [String: Any] {
+                return self.parseResolution(dict)
+              }
+              return nil
+          }()
+
           
           let imageFormat: TruvideoSdkCameraImageFormat
             switch imageFormatString {
@@ -378,13 +408,12 @@ import Combine
                 flashMode: flashMode,
                 orientation: orientation,
                 outputPath: outputPath,
-                frontResolutions: [],
-                frontResolution: nil,
-                backResolutions: [],
-                backResolution: nil,
+                frontResolutions: frontResolutions,
+                frontResolution: frontResolution,
+                backResolutions: backResolutions,
+                backResolution: backResolution,
                 mode: mode,
                 imageFormat: imageFormat
-                
             )
 
             self.checkCameraPermissions { [weak self] granted in
@@ -408,6 +437,18 @@ import Combine
 
 
     }
+  
+  // Resolution parser
+  func parseResolution(_ dict: [String: Any]) -> TruvideoSdkCameraResolution {
+      let width = dict["width"] as? Int ?? 0
+      let height = dict["height"] as? Int ?? 0
+      return TruvideoSdkCameraResolution(width: Int32(width), height: Int32(height))
+  }
+
+  // Arrays of resolutions
+  func parseResolutions(_ array: [[String: Any]]) -> [TruvideoSdkCameraResolution] {
+      return array.map { parseResolution($0) }
+  }
 
     func checkCameraPermissions(completion: @escaping (Bool) -> Void) {
         let status = AVCaptureDevice.authorizationStatus(for: .video)
