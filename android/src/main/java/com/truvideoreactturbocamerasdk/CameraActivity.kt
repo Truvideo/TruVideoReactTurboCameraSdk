@@ -212,12 +212,12 @@ class CameraActivity : AppCompatActivity() {
             mode = TruvideoSdkCameraMode.videoAndImage(
               imageMaxCount = imageLimit?.toInt(),
               videoMaxCount = videoLimit?.toInt(),
-              durationLimit = videoDurationLimit?.toDouble()
+              durationLimit = videoDurationLimit?.toInt()
             )
           }else if(mediaLimit != null){
             mode = TruvideoSdkCameraMode.videoAndImage(
               maxCount = mediaLimit.toInt(),
-              durationLimit = videoDurationLimit?.toDouble()
+              durationLimit = videoDurationLimit?.toInt()
             )
           }else {
             mode = TruvideoSdkCameraMode.videoAndImage()
@@ -226,7 +226,7 @@ class CameraActivity : AppCompatActivity() {
         "video" -> {
           mode = TruvideoSdkCameraMode.video(
             maxCount = videoLimit?.toInt(),
-            durationLimit = videoDurationLimit?.toDouble()
+            durationLimit = videoDurationLimit?.toInt()
           )
         }
         "image" -> {
@@ -239,12 +239,12 @@ class CameraActivity : AppCompatActivity() {
         }
         "singleVideo" ->{
           mode = TruvideoSdkCameraMode.singleVideo(
-            durationLimit = videoDurationLimit?.toDouble()
+            durationLimit = videoDurationLimit?.toInt()
           )
         }
         "singleVideoOrImage" -> {
           mode = TruvideoSdkCameraMode.singleVideoOrImage(
-            durationLimit = videoDurationLimit?.toDouble()
+            durationLimit = videoDurationLimit?.toInt()
           )
         }
       }
