@@ -282,8 +282,8 @@ import Combine
                 return
             }
             // Retrieving information about the device's camera functionality.
-            let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
-            print("Camera Info:", cameraInfo)
+//            let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
+//            print("Camera Info:", cameraInfo)
 
             let lensType: TruvideoSdkCameraLensFacing = lensFacingString == "BACK" ? .back: .front
 
