@@ -9,10 +9,10 @@ interface Configuration {
   flashMode: FlashMode;
   orientation: Orientation;
   outputPath: string;
-  frontResolutions: Resolution[] | null;
-  frontResolution: Resolution | null;
-  backResolutions: Resolution[] | null;
-  backResolution: Resolution | null;
+  frontResolutions: Resolution[] | string;
+  frontResolution: Resolution | string;
+  backResolutions: Resolution[] | string;
+  backResolution: Resolution | string;
   mode: string;
   imageFormat: String;
 }
@@ -54,12 +54,12 @@ export async function initCameraScreen(
             flashMode: configuration.flashMode,
             orientation: configuration.orientation,
             outputPath: configuration.outputPath,
-            frontResolutions: configuration.frontResolutions,
-            frontResolution: configuration.frontResolution,
-            backResolutions: configuration.backResolutions,
-            backResolution: configuration.backResolution,
+            frontResolutions: configuration.frontResolutions != null ? configuration.frontResolutions : "",
+            frontResolution: configuration.frontResolution != null ? configuration.frontResolution : "",
+            backResolutions: configuration.backResolutions != null ? configuration.backResolutions : "",
+            backResolution: configuration.backResolution != null ? configuration.backResolution : "",
             mode: JSON.stringify(data),
-            imageFormat : configuration.imageFormat ? configuration.imageFormat : ImageFormat.JPEG,
+            imageFormat : configuration.imageFormat != null ? configuration.imageFormat : ImageFormat.JPEG,
         }
   return TruVideoReactTurboCameraSdk.initCameraScreen(
     JSON.stringify(cameraConfiguration)

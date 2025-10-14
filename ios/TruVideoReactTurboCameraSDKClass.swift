@@ -337,14 +337,11 @@ import Combine
           
           let imageFormat: TruvideoSdkCameraImageFormat
             switch imageFormatString {
-            case "jpeg":
-              imageFormat = .jpeg
-            case "png":
-              imageFormat = .png
-            default:
-                print("Unknown imageFormat:", imageFormatString)
-                return
-          }
+              case "png":
+                imageFormat = .png
+              default:
+                imageFormat = .jpeg
+            }
 
             var mode: TruvideoSdkCameraMediaMode = .videoAndPicture()
 
