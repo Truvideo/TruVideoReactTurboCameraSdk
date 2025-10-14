@@ -276,7 +276,6 @@ import Combine
             guard let lensFacingString = configuration["lensFacing"] as? String,
                   let flashModeString = configuration["flashMode"] as? String,
                   let orientationString = configuration["orientation"] as? String,
-                  let imageFormatString = configuration["imageFormat"] as? String,
                   let outputPath = configuration["outputPath"] as? String,
                   let modeString = configuration["mode"] as? String else {
                 print("Error: Missing or invalid configuration values")
@@ -306,6 +305,9 @@ import Combine
             }
           // Front Resolutions
           let frontResolutions: [TruvideoSdkCameraResolution] = {
+            if(configuration["frontResolutions"] as? String != "" || configuration["frontResolutions"] as? String != "[]"){
+              return []
+            }
               if let array = configuration["frontResolutions"] as? [[String: Any]] {
                 return self.parseResolutions(array)
               }
@@ -313,6 +315,9 @@ import Combine
           }()
 
           let frontResolution: TruvideoSdkCameraResolution? = {
+            if(configuration["frontResolution"] as? String != ""){
+              return nil
+            }
               if let dict = configuration["frontResolution"] as? [String: Any] {
                 return self.parseResolution(dict)
               }
@@ -321,6 +326,9 @@ import Combine
 
           // Back Resolutions
           let backResolutions: [TruvideoSdkCameraResolution] = {
+            if(configuration["backResolutions"] as? String != "" || configuration["backResolutions"] as? String != "[]"){
+              return []
+            }
               if let array = configuration["backResolutions"] as? [[String: Any]] {
                 return self.parseResolutions(array)
               }
@@ -328,20 +336,24 @@ import Combine
           }()
 
           let backResolution: TruvideoSdkCameraResolution? = {
+            if(configuration["backResolution"] as? String != ""){
+              return nil
+            }
               if let dict = configuration["backResolution"] as? [String: Any] {
                 return self.parseResolution(dict)
               }
               return nil
           }()
-
           
-          let imageFormat: TruvideoSdkCameraImageFormat
-            switch imageFormatString {
-              case "png":
-                imageFormat = .png
-              default:
-                imageFormat = .jpeg
-            }
+          let imageFormatString = configuration["imageFormat"] as? String ?? ""
+
+          var imageFormat: TruvideoSdkCameraImageFormat
+          switch imageFormatString {
+            case "png":
+              imageFormat = .png
+            default:
+              imageFormat = .jpeg
+          }
 
             var mode: TruvideoSdkCameraMediaMode = .videoAndPicture()
 
@@ -724,5 +736,4 @@ extension TruvideoSdkCamera.TruvideoSdkCameraResolution {
         ]
     }
 }
-
 
