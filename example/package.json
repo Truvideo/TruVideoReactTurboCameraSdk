@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "patch-package",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
@@ -26,6 +27,7 @@
     "@react-native/babel-preset": "0.76.6",
     "@react-native/metro-config": "0.76.6",
     "@react-native/typescript-config": "0.76.6",
+    "patch-package": "^8.0.0",
     "react-native-builder-bob": "^0.32.0"
   },
   "engines": {

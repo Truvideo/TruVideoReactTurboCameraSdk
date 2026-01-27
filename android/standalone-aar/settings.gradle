@@ -1,0 +1,3 @@
+rootProject.name = 'camera-sdk-standalone'
+include ':camera-sdk'
+project(':camera-sdk').projectDir = file('../')

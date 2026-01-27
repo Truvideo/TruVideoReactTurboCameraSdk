@@ -1,7 +1,7 @@
 buildscript {
-  // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = "1.9.0"
-    //rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["TruVideoReactTurboCameraSdk_kotlinVersion"]
+  def kotlin_version = project.findProperty("TruVideoReactTurboCameraSdk_kotlinVersion")
+    ?: (rootProject.ext.has("TruVideoReactTurboCameraSdk_kotlinVersion") ? rootProject.ext.get("TruVideoReactTurboCameraSdk_kotlinVersion") : null)
+    ?: "2.2.0"
 
   repositories {
     google()
@@ -88,6 +88,14 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
 
+  // Allow using Kotlin libraries compiled with a newer metadata version (2.2.0)
+  // while the project itself compiles with Kotlin 2.0.21 (required by React Native 0.77).
+  // This is needed for truvideo-sdk-android-camera and Coil, which are built with Kotlin 2.2.0.
+  kotlinOptions {
+    jvmTarget = "1.8"
+    freeCompilerArgs += "-Xskip-metadata-version-check"
+  }
+
   sourceSets {
     main {
       if (isNewArchitectureEnabled()) {
@@ -106,19 +114,21 @@ repositories {
   maven { url 'https://jitpack.io' }
 }
 
-def kotlin_version = getExtOrDefault("kotlinVersion")
+def kotlin_version = project.findProperty("TruVideoReactTurboCameraSdk_kotlinVersion") ?: getExtOrDefault("TruVideoReactTurboCameraSdk_kotlinVersion") ?: getExtOrDefault("kotlinVersion") ?: "2.2.0"
 
 dependencies {
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
+  implementation("com.russhwolf:multiplatform-settings:1.3.0")
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'androidx.appcompat:appcompat:1.7.0'
   implementation 'com.google.android.material:material:1.12.0'
   implementation 'androidx.activity:activity:1.9.3'
   implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
-  implementation 'com.github.Truvideo:truvideo-sdk-android-camera:78.1.16'
+  implementation 'com.github.Truvideo:truvideo-sdk-android-camera:79.1.1'
+  implementation("com.google.code.gson:gson:2.13.2")
   implementation 'androidx.compose.ui:ui:1.7.6'
   implementation 'androidx.compose.foundation:foundation:1.7.6'
   implementation 'androidx.compose.runtime:runtime:1.7.6'

@@ -1,0 +1,21 @@
+// Minimal root so :camera-sdk (../) builds with Kotlin 2.2.0.
+// Run from example/android: ./gradlew --project-dir=../../android/standalone-aar :camera-sdk:assembleRelease
+// Or from here if you have gradlew: ./gradlew :camera-sdk:assembleRelease
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:7.4.2'
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.0'
+  }
+}
+
+ext {
+  TruVideoReactTurboCameraSdk_kotlinVersion = '2.2.0'
+  TruVideoReactTurboCameraSdk_minSdkVersion = 24
+  TruVideoReactTurboCameraSdk_targetSdkVersion = 36
+  TruVideoReactTurboCameraSdk_compileSdkVersion = 36
+}

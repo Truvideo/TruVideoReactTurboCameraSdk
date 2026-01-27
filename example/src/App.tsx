@@ -6,8 +6,8 @@ import {
   initCameraScreen,
   Orientation,
   CameraMode,
-} from 'truvideo-react-turbo-camera-sdk';
-import type { CameraConfiguration } from 'truvideo-react-turbo-camera-sdk';
+} from '@trunpm/truvideo-react-turbo-camera-sdk';
+import type { CameraConfiguration } from '@trunpm/truvideo-react-turbo-camera-sdk';
 import QuickCrypto from 'react-native-quick-crypto';
 import { 
     isAuthenticated,
