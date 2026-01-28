@@ -92,7 +92,7 @@ android {
   // while the project itself compiles with Kotlin 2.0.21 (required by React Native 0.77).
   // This is needed for truvideo-sdk-android-camera and Coil, which are built with Kotlin 2.2.0.
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "17"
     freeCompilerArgs += "-Xskip-metadata-version-check"
   }
 
