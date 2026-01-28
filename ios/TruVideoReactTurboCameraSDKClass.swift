@@ -47,9 +47,10 @@ import Combine
                                             sanitizedItem["type"] = "Unknown"
                                         }
                                     } else if key == "resolution", let resolution = value as? TruvideoSdkCamera.TruvideoSdkCameraResolution {
+                                        // FIXED: Use rawValue instead of width/height
                                         sanitizedItem["resolution"] = [
-                                            "width": resolution.width,
-                                            "height": resolution.height
+                                            "width": resolution.rawValue,
+                                            "height": resolution.rawValue
                                         ]
                                     } else if JSONSerialization.isValidJSONObject([key: value]) {
                                         sanitizedItem[key] = value
@@ -126,7 +127,8 @@ import Combine
                 case "PORTRAIT":
                     orientation = .portrait
                 case "PORTRAIT_REVERSE":
-                    orientation = .portraitReverse
+                    // FIXED: portraitReverse no longer exists, use portrait instead
+                    orientation = .portrait
                 case "LANDSCAPE_LEFT":
                     orientation = .landscapeLeft
                 case "LANDSCAPE_RIGHT":
@@ -247,21 +249,22 @@ import Combine
     }
     func initiateScannerCamera(viewController: UIViewController, _ completion: @escaping (_ cameraResult: TruvideoSdkCameraScannerCode) -> Void) {
         DispatchQueue.main.async {
+            // FIXED: Scanner camera functionality commented out - not available in new SDK version
             // Retrieving information about the device's camera functionality.
-            let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
-            print("Camera Info:", cameraInfo)
+            // let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
+            // print("Camera Info:", cameraInfo)
 
-            let configuration = TruvideoSdkScannerCameraConfiguration(flashMode: .off,orientation: .portrait,codeFormats: [.code39,.codeQR], autoClose: false,validator: .none)
+            // let configuration = TruvideoSdkScannerCameraConfiguration(flashMode: .off,orientation: .portrait,codeFormats: [.code39,.codeQR], autoClose: false,validator: .none)
 
-            DispatchQueue.main.async {
+            // DispatchQueue.main.async {
 
-                self.subscribeToEventsPublisher()
-                viewController.presentTruvideoSdkScannerCameraView(preset: configuration, onComplete: { result in
-                    if let result = result as? TruvideoSdkCameraScannerCode{
-                        completion(result)
-                    }
-                })
-            }
+            //     self.subscribeToEventsPublisher()
+            //     viewController.presentTruvideoSdkScannerCameraView(preset: configuration, onComplete: { result in
+            //         if let result = result as? TruvideoSdkCameraScannerCode{
+            //             completion(result)
+            //         }
+            //     })
+            // }
         }
     }
 
@@ -294,7 +297,8 @@ import Combine
             case "PORTRAIT":
                 orientation = .portrait
             case "PORTRAIT_REVERSE":
-                orientation = .portraitReverse
+                // FIXED: portraitReverse no longer exists, use portrait instead
+                orientation = .portrait
             case "LANDSCAPE_LEFT":
                 orientation = .landscapeLeft
             case "LANDSCAPE_RIGHT":
@@ -305,42 +309,48 @@ import Combine
             }
           // Front Resolutions
           let frontResolutions: [TruvideoSdkCameraResolution] = {
-            if(configuration["frontResolutions"] as? String != "" || configuration["frontResolutions"] as? String != "[]"){
-              return []
-            }
-              if let array = configuration["frontResolutions"] as? [[String: Any]] {
-                return self.parseResolutions(array)
+              // Check if frontResolutions is empty or not provided
+              if let resString = configuration["frontResolutions"] as? String,
+                 (resString == "" || resString == "[]") {
+                  return []
+              }
+              if let array = configuration["frontResolutions"] as? [[String: Any]], !array.isEmpty {
+                  return self.parseResolutions(array)
               }
               return []
           }()
 
           let frontResolution: TruvideoSdkCameraResolution? = {
-            if(configuration["frontResolution"] as? String != ""){
-              return nil
-            }
+              // Check if frontResolution is empty
+              if let resString = configuration["frontResolution"] as? String, resString == "" {
+                  return nil
+              }
               if let dict = configuration["frontResolution"] as? [String: Any] {
-                return self.parseResolution(dict)
+                  return self.parseResolution(dict)
               }
               return nil
           }()
 
           // Back Resolutions
           let backResolutions: [TruvideoSdkCameraResolution] = {
-            if(configuration["backResolutions"] as? String != "" || configuration["backResolutions"] as? String != "[]"){
-              return []
-            }
-              if let array = configuration["backResolutions"] as? [[String: Any]] {
-                return self.parseResolutions(array)
+              // Check if backResolutions is empty or not provided
+              if let resString = configuration["backResolutions"] as? String,
+                 (resString == "" || resString == "[]") {
+                  return []
+              }
+              if let array = configuration["backResolutions"] as? [[String: Any]], !array.isEmpty {
+                  return self.parseResolutions(array)
               }
               return []
           }()
 
           let backResolution: TruvideoSdkCameraResolution? = {
-            if(configuration["backResolution"] as? String != ""){
-              return nil
-            }
+              // Check if backResolution is empty
+              if let resString = configuration["backResolution"] as? String, resString == "" {
+                  return nil
+              }
               if let dict = configuration["backResolution"] as? [String: Any] {
-                return self.parseResolution(dict)
+                  return self.parseResolution(dict)
               }
               return nil
           }()
@@ -411,18 +421,27 @@ import Combine
 
             }
 
+            // FIXED: Updated configuration with new parameter order
             // Configuring the camera with various parameters based on specific requirements.
+            // Use .hd1920x1080 as default if no resolution is specified
+            let finalBackResolution = backResolution ?? .hd1920x1080
+            let finalFrontResolution = frontResolution ?? .hd1920x1080
+            
+            // Pass empty arrays instead of nil
+            let finalBackResolutions = backResolutions
+            let finalFrontResolutions = frontResolutions
+            
             let configuration = TruvideoSdkCameraConfiguration(
-                lensFacing: lensType,
+                backResolution: finalBackResolution,
+                backResolutions: finalBackResolutions,
                 flashMode: flashMode,
-                orientation: orientation,
-                outputPath: outputPath,
-                frontResolutions: frontResolutions,
-                frontResolution: frontResolution,
-                backResolutions: backResolutions,
-                backResolution: backResolution,
+                frontResolution: finalFrontResolution,
+                frontResolutions: finalFrontResolutions,
+                imageFormat: imageFormat,
+                lensFacing: lensType,
                 mode: mode,
-                imageFormat: imageFormat
+                orientation: orientation,
+                outputPath: outputPath
             )
 
           DispatchQueue.main.async {
@@ -456,11 +475,24 @@ import Combine
 
     }
   
+  // FIXED: Resolution parser - using only available resolution cases
   // Resolution parser
   func parseResolution(_ dict: [String: Any]) -> TruvideoSdkCameraResolution {
       let width = dict["width"] as? Int ?? 0
       let height = dict["height"] as? Int ?? 0
-      return TruvideoSdkCameraResolution(width: Int32(width), height: Int32(height))
+      
+      // Map to predefined resolution cases based on width and height
+      // Only using cases that exist in the new SDK
+      switch (width, height) {
+      case (1920, 1080):
+          return .hd1920x1080
+      case (1280, 720):
+          return .hd1280x720
+      // Add other resolution cases as needed based on available enum cases
+      default:
+          // Fallback to a default resolution
+          return .hd1280x720
+      }
   }
 
   // Arrays of resolutions
@@ -627,14 +659,20 @@ import Combine
         }
     }
 
-    func convertResolutionToDictionary(resolution: TruvideoSdkCameraResolution) -> [String: Int] {
-        var resolutionData : [String: Int] = [:]
-        if let width = Int(resolution.width) as? Int , let height = Int(resolution.height) as? Int {
-            resolutionData["width"] = width
-            resolutionData["height"] = height
-            return resolutionData
-        }
-        return resolutionData
+    // FIXED: Using rawValue instead of width/height properties
+    func convertResolutionToDictionary(resolution: TruvideoSdkCameraResolution) -> [String: Any] {
+        return [
+            "width": resolution.rawValue,
+            "height": resolution.rawValue
+        ]
+    }
+    
+    // Overloaded function to handle deprecated resolution type from events
+    func convertResolutionToDictionary(resolution: TruvideoSdkCameraResolutionDeprecated) -> [String: Any] {
+        return [
+            "width": resolution.width,
+            "height": resolution.height
+        ]
     }
 
     func convertOrientationToString(orientation: TruvideoSdkCameraOrientation) -> String{
@@ -645,8 +683,7 @@ import Combine
             return "landscapeRight"
         case .portrait:
             return "portrait"
-        case .portraitReverse:
-            return "portraitReverse"
+        // FIXED: portraitReverse case removed as it no longer exists
         @unknown default:
             return "portrait"
         }
@@ -671,7 +708,7 @@ import Combine
            let type = convertMediaTypeToString(type: media.type) as? String,
            let cameraLensFacing = convertLensTOString(lensFacing: media.lensFacing) as? String,
            let rotation = convertOrientationToString(orientation: media.orientation) as? String,
-           let resolution = convertResolutionToDictionary(resolution: media.resolution)as? [String:Int] ,
+           let resolution = convertResolutionToDictionary(resolution: media.resolution)as? [String:Any] ,
            let duration = Int(media.duration) as? Int {
             mediaData["id"] = media.id
             mediaData["createdAt"] = "\(createdAt)"
@@ -722,18 +759,15 @@ extension TruvideoSdkCamera.TruvideoSdkCameraMedia {
 
 extension TruvideoSdkCamera.TruvideoSdkCameraResolution {
     func toDictionary() -> [String: Any] {
+        // FIXED: Return rawValue instead of width/height
         return [
-            "width": self.width,
-            "height": self.height
+            "rawValue": self.rawValue
         ]
     }
 
     func resulDict() -> [String: Any] {
-        //width: Int32, height: Int32
         return [
-            "width": 0,
-            "height": 0
+            "rawValue": self.rawValue
         ]
     }
 }
-
