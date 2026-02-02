@@ -36,7 +36,7 @@ class CameraActivity : AppCompatActivity() {
   var imageFormat = TruvideoSdkCameraImageFormat.JPEG
   var videoStabilizationEnabled = true
   var orientation: TruvideoSdkCameraOrientation? = null
-  var mode = TruvideoSdkCameraMode.VideoAndImage()
+  var mode: TruvideoSdkCameraMode = TruvideoSdkCameraMode.VideoAndImage()
   var frontResolutions : List<TruvideoSdkCameraResolution> = listOf()
   var frontResolution : TruvideoSdkCameraResolution? = null
   var backResolutions : List<TruvideoSdkCameraResolution> = listOf()
@@ -221,70 +221,70 @@ class CameraActivity : AppCompatActivity() {
     }
 
 
-    if(jsonConfiguration.has("mode")){
-      fun String?.intOrNull() = this?.takeIf { it.isNotEmpty() }?.toInt()
-      fun String?.longOrNull() = this?.takeIf { it.isNotEmpty() }?.toLong()
+      if(jsonConfiguration.has("mode")){
+          fun String?.intOrNull() = this?.takeIf { it.isNotEmpty() }?.toIntOrNull()
+          fun String?.longOrNull() = this?.takeIf { it.isNotEmpty() }?.toLongOrNull()
 
-      val jsonMode = JSONObject(jsonConfiguration.getString("mode"))
-      val videoDurationLimit : Long? = if(jsonMode.getString("videoDurationLimit") != "" ) jsonMode.getString("videoDurationLimit").toLongOrNull() else null
-      val mediaLimit : Int? = if(jsonMode.getString("mediaLimit") != "" ) jsonMode.getString("mediaLimit").intOrNull() else null
-      val videoLimit : Int? = if(jsonMode.getString("videoLimit") != "" ) jsonMode.getString("videoLimit").intOrNull() else null
-      val imageLimit : Int? = if(jsonMode.getString("imageLimit") != "" ) jsonMode.getString("imageLimit").intOrNull() else null
+          val jsonMode = JSONObject(jsonConfiguration.getString("mode"))
+          val videoDurationLimit : Long? = jsonMode.optString("videoDurationLimit").longOrNull()
+          val mediaLimit : Int? = jsonMode.optString("mediaLimit").intOrNull()
+          val videoLimit : Int? = jsonMode.optString("videoLimit").intOrNull()
+          val imageLimit : Int? = jsonMode.optString("imageLimit").intOrNull()
 
-      when(jsonMode.getString("mode")) {
+          mode = when(jsonMode.getString("mode")) {
 
-        "videoAndImage" -> when {
-          videoDurationLimit != null && mediaLimit != null ->
-            TruvideoSdkCameraMode.VideoAndImage(
-              limit = TruvideoSdkCameraMode.VideoAndImage.Limit.ByTotal(
-                maxMediaCount = mediaLimit
-              ),
-              videoDurationLimit = videoDurationLimit
-            )
+              "videoAndImage" -> when {
+                  videoDurationLimit != null && mediaLimit != null ->
+                      TruvideoSdkCameraMode.VideoAndImage(
+                          limit = TruvideoSdkCameraMode.VideoAndImage.Limit.ByTotal(
+                              maxMediaCount = mediaLimit
+                          ),
+                          videoDurationLimit = videoDurationLimit
+                      )
 
-          videoDurationLimit != null && videoLimit != null && imageLimit != null ->
-            TruvideoSdkCameraMode.VideoAndImage(
-              limit = TruvideoSdkCameraMode.VideoAndImage.Limit.ByType(
-                maxImageCount = imageLimit,
-                maxVideoCount = videoLimit
-              ),
-              videoDurationLimit = videoDurationLimit
-            )
+                  videoDurationLimit != null && videoLimit != null && imageLimit != null ->
+                      TruvideoSdkCameraMode.VideoAndImage(
+                          limit = TruvideoSdkCameraMode.VideoAndImage.Limit.ByType(
+                              maxImageCount = imageLimit,
+                              maxVideoCount = videoLimit
+                          ),
+                          videoDurationLimit = videoDurationLimit
+                      )
 
-          videoDurationLimit != null ->
-            TruvideoSdkCameraMode.VideoAndImage(
-              videoDurationLimit = videoDurationLimit
-            )
+                  videoDurationLimit != null ->
+                      TruvideoSdkCameraMode.VideoAndImage(
+                          videoDurationLimit = videoDurationLimit
+                      )
 
-          else -> TruvideoSdkCameraMode.VideoAndImage()
-        }
+                  else -> TruvideoSdkCameraMode.VideoAndImage()
+              }
 
-        "video" -> TruvideoSdkCameraMode.Video(
-          maxCount = videoLimit,
-          durationLimit = videoDurationLimit
-        )
+              "video" -> TruvideoSdkCameraMode.Video(
+                  maxCount = videoLimit,
+                  durationLimit = videoDurationLimit
+              )
 
-        "image" -> TruvideoSdkCameraMode.Image(
-          maxCount = imageLimit
-        )
+              "image" -> TruvideoSdkCameraMode.Image(
+                  maxCount = imageLimit
+              )
 
-        "singleImage" ->
-          TruvideoSdkCameraMode.SingleImage(autoClose = true)
+              "singleImage" ->
+                  TruvideoSdkCameraMode.SingleImage(autoClose = true)
 
-        "singleVideo" ->
-          TruvideoSdkCameraMode.SingleVideo(
-            durationLimit = videoDurationLimit,
-            autoClose = true
-          )
+              "singleVideo" ->
+                  TruvideoSdkCameraMode.SingleVideo(
+                      durationLimit = videoDurationLimit,
+                      autoClose = true
+                  )
 
-        "singleVideoOrImage" ->
-          TruvideoSdkCameraMode.SingleVideoOrImage(
-            videoDurationLimit = videoDurationLimit,
-            autoClose = true
-          )
+              "singleVideoOrImage" ->
+                  TruvideoSdkCameraMode.SingleVideoOrImage(
+                      videoDurationLimit = videoDurationLimit,
+                      autoClose = true
+                  )
 
-        else -> mode
-      }
+              else -> TruvideoSdkCameraMode.VideoAndImage() // Default fallback
+          }
 
 //      when(jsonMode.getString("mode")) {
 //        "videoAndImage" -> {
