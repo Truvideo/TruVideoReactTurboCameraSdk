@@ -111,31 +111,37 @@ import Combine
       
         var orientation: TruvideoSdkCameraOrientation = .portrait
         var mode: TruvideoSdkCameraMediaMode = .videoAndPicture()
-        do{
+        
+        do {
             if let jsonConfig = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                let modeString = jsonConfig["mode"] as? String;
-                let orientationString = jsonConfig["orientation"] as? String;
+                let modeString = jsonConfig["mode"] as? String
+                let orientationString = jsonConfig["orientation"] as? String
+                
                 guard let data = modeString?.data(using: .utf8) else { return }
                 let modeData = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let mainMode  = modeData["mode"] as? String;
+                let mainMode  = modeData["mode"] as? String
                 let videoDurationLimit : String? = (modeData["videoDurationLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
                 let mediaLimit : String? = (modeData["mediaLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
                 let videoLimit : String? = (modeData["videoLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
                 let imageLimit : String? = (modeData["imageLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
                 
-                switch orientationString {
-                case "PORTRAIT":
+                // ✅ Handle orientation with null support
+                if orientationString == nil || orientationString == "" || orientationString == "null" {
                     orientation = .portrait
-                case "PORTRAIT_REVERSE":
-                    // FIXED: portraitReverse no longer exists, use portrait instead
-                    orientation = .portrait
-                case "LANDSCAPE_LEFT":
-                    orientation = .landscapeLeft
-                case "LANDSCAPE_RIGHT":
-                    orientation = .landscapeRight
-                default:
-                  print("Unknown orientation:", orientationString ?? "")
-                    return
+                } else {
+                    switch orientationString {
+                    case "PORTRAIT":
+                        orientation = .portrait
+                    case "PORTRAIT_REVERSE":
+                        orientation = .portrait
+                    case "LANDSCAPE_LEFT":
+                        orientation = .landscapeLeft
+                    case "LANDSCAPE_RIGHT":
+                        orientation = .landscapeRight
+                    default:
+                        print("Unknown orientation:", orientationString ?? "nil")
+                        orientation = .portrait
+                    }
                 }
                 switch mainMode {
                 case "videoAndImage":
@@ -278,107 +284,101 @@ import Combine
             }
             guard let lensFacingString = configuration["lensFacing"] as? String,
                   let flashModeString = configuration["flashMode"] as? String,
-                  let orientationString = configuration["orientation"] as? String,
                   let outputPath = configuration["outputPath"] as? String,
                   let modeString = configuration["mode"] as? String else {
                 print("Error: Missing or invalid configuration values")
                 return
             }
-            // Retrieving information about the device's camera functionality.
-//            let cameraInfo: TruvideoSdkCameraInformation = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
-//            print("Camera Info:", cameraInfo)
 
             let lensType: TruvideoSdkCameraLensFacing = lensFacingString == "BACK" ? .back: .front
-
             let flashMode: TruvideoSdkCameraFlashMode = flashModeString == "on" ? .on: .off
 
-            let orientation: TruvideoSdkCameraOrientation
-            switch orientationString {
-            case "PORTRAIT":
-                orientation = .portrait
-            case "PORTRAIT_REVERSE":
-                // FIXED: portraitReverse no longer exists, use portrait instead
-                orientation = .portrait
-            case "LANDSCAPE_LEFT":
-                orientation = .landscapeLeft
-            case "LANDSCAPE_RIGHT":
-                orientation = .landscapeRight
-            default:
-                print("Unknown orientation:", orientationString)
-                return
+
+            let orientationString = configuration["orientation"] as? String
+            var orientation: TruvideoSdkCameraOrientation? = nil  // Make it optional
+            
+            if let orientationStr = orientationString, !orientationStr.isEmpty && orientationStr != "null" {
+                switch orientationStr {
+                case "PORTRAIT":
+                    orientation = .portrait
+                case "PORTRAIT_REVERSE":
+                    orientation = .portrait
+                case "LANDSCAPE_LEFT":
+                    orientation = .landscapeLeft
+                case "LANDSCAPE_RIGHT":
+                    orientation = .landscapeRight
+                default:
+                    print("Unknown orientation: \(orientationStr), using nil (any)")
+                    orientation = nil  // Use nil for unknown orientations too
+                }
             }
-          // Front Resolutions
-          let frontResolutions: [TruvideoSdkCameraResolution] = {
-              // Check if frontResolutions is empty or not provided
-              if let resString = configuration["frontResolutions"] as? String,
-                 (resString == "" || resString == "[]") {
-                  return []
-              }
-              if let array = configuration["frontResolutions"] as? [[String: Any]], !array.isEmpty {
-                  return self.parseResolutions(array)
-              }
-              return []
-          }()
+            
+            // Front Resolutions
+            let frontResolutions: [TruvideoSdkCameraResolution] = {
+                if let resString = configuration["frontResolutions"] as? String,
+                   (resString == "" || resString == "[]") {
+                    return []
+                }
+                if let array = configuration["frontResolutions"] as? [[String: Any]], !array.isEmpty {
+                    return self.parseResolutions(array)
+                }
+                return []
+            }()
 
-          let frontResolution: TruvideoSdkCameraResolution? = {
-              // Check if frontResolution is empty
-              if let resString = configuration["frontResolution"] as? String, resString == "" {
-                  return nil
-              }
-              if let dict = configuration["frontResolution"] as? [String: Any] {
-                  return self.parseResolution(dict)
-              }
-              return nil
-          }()
+            let frontResolution: TruvideoSdkCameraResolution? = {
+                if let resString = configuration["frontResolution"] as? String, resString == "" {
+                    return nil
+                }
+                if let dict = configuration["frontResolution"] as? [String: Any] {
+                    return self.parseResolution(dict)
+                }
+                return nil
+            }()
 
-          // Back Resolutions
-          let backResolutions: [TruvideoSdkCameraResolution] = {
-              // Check if backResolutions is empty or not provided
-              if let resString = configuration["backResolutions"] as? String,
-                 (resString == "" || resString == "[]") {
-                  return []
-              }
-              if let array = configuration["backResolutions"] as? [[String: Any]], !array.isEmpty {
-                  return self.parseResolutions(array)
-              }
-              return []
-          }()
+            // Back Resolutions
+            let backResolutions: [TruvideoSdkCameraResolution] = {
+                if let resString = configuration["backResolutions"] as? String,
+                   (resString == "" || resString == "[]") {
+                    return []
+                }
+                if let array = configuration["backResolutions"] as? [[String: Any]], !array.isEmpty {
+                    return self.parseResolutions(array)
+                }
+                return []
+            }()
 
-          let backResolution: TruvideoSdkCameraResolution? = {
-              // Check if backResolution is empty
-              if let resString = configuration["backResolution"] as? String, resString == "" {
-                  return nil
-              }
-              if let dict = configuration["backResolution"] as? [String: Any] {
-                  return self.parseResolution(dict)
-              }
-              return nil
-          }()
-          
-          let imageFormatString = configuration["imageFormat"] as? String ?? ""
+            let backResolution: TruvideoSdkCameraResolution? = {
+                if let resString = configuration["backResolution"] as? String, resString == "" {
+                    return nil
+                }
+                if let dict = configuration["backResolution"] as? [String: Any] {
+                    return self.parseResolution(dict)
+                }
+                return nil
+            }()
+            
+            let imageFormatString = configuration["imageFormat"] as? String ?? ""
 
-          var imageFormat: TruvideoSdkCameraImageFormat
-          switch imageFormatString {
-            case "png":
-              imageFormat = .png
-            default:
-              imageFormat = .jpeg
-          }
-
+            var imageFormat: TruvideoSdkCameraImageFormat
+            switch imageFormatString {
+              case "png":
+                imageFormat = .png
+              default:
+                imageFormat = .jpeg
+            }
+            
             var mode: TruvideoSdkCameraMediaMode = .videoAndPicture()
-
             do {
                 guard let data = modeString.data(using: .utf8) else { return }
                 let modeData = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let mainMode  = modeData["mode"] as? String;
+                let mainMode  = modeData["mode"] as? String
               
-              let videoDurationLimit : String? = (modeData["videoDurationLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
-              let mediaLimit : String? = (modeData["mediaLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
-              let videoLimit : String? = (modeData["videoLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
-              let imageLimit : String? = (modeData["imageLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+                let videoDurationLimit : String? = (modeData["videoDurationLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+                let mediaLimit : String? = (modeData["mediaLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+                let videoLimit : String? = (modeData["videoLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+                let imageLimit : String? = (modeData["imageLimit"] as? String).flatMap { $0.isEmpty ? nil : $0 }
 
                 switch mainMode {
-
                 case "videoAndImage":
                   if videoLimit != nil || imageLimit != nil {
                     mode = .videoAndPicture(
@@ -417,19 +417,19 @@ import Combine
                 default:
                     break
                 }
-            }catch {
-
+            } catch {
+                print("Error parsing mode: \(error)")
             }
 
-            // FIXED: Updated configuration with new parameter order
-            // Configuring the camera with various parameters based on specific requirements.
-            // Use .hd1920x1080 as default if no resolution is specified
-            let finalBackResolution = backResolution ?? .hd1920x1080
-            let finalFrontResolution = frontResolution ?? .hd1920x1080
+            // Use defaults if not specified
+            let finalBackResolution = backResolution ?? .hd1280x720
+            let finalFrontResolution = frontResolution ?? .hd1280x720
             
-            // Pass empty arrays instead of nil
-            let finalBackResolutions = backResolutions
-            let finalFrontResolutions = frontResolutions
+            let finalBackResolutions = backResolutions.isEmpty ?
+                [.sd640x480, .hd1280x720, .hd1920x1080] : backResolutions
+                
+            let finalFrontResolutions = frontResolutions.isEmpty ?
+                [.sd640x480, .hd1280x720, .hd1920x1080] : frontResolutions
             
             let configuration = TruvideoSdkCameraConfiguration(
                 backResolution: finalBackResolution,
@@ -444,15 +444,15 @@ import Combine
                 outputPath: outputPath
             )
 
-          DispatchQueue.main.async {
-              rootViewController.presentTruvideoSdkCameraView(
-                  preset: configuration,
-                  onComplete: { cameraResult in
-                      print(cameraResult.toDictionary())
-                      completion(cameraResult)
-                  }
-              )
-          }
+            DispatchQueue.main.async {
+                rootViewController.presentTruvideoSdkCameraView(
+                    preset: configuration,
+                    onComplete: { cameraResult in
+                        print(cameraResult.toDictionary())
+                        completion(cameraResult)
+                    }
+                )
+            }
 //            self.checkCameraPermissions { [weak self] granted in
 //                guard self != nil else { return }
 //
@@ -474,27 +474,24 @@ import Combine
 
 
     }
-  
-  // FIXED: Resolution parser - using only available resolution cases
-  // Resolution parser
-  func parseResolution(_ dict: [String: Any]) -> TruvideoSdkCameraResolution {
-      let width = dict["width"] as? Int ?? 0
-      let height = dict["height"] as? Int ?? 0
-      
-      // Map to predefined resolution cases based on width and height
-      // Only using cases that exist in the new SDK
-      switch (width, height) {
-      case (1920, 1080):
-          return .hd1920x1080
-      case (1280, 720):
-          return .hd1280x720
-      // Add other resolution cases as needed based on available enum cases
-      default:
-          // Fallback to a default resolution
-          return .hd1280x720
-      }
-  }
 
+  // Resolution parser
+    func parseResolution(_ dict: [String: Any]) -> TruvideoSdkCameraResolution {
+        let width = dict["width"] as? Int ?? 0
+        let height = dict["height"] as? Int ?? 0
+        
+        switch (width, height) {
+        case (640, 480):
+            return .sd640x480
+        case (1280, 720):
+            return .hd1280x720
+        case (1920, 1080):
+            return .hd1920x1080
+        default:
+            return .hd1280x720
+        }
+    }
+    
   // Arrays of resolutions
   func parseResolutions(_ array: [[String: Any]]) -> [TruvideoSdkCameraResolution] {
       return array.map { parseResolution($0) }
