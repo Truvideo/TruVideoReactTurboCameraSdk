@@ -48,7 +48,14 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     promise2 = promise
     reactContext = reactApplicationContext
     Log.d("initCameraScreen", configuration)
-    currentActivity!!.startActivity(Intent(currentActivity, CameraActivity::class.java).putExtra("configuration",configuration))
+    val activity = reactContext.currentActivity
+    if (activity == null) {
+      promise.reject("E_ACTIVITY_NULL", "Current activity is null")
+      return
+    }
+    activity.startActivity(
+      Intent(activity, CameraActivity::class.java).putExtra("configuration",configuration)
+    )
   }
 
   override fun initARCameraScreen(configuration:String,promise: Promise){
@@ -56,14 +63,26 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     promise2 = promise
     reactContext = reactApplicationContext
     Log.d("initCameraScreen", configuration)
-    currentActivity!!.startActivity(Intent(currentActivity, ArCameraActivity::class.java).putExtra("configuration",configuration))
+    val activity = reactContext.currentActivity
+    if (activity == null) {
+      promise.reject("E_ACTIVITY_NULL", "Current activity is null")
+      return
+    }
+    activity.startActivity(
+      Intent(activity, ArCameraActivity::class.java).putExtra("configuration",configuration)
+    )
   }
 
   override fun initScanerScreen(configuration:String,promise: Promise){
     Log.d("initCameraScreen","initCameraScreen")
     promise2 = promise
     reactContext = reactApplicationContext
-    currentActivity!!.startActivity(Intent(currentActivity, ScannerActivity::class.java))
+    val activity = reactContext.currentActivity
+    if (activity == null) {
+      promise.reject("E_ACTIVITY_NULL", "Current activity is null")
+      return
+    }
+    activity.startActivity(Intent(activity, ScannerActivity::class.java))
   }
 
   companion object {
