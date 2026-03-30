@@ -12398,20 +12398,9 @@ __metadata:
     react-native: ^0.77.0
     react-native-builder-bob: ^0.32.0
     react-native-quick-crypto: ^0.7.12
-    truvideo-react-turbo-core-sdk: "git+https://github.com/Truvideo/TruVideoReactTurboCoreSdk.git#version-76.3"
     yarn: ^1.22.22
   languageName: unknown
   linkType: soft
-
-"truvideo-react-turbo-core-sdk@git+https://github.com/Truvideo/TruVideoReactTurboCoreSdk.git#version-76.3":
-  version: 1.0.2
-  resolution: "truvideo-react-turbo-core-sdk@https://github.com/Truvideo/TruVideoReactTurboCoreSdk.git#commit=fc6d00e99e9bc3f8052c40f993aa855a32b87b1a"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 485ec3b6b19f25cdc56c4de7375e588ae7f1a6fdbebc91b2a35eb7f40e09e1d86dfdc8224cfff28d0909ae2ad4413b446a51156412fddf015225c5c4730ddc8f
-  languageName: node
-  linkType: hard
 
 "ts-node@npm:^10.8.1":
   version: 10.9.2
