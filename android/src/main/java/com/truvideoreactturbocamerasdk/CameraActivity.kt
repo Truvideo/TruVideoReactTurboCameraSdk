@@ -2,6 +2,7 @@ package com.truvideoreactturbocamerasdk
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +36,7 @@ class CameraActivity : AppCompatActivity() {
   var flashMode = TruvideoSdkCameraFlashMode.OFF
   var imageFormat = TruvideoSdkCameraImageFormat.JPEG
   var videoStabilizationEnabled = true
+  var streamingUpload = false
   var orientation: TruvideoSdkCameraOrientation? = null
   var mode: TruvideoSdkCameraMode = TruvideoSdkCameraMode.VideoAndImage()
   var frontResolutions : List<TruvideoSdkCameraResolution> = listOf()
@@ -91,6 +93,7 @@ class CameraActivity : AppCompatActivity() {
     lifecycleScope.launch {
       repeatOnLifecycle(Lifecycle.State.STARTED) {
         TruvideoSdkCamera.events.collect { event ->
+          Log.d("CameraActivity", "camera event: type=${event.eventType.name}, data=${event.data}")
           val gson = Gson()
           val eventData = mapOf(
             "type" to event.eventType.name,
@@ -117,6 +120,7 @@ class CameraActivity : AppCompatActivity() {
   }
   fun getIntentData(){
     configuration = intent.getStringExtra("configuration")!!
+    Log.d("CameraActivity", "received configuration=$configuration")
   }
   private fun openCamera(context: Context, cameraScreen: ActivityResultLauncher<TruvideoSdkCameraConfiguration>?) {
     // Start camera with configuration
@@ -132,6 +136,10 @@ class CameraActivity : AppCompatActivity() {
       }
     }
     checkConfigure()
+    Log.d(
+      "CameraActivity",
+      "launching camera: lensFacing=$lensFacing flashMode=$flashMode orientation=$orientation imageFormat=$imageFormat streamingUpload=$streamingUpload"
+    )
     val configuration = TruvideoSdkCameraConfiguration(
       lensFacing = lensFacing,
       flashMode = flashMode,
@@ -143,7 +151,8 @@ class CameraActivity : AppCompatActivity() {
       backResolution = backResolution,
       mode = mode,
       imageFormat = imageFormat,
-      videoStabilizationEnabled = videoStabilizationEnabled
+      videoStabilizationEnabled = videoStabilizationEnabled,
+      streamingUpload = streamingUpload
     )
 
     cameraScreen.launch(configuration)
@@ -201,6 +210,13 @@ class CameraActivity : AppCompatActivity() {
       when(jsonConfiguration.getString("videoStabilizationEnabled")){
         "true" -> videoStabilizationEnabled = true
         "false" -> videoStabilizationEnabled = false
+      }
+    }
+
+    if (jsonConfiguration.has("streamUpload")) {
+      streamingUpload = when (val streamUploadValue = jsonConfiguration.get("streamUpload")) {
+        is Boolean -> streamUploadValue
+        else -> streamUploadValue.toString().equals("true", ignoreCase = true)
       }
     }
 
