@@ -6,67 +6,79 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		264peb4HIJX/8aZk19TnDjC90qo=
+		PAnRc3juLg0A4v02N5tgXdb4LW8=
+		</data>
+		<key>Headers/CameraLibraryRegistry.h</key>
+		<data>
+		fz+YtRNE7DKH97y9e03+W/UeHTA=
 		</data>
 		<key>Headers/ShaderTypes.h</key>
 		<data>
 		fZH0f6k6OCzuSk44u9CDL20lj3A=
 		</data>
-		<key>Headers/TruvideoSdkCamera-Swift.h</key>
-		<data>
-		Ni8sj3yXxqdvjoiZ2Wmi7/moVUg=
-		</data>
 		<key>Headers/TruvideoSdkCamera.h</key>
 		<data>
-		OYPItO9D+slXvJU3pJObU+RR73s=
+		sFFDbU2ojeDDEu7zSeKUpNmxNqU=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		jdF39h9unF/iWrrPE8iPG/pmMPE=
+		SUZiiXEmNXpgb3RY5sEvXw2WEXo=
+		</data>
+		<key>Modules/TruvideoSdkCamera.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
+		<data>
+		hvglq58NhiEg0eHNMp+o/NBGMGo=
+		</data>
+		<key>Modules/TruvideoSdkCamera.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<data>
+		Hv35wdYeGpcoInn4SbiCUhTnYFs=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		jQrUbct9D8EmB1YviyzotuV+JyQ=
+		g7ixqBEklliev04ZU7+0CktZx70=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		Wskt9m7OSqWgAX87qZXSsBw6vNA=
+		B73VrI8H0Fbam2eqZvVnnTZFZCU=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		Pzge8sB74snkto2VHNUEiY+pgLM=
+		p1w/QsLI05bcFqWMGxuvALDiJiY=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		Wskt9m7OSqWgAX87qZXSsBw6vNA=
+		S0NauWlIucdAYj+Z5QQFgG8heY8=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		u6PB3vPEB7SezfkeM/TtTShmxpA=
+		zMK3fzSEEiKxWy1/EtJW/LYipXs=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		jQrUbct9D8EmB1YviyzotuV+JyQ=
+		g7ixqBEklliev04ZU7+0CktZx70=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		YmniTUilrKzkbvktbxqT/HKikoY=
+		1dCseAaQJEU2Dt54dJrcYt4q6i8=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		dGuMLnqYcxm8kAZRsyyHLejM9RQ=
+		tszOwKpUkmHSQaBzb3z9CsHRKnc=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		YmniTUilrKzkbvktbxqT/HKikoY=
+		5Owa61TyspLIRQXCwXeHJNPByys=
 		</data>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		q/kUacce4/sbxSfA7C248BlLmeQ=
+		al4jlqNZeEzv0GPI0uHnBmZ9nbQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		64Ffiz9246Asp5vbvnxMst13LXI=
+		aRQ5lYuY/MlIKDp2WptghAjIXbM=
+		</data>
+		<key>PrivacyInfo.xcprivacy</key>
+		<data>
+		vH8JO85in3H77W1C3xp/tj2QrRY=
 		</data>
 		<key>arrow.usdz</key>
 		<data>
@@ -74,15 +86,20 @@
 		</data>
 		<key>default.metallib</key>
 		<data>
-		lVeNwk0YM9S1A+/DdLJhBg7FIeI=
+		8kdVbzYMFl9jdWFbob3w6enmtFk=
 		</data>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dBcg8YstpLa6d8rhMWZlA9zILCg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 		<key>pointer.obj</key>
 		<data>
 		fIrIRfNG5QocAj4FNFLPOrKnQkY=
-		</data>
-		<key>version.properties</key>
-		<data>
-		x/fBM8YgXSLhu2PiPRC4stz6i/M=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -91,7 +108,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GE1jb832Z8CX7C3wDCGH8vEoj5oT/UTWSMpMzNZhvUc=
+			Fov6C2lXv6NMjggQ6rU30KN6cj2f+haWwbRwcBRPjcQ=
+			</data>
+		</dict>
+		<key>Headers/CameraLibraryRegistry.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4xrT6RFrznbjdjfi/xvYdOLmodxNUL0UR9wJjao24vk=
 			</data>
 		</dict>
 		<key>Headers/ShaderTypes.h</key>
@@ -101,95 +125,109 @@
 			93AA7MVh4ff4Pj1nxC+GNJTl279jGjVALz2KuIBA1s0=
 			</data>
 		</dict>
-		<key>Headers/TruvideoSdkCamera-Swift.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			x8E/yrlaFjBI7FAXzCs69K1Xkq0Q3esICBM7ElHuDt0=
-			</data>
-		</dict>
 		<key>Headers/TruvideoSdkCamera.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			l+sl7pjnP3d8z1G2VcTFjfM94cGGv+fD3Z3Q285wA7o=
+			S61NuDBdxIWHu4yyTe3G9yg6LMZG3knWTLLUhAqpLMc=
+			</data>
+		</dict>
+		<key>Modules/TruvideoSdkCamera.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JfumCc5iKN+EfMA2EUzbzOek8vocPLLafpdF3jqqtpk=
+			</data>
+		</dict>
+		<key>Modules/TruvideoSdkCamera.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4SaDGOqjcMGJ8BHy0SL5lM8JEU3fZhbyOODyjZXVEuk=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			o/1ZPeApdrK+6kcTeUbdlbFvm7wPbaELwK74Qpa3GMM=
+			+bk1Lp0/steQIj6GsMeOf8A1FvJb9mX7Nt9YB4yW+GQ=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZbGQw5jo4dXPucpajvW4wmQsthMtaspdzwW/ykihYWw=
+			deeKy7JbdGou4MC5Zxsk3PfbqLIPe1dVNxj9Tc4Ldu8=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			koMKLcP0u6EPuOahuqVdDEgtWMWPIQjmdbfPYvdIlW8=
+			oVAOgccbRVTzV2WBZwWQ5qyhbIRzRikfmLexZVH7VPg=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZbGQw5jo4dXPucpajvW4wmQsthMtaspdzwW/ykihYWw=
+			8+Y42O8No/1HxkFdfo9fkQ8BbGitVncbuqj1qGjb5TA=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JVsuvc5w8uPPc4H3yzVZ8fGH1OzJXhySr+X4gcek3+s=
+			ZcF/RrqmqE0VFSzDRCL5U6nn/YuMxITtWczZev5iZLM=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			o/1ZPeApdrK+6kcTeUbdlbFvm7wPbaELwK74Qpa3GMM=
+			+bk1Lp0/steQIj6GsMeOf8A1FvJb9mX7Nt9YB4yW+GQ=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yKdtVJ9mTFF0nbgERDmBzec5lWK0pkSl0odyfjR1JYs=
+			9ni8QH9Ol7/mh2QMM/g3HB+RkpnCsY59XSdC0poAMOc=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jNe0+pzQF7yK7cpzUo+NJbjFC1QZpAEeAaFkcNo+5oo=
+			BPKW8zlff65/rqe7sHXaScbNA+NNvCLYoHrErzItNYY=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yKdtVJ9mTFF0nbgERDmBzec5lWK0pkSl0odyfjR1JYs=
+			MM8uRGhyuh/Js8cU//aOFZcL3YSgJcBm7jmBaCY+PY4=
 			</data>
 		</dict>
 		<key>Modules/TruvideoSdkCamera.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			X1yOCvuNAPvWkAYrZSxm5XMA3A5nVWE+0z0D+3V0JLM=
+			Y24ejCQTg1AuEqkYx4E3V2/hG3Xq+UryC+glNIgecWo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0ZtkcKcDYPRK9VoGjlJ298nSkN6z3iXLb0ypS5R8WEg=
+			Nxnzx+Pmvv+Gx7T7CFQwBXgOtKfi2F8ujkO2iQz5k0A=
+			</data>
+		</dict>
+		<key>PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			44vvMt61i9tVg185MdxruopyoW8Gt+IVjNV0ChNwZHA=
 			</data>
 		</dict>
 		<key>arrow.usdz</key>
@@ -203,21 +241,23 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NsPobhb8+c/5LkEpoa5Ha80tdiYUklqsiD23+s8g1F8=
+			1TfTXTV8PWNOwdZgep9eYLD2IU+h7v+Gg4qgpADqm64=
 			</data>
+		</dict>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AKUi89WoUYo2jeJdcCptuec7mF1EMFcuP9OXbogHoRk=
+			</data>
+			<key>optional</key>
+			<true/>
 		</dict>
 		<key>pointer.obj</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			z7d/PNbRsaElzWCaUgdpcuLWH7UsVycJbXNiOOKisGk=
-			</data>
-		</dict>
-		<key>version.properties</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			wT+CnxeJFlAXDOmyK9MkWPPD95HvEasasxhAiBslbGc=
 			</data>
 		</dict>
 	</dict>

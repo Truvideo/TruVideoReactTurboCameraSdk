@@ -1,8 +1,5 @@
 //
-//  TruvideoSdkCamera.h
-//  TruvideoSdkCamera
-//
-//  Created by Jorge Orjuela on 8/31/23.
+// Copyright © 2025 TruVideo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,5 +11,3 @@ FOUNDATION_EXPORT double TruvideoSdkCameraVersionNumber;
 FOUNDATION_EXPORT const unsigned char TruvideoSdkCameraVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <TruvideoSdkCamera/PublicHeader.h>
-
-
