@@ -87,6 +87,7 @@
     "@types/react": "^18.2.44"
   },
   "peerDependencies": {
+    "@trunpm/truvideo-react-turbo-core-sdk": "*",
     "react": "*",
     "react-native": "*"
   },

@@ -9,14 +9,14 @@ import {
 } from '@trunpm/truvideo-react-turbo-camera-sdk';
 import type { CameraConfiguration } from '@trunpm/truvideo-react-turbo-camera-sdk';
 import QuickCrypto from 'react-native-quick-crypto';
-import { 
-    isAuthenticated,
-    isAuthenticationExpired,
-    generatePayload,
-    authenticate,
-    initAuthentication,
-    clearAuthentication
-} from 'truvideo-react-turbo-core-sdk';
+import {
+  isAuthenticated,
+  isAuthenticationExpired,
+  generatePayload,
+  authenticate,
+  initAuthentication,
+  clearAuthentication,
+} from '@trunpm/truvideo-react-turbo-core-sdk';
 
 
 const result = 3;
@@ -117,5 +117,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
 

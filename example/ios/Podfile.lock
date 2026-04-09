@@ -1,12 +1,4 @@
 PODS:
-  - AWSCognitoIdentityProvider (2.41.0):
-    - AWSCognitoIdentityProviderASF (= 2.41.0)
-    - AWSCore (= 2.41.0)
-  - AWSCognitoIdentityProviderASF (2.41.0):
-    - AWSCore (= 2.41.0)
-  - AWSCore (2.41.0)
-  - AWSS3 (2.41.0):
-    - AWSCore (= 2.41.0)
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
   - fast_float (6.1.4)
@@ -16,7 +8,7 @@ PODS:
   - hermes-engine (0.77.3):
     - hermes-engine/Pre-built (= 0.77.3)
   - hermes-engine/Pre-built (0.77.3)
-  - OpenSSL-Universal (3.3.3001)
+  - OpenSSL-Universal (3.6.0000)
   - RCT-Folly (2024.11.18.00):
     - boost
     - DoubleConversion
@@ -1552,25 +1544,29 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - truvideo-sdk-core/Camera (= 79.0.0)
+    - truvideo-react-turbo-core-sdk
     - Yoga
-  - truvideo-sdk-core/Camera (79.0.0):
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
-    - AWSCore
-    - AWSS3
-    - truvideo-sdk-core/MediaUpload
-  - truvideo-sdk-core/Core (79.0.0):
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
-    - AWSCore
-    - AWSS3
-  - truvideo-sdk-core/MediaUpload (79.0.0):
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
-    - AWSCore
-    - AWSS3
-    - truvideo-sdk-core/Core
+  - truvideo-react-turbo-core-sdk (2.1.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1643,17 +1639,13 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - truvideo-react-turbo-camera-sdk (from `../..`)
+  - "truvideo-react-turbo-core-sdk (from `../node_modules/@trunpm/truvideo-react-turbo-core-sdk`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
-    - AWSCore
-    - AWSS3
     - OpenSSL-Universal
     - SocketRocket
-    - truvideo-sdk-core
 
 EXTERNAL SOURCES:
   boost:
@@ -1791,14 +1783,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   truvideo-react-turbo-camera-sdk:
     :path: "../.."
+  truvideo-react-turbo-core-sdk:
+    :path: "../node_modules/@trunpm/truvideo-react-turbo-core-sdk"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AWSCognitoIdentityProvider: b7e2471bec75137ce392b9a8c60f3cee465c61bd
-  AWSCognitoIdentityProviderASF: d26fedd80485c2f0f308741e02c4a9093921ad22
-  AWSCore: ee7594bda3132cde8666328bf9a09d8770c1c100
-  AWSS3: 50da7408a26c1c2886d02968807f2a0b6bf936ca
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
@@ -1806,7 +1796,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: eb93e2f488219332457c3c4eafd2738ddc7e80b8
   hermes-engine: b2187dbe13edb0db8fcb2a93a69c1987a30d98a4
-  OpenSSL-Universal: 6082b0bf950e5636fe0d78def171184e2b3899c2
+  OpenSSL-Universal: 9110d21982bb7e8b22a962b6db56a8aa805afde7
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: 6ee92578d332db1d4e03267d3ae98bcf8b780863
   RCTRequired: 5b3da0e0f91fddda935574b81748c3e3d3649ee7
@@ -1867,10 +1857,10 @@ SPEC CHECKSUMS:
   ReactCodegen: eac5d74d85dff515b48a5c36f154bc4128f217e6
   ReactCommon: bf4612cba0fa356b529385029f470d5529dddde4
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  truvideo-react-turbo-camera-sdk: 00af4696c4eb49c51f8915cdeb8ce5086b5a75a8
-  truvideo-sdk-core: 7cd954acfcc667eefe569c7ff773a04ccafa0402
+  truvideo-react-turbo-camera-sdk: 09656dc9620a5a0109e6d10ff3d5b7d9e1dbbcca
+  truvideo-react-turbo-core-sdk: c7c3856e50d778906d8023ac61e8bc0111d3d393
   Yoga: 92f3bb322c40a86b7233b815854730442e01b8c4
 
-PODFILE CHECKSUM: 6f9f2a9d3ac82d1aa92590eec656893242193ea0
+PODFILE CHECKSUM: efe526b75aa3e8e2980cdd5bea393d7c3c6d953c
 
 COCOAPODS: 1.16.2

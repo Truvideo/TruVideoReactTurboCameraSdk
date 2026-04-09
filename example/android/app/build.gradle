@@ -141,7 +141,7 @@ if (isNewArchitectureEnabled()) {
         commandLine 'sh', '-c', 'npx bob build --target codegen'
       }
     }
-    // truvideo-react-turbo-core-sdk codegen (react-native codegen + bob patch so NativeTruVideoReactTurboCoreSdkSpec is in com.truvideoreactturbocoresdk)
+    // @trunpm/truvideo-react-turbo-core-sdk codegen (react-native codegen + bob patch so NativeTruVideoReactTurboCoreSdkSpec is in com.truvideoreactturbocoresdk)
     def exampleDir = file("$rootDir/..")
     def coreSdkCodegenScript = file("$exampleDir/scripts/codegen-core-sdk.js")
     tasks.register('invokeCoreSdkCodegen', Exec) {
@@ -152,7 +152,7 @@ if (isNewArchitectureEnabled()) {
       } else {
         commandLine 'sh', '-c', 'node scripts/codegen-core-sdk.js'
       }
-      onlyIf { coreSdkCodegenScript.exists() && file("$exampleDir/node_modules/truvideo-react-turbo-core-sdk").exists() }
+      onlyIf { coreSdkCodegenScript.exists() && file("$exampleDir/node_modules/@trunpm/truvideo-react-turbo-core-sdk").exists() }
     }
     tasks.named('invokeCoreSdkCodegen').configure { it.dependsOn(tasks.named('invokeLibraryCodegen')) }
     preBuild.dependsOn(tasks.named('invokeCoreSdkCodegen'))

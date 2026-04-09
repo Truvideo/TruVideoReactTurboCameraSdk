@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "postinstall": "patch-package",
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "build:android": "react-native build-android --extra-params \"--no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a\"",
-    "build:ios": "react-native build-ios --scheme TruVideoReactTurboCameraSdkExample --mode Debug --extra-params \"-sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO\""
+    "android": "NODE_OPTIONS=--preserve-symlinks react-native run-android",
+    "ios": "NODE_OPTIONS=--preserve-symlinks react-native run-ios",
+    "start": "NODE_OPTIONS=--preserve-symlinks react-native start",
+    "build:android": "NODE_OPTIONS=--preserve-symlinks react-native build-android --extra-params \"--no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a\"",
+    "build:ios": "NODE_OPTIONS=--preserve-symlinks react-native build-ios --scheme TruVideoReactTurboCameraSdkExample --mode Debug --extra-params \"-sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO\""
   },
   "dependencies": {
+    "@trunpm/truvideo-react-turbo-core-sdk": "portal:../../TruVideoReactTurboCoreSdk",
     "react": "^18.3.1",
     "react-native": "^0.77.0",
     "react-native-quick-crypto": "^0.7.12",
