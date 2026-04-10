@@ -1639,7 +1639,7 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - truvideo-react-turbo-camera-sdk (from `../..`)
-  - "truvideo-react-turbo-core-sdk (from `../node_modules/@trunpm/truvideo-react-turbo-core-sdk`)"
+  - truvideo-react-turbo-core-sdk (from `/Users/bhaveshpathe/CloneReactNativeTurbo/TruVideoReactTurboCoreSdk`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1784,7 +1784,7 @@ EXTERNAL SOURCES:
   truvideo-react-turbo-camera-sdk:
     :path: "../.."
   truvideo-react-turbo-core-sdk:
-    :path: "../node_modules/@trunpm/truvideo-react-turbo-core-sdk"
+    :path: "/Users/bhaveshpathe/CloneReactNativeTurbo/TruVideoReactTurboCoreSdk"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1861,6 +1861,6 @@ SPEC CHECKSUMS:
   truvideo-react-turbo-core-sdk: c7c3856e50d778906d8023ac61e8bc0111d3d393
   Yoga: 92f3bb322c40a86b7233b815854730442e01b8c4
 
-PODFILE CHECKSUM: efe526b75aa3e8e2980cdd5bea393d7c3c6d953c
+PODFILE CHECKSUM: 9d3ced5f16adb5111861211f90946f2ee8779d5e
 
 COCOAPODS: 1.16.2
