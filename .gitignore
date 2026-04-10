@@ -80,6 +80,3 @@ lib/
 # React Native Codegen
 ios/generated
 android/generated
-
-# Example: local path to truvideo-react-turbo-core-sdk (see example/ios/Podfile)
-example/.truvideo-core-sdk-path

@@ -10,42 +10,6 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-# truvideo-react-turbo-core-sdk is not on CocoaPods trunk; the camera podspec depends on it by name.
-# Satisfy it from node_modules, a sibling git clone, TRUVIDEO_CORE_SDK_PATH, or a .truvideo-core-sdk-path file.
-def truvideo_core_sdk_pod_root
-  explicit = ENV['TRUVIDEO_CORE_SDK_PATH']
-  return File.expand_path(explicit) if explicit && !explicit.strip.empty?
-
-  ios_dir = __dir__
-  pointer = File.expand_path('../.truvideo-core-sdk-path', ios_dir)
-  if File.file?(pointer)
-    from_file = File.read(pointer).strip
-    unless from_file.empty?
-      candidate = File.expand_path(from_file, File.dirname(pointer))
-      return candidate if File.exist?(File.join(candidate, 'truvideo-react-turbo-core-sdk.podspec'))
-    end
-  end
-
-  camera_repo_root = File.expand_path('../..', ios_dir)
-  parent_of_camera = File.expand_path('..', camera_repo_root)
-
-  candidates = [
-    File.expand_path('../node_modules/@trunpm/truvideo-react-turbo-core-sdk', ios_dir),
-    File.expand_path('../../node_modules/@trunpm/truvideo-react-turbo-core-sdk', ios_dir),
-    File.expand_path('../../../node_modules/@trunpm/truvideo-react-turbo-core-sdk', ios_dir),
-    File.join(parent_of_camera, 'TruVideoReactTurboCoreSdk'),
-    File.join(parent_of_camera, 'truvideo-react-turbo-core-sdk'),
-    File.join(camera_repo_root, 'TruVideoReactTurboCoreSdk'),
-    File.join(camera_repo_root, 'truvideo-react-turbo-core-sdk'),
-  ]
-
-  candidates.find do |dir|
-    next false unless Dir.exist?(dir)
-
-    File.exist?(File.join(dir, 'truvideo-react-turbo-core-sdk.podspec'))
-  end
-end
-
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
@@ -53,20 +17,6 @@ if linkage != nil
 end
 
 target 'TruVideoReactTurboCameraSdkExample' do
-  core_root = truvideo_core_sdk_pod_root
-  unless core_root
-    raise Pod::Informative, <<~MSG
-      Missing native dependency `truvideo-react-turbo-core-sdk` (required by truvideo-react-turbo-camera-sdk).
-
-      Pick one:
-        • yarn add @trunpm/truvideo-react-turbo-core-sdk (from your private registry), from example/ then pod install
-        • Clone the core SDK repo next to this repo (same parent folder as TruVideoReactTurboCameraSdk), then pod install
-        • export TRUVIDEO_CORE_SDK_PATH=/path/to/folder/with/truvideo-react-turbo-core-sdk.podspec
-        • echo /that/same/path > example/.truvideo-core-sdk-path (path can be relative to example/)
-    MSG
-  end
-  pod 'truvideo-react-turbo-core-sdk', :path => core_root
-
   config = use_native_modules!
 
   use_react_native!(
