@@ -15,7 +15,6 @@ import MetalKit
 import RealityKit
 import Swift
 import SwiftUI
-@_spi(Internal) import TruVideoRuntime
 @_spi(Internal) import TruvideoSdk
 @_exported import TruvideoSdkCamera
 import UIKit
@@ -26,91 +25,7 @@ import _StringProcessing
 import _SwiftConcurrencyShims
 import simd
 
-extension SwiftUI.Button where Label == SwiftUICore.Text {
-  @_Concurrency.MainActor @preconcurrency public init(_ label: Swift.String, action: @escaping () -> Swift.Void)
-}
-extension SwiftUI.ButtonStyle where Self == TruvideoSdkCamera.PrimaryButtonStyle {
-  @_Concurrency.MainActor @preconcurrency public static var primary: TruvideoSdkCamera.PrimaryButtonStyle {
-    get
-  }
-  @_Concurrency.MainActor @preconcurrency public static func primary(backgroundColor: SwiftUICore.Color?, textColor: SwiftUICore.Color? = nil) -> TruvideoSdkCamera.PrimaryButtonStyle
-}
-extension SwiftUI.ButtonStyle where Self == TruvideoSdkCamera.TextButtonStyle {
-  @_Concurrency.MainActor @preconcurrency public static var text: TruvideoSdkCamera.TextButtonStyle {
-    get
-  }
-}
-@_Concurrency.MainActor @preconcurrency public struct PrimaryButtonStyle : SwiftUI.ButtonStyle {
-  @_Concurrency.MainActor @preconcurrency public func makeBody(configuration: TruvideoSdkCamera.PrimaryButtonStyle.Configuration) -> some SwiftUICore.View
-  
-  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
-  public typealias Body = @_opaqueReturnTypeOf("$s17TruvideoSdkCamera18PrimaryButtonStyleV8makeBody13configurationQr7SwiftUI0eF13ConfigurationV_tF", 0) __
-}
-@_Concurrency.MainActor @preconcurrency public struct TextButtonStyle : SwiftUI.ButtonStyle {
-  @_Concurrency.MainActor @preconcurrency public func makeBody(configuration: TruvideoSdkCamera.TextButtonStyle.Configuration) -> some SwiftUICore.View
-  
-  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
-  public typealias Body = @_opaqueReturnTypeOf("$s17TruvideoSdkCamera15TextButtonStyleV8makeBody13configurationQr7SwiftUI0eF13ConfigurationV_tF", 0) __
-}
 
-public struct ButtonTheme : Swift.Sendable {
-  public let alignment: SwiftUICore.Alignment
-  public let color: TruvideoSdkCamera.DSStateProperty<SwiftUICore.Color>?
-  public let contentOffset: CoreFoundation.CGSize
-  public let cornerRadius: CoreFoundation.CGFloat?
-  public let minimunSize: CoreFoundation.CGSize?
-  public let padding: SwiftUICore.EdgeInsets?
-  public let textStyle: TruvideoSdkCamera.DSStateProperty<TruvideoSdkCamera.TextStyle>?
-  public static let `default`: TruvideoSdkCamera.ButtonTheme
-  public init(alignment: SwiftUICore.Alignment, color: TruvideoSdkCamera.DSStateProperty<SwiftUICore.Color>?, contentOffset: CoreFoundation.CGSize, cornerRadius: CoreFoundation.CGFloat?, minimunSize: CoreFoundation.CGSize?, padding: SwiftUICore.EdgeInsets?, textStyle: TruvideoSdkCamera.DSStateProperty<TruvideoSdkCamera.TextStyle>?)
-  public func copyWith(alignment: SwiftUICore.Alignment? = nil, color: TruvideoSdkCamera.DSStateProperty<SwiftUICore.Color>? = nil, contentOffset: CoreFoundation.CGSize? = nil, cornerRadius: CoreFoundation.CGFloat? = nil, minimunSize: CoreFoundation.CGSize? = nil, padding: SwiftUICore.EdgeInsets? = nil, textStyle: TruvideoSdkCamera.DSStateProperty<TruvideoSdkCamera.TextStyle>? = nil) -> TruvideoSdkCamera.ButtonTheme
-}
-
-@dynamicMemberLookup public struct DSColor : Swift.Sendable {
-  public static let amber: TruvideoSdkCamera.DSColor
-  public static let gray: TruvideoSdkCamera.DSColor
-  public static let green: TruvideoSdkCamera.DSColor
-  public static let red: TruvideoSdkCamera.DSColor
-  public subscript(dynamicMember member: Swift.String) -> SwiftUICore.Color {
-    get
-  }
-  public init(primary: SwiftUICore.Color, swatch: [Swift.String : SwiftUICore.Color])
-}
-public struct DSColorScheme : Swift.Sendable {
-  public let primary: SwiftUICore.Color
-  public let onPrimary: SwiftUICore.Color
-  public let secondary: SwiftUICore.Color
-  public let onSecondary: SwiftUICore.Color
-  public let tertiary: SwiftUICore.Color
-  public let onTertiary: SwiftUICore.Color
-  public let error: SwiftUICore.Color
-  public let onError: SwiftUICore.Color
-  public let surface: SwiftUICore.Color
-  public let surfaceContainer: SwiftUICore.Color
-  public let onSurface: SwiftUICore.Color
-  public static let `default`: TruvideoSdkCamera.DSColorScheme
-  public init(primary: SwiftUICore.Color, onPrimary: SwiftUICore.Color, secondary: SwiftUICore.Color, onSecondary: SwiftUICore.Color, tertiary: SwiftUICore.Color, onTertiary: SwiftUICore.Color, error: SwiftUICore.Color, onError: SwiftUICore.Color, surface: SwiftUICore.Color, surfaceContainer: SwiftUICore.Color, onSurface: SwiftUICore.Color)
-  public func copyWith(primary: SwiftUICore.Color? = nil, onPrimary: SwiftUICore.Color? = nil, secondary: SwiftUICore.Color? = nil, onSecondary: SwiftUICore.Color? = nil, tertiary: SwiftUICore.Color? = nil, onTertiary: SwiftUICore.Color? = nil, error: SwiftUICore.Color? = nil, onError: SwiftUICore.Color? = nil, surface: SwiftUICore.Color? = nil, surfaceContainer: SwiftUICore.Color? = nil, onSurface: SwiftUICore.Color? = nil) -> TruvideoSdkCamera.DSColorScheme
-}
-public enum DSIcons {
-}
-public struct DSState : Swift.OptionSet, Swift.Sendable {
-  public let rawValue: Swift.Int
-  public static let disabled: TruvideoSdkCamera.DSState
-  public static let error: TruvideoSdkCamera.DSState
-  public static let highlighted: TruvideoSdkCamera.DSState
-  public static let normal: TruvideoSdkCamera.DSState
-  public static let selected: TruvideoSdkCamera.DSState
-  public init(rawValue: Swift.Int)
-  public typealias ArrayLiteralElement = TruvideoSdkCamera.DSState
-  public typealias Element = TruvideoSdkCamera.DSState
-  public typealias RawValue = Swift.Int
-}
-public struct DSStateProperty<T> : Swift.Sendable {
-  public let resolve: @_Concurrency.MainActor @Sendable (TruvideoSdkCamera.DSState) -> T
-  public static func all(_ resolve: @autoclosure @escaping @_Concurrency.MainActor @Sendable () -> T) -> TruvideoSdkCamera.DSStateProperty<T>
-  public init(resolve: @escaping @_Concurrency.MainActor @Sendable (TruvideoSdkCamera.DSState) -> T)
-}
 public enum DataLoadStatus : Swift.Sendable {
   case initial
   case failure
@@ -123,131 +38,6 @@ public enum DataLoadStatus : Swift.Sendable {
     get
   }
 }
-extension SwiftUICore.EdgeInsets {
-  public static var zero: SwiftUICore.EdgeInsets {
-    get
-  }
-  public static func all(_ padding: CoreFoundation.CGFloat) -> SwiftUICore.EdgeInsets
-  public static func only(bottom: CoreFoundation.CGFloat = 0, leading: CoreFoundation.CGFloat = 0, top: CoreFoundation.CGFloat = 0, trailing: CoreFoundation.CGFloat = 0) -> SwiftUICore.EdgeInsets
-  public static func symmetric(horizontal: CoreFoundation.CGFloat = 0, vertical: CoreFoundation.CGFloat = 0) -> SwiftUICore.EdgeInsets
-}
-public struct IconTheme : Swift.Sendable {
-  public let color: SwiftUICore.Color?
-  public let opacity: Swift.Double
-  public static let `default`: TruvideoSdkCamera.IconTheme
-  public init(color: SwiftUICore.Color?, opacity: Swift.Double)
-  public func copyWith(color: SwiftUICore.Color? = nil, opacity: Swift.Double? = nil) -> TruvideoSdkCamera.IconTheme
-}
-
-public struct RadiusTheme : Swift.Sendable {
-  public let radiusUnit: CoreFoundation.CGFloat
-  public var xxs: CoreFoundation.CGFloat {
-    get
-  }
-  public var xs: CoreFoundation.CGFloat {
-    get
-  }
-  public var sm: CoreFoundation.CGFloat {
-    get
-  }
-  public var md: CoreFoundation.CGFloat {
-    get
-  }
-  public var lg: CoreFoundation.CGFloat {
-    get
-  }
-  public var xl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxl: CoreFoundation.CGFloat {
-    get
-  }
-  public init(radiusUnit: CoreFoundation.CGFloat = 4)
-  public func x(_ multiple: Swift.Double) -> CoreFoundation.CGFloat
-}
-
-public struct SizeTheme : Swift.Sendable {
-  public let spaceUnit: CoreFoundation.CGFloat
-  public var xxs: CoreFoundation.CGFloat {
-    get
-  }
-  public var xs: CoreFoundation.CGFloat {
-    get
-  }
-  public var sm: CoreFoundation.CGFloat {
-    get
-  }
-  public var md: CoreFoundation.CGFloat {
-    get
-  }
-  public var lg: CoreFoundation.CGFloat {
-    get
-  }
-  public var xl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxxl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxxxl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxxxxl: CoreFoundation.CGFloat {
-    get
-  }
-  public init(spaceUnit: CoreFoundation.CGFloat = 4)
-  public func x(_ multiple: Swift.Double) -> CoreFoundation.CGFloat
-}
-public struct SnackbarTheme : Swift.Sendable {
-  public let backgroundColor: SwiftUICore.Color?
-  public let cornerRadius: CoreFoundation.CGFloat?
-  public let contentPadding: SwiftUICore.EdgeInsets?
-  public let shadowColor: SwiftUICore.Color
-  public let shadowOffset: CoreFoundation.CGPoint
-  public let shadowRadius: CoreFoundation.CGFloat
-  public let textStyle: TruvideoSdkCamera.TextStyle?
-  public static let `default`: TruvideoSdkCamera.SnackbarTheme
-  public init(backgroundColor: SwiftUICore.Color?, contentPadding: SwiftUICore.EdgeInsets?, cornerRadius: CoreFoundation.CGFloat?, shadowColor: SwiftUICore.Color, shadowOffset: CoreFoundation.CGPoint, shadowRadius: CoreFoundation.CGFloat, textStyle: TruvideoSdkCamera.TextStyle?)
-  public func copyWith(backgroundColor: SwiftUICore.Color? = nil, contentPadding: SwiftUICore.EdgeInsets? = nil, cornerRadius: CoreFoundation.CGFloat? = nil, shadowColor: SwiftUICore.Color? = nil, shadowOffset: CoreFoundation.CGPoint? = nil, shadowRadius: CoreFoundation.CGFloat? = nil, textStyle: TruvideoSdkCamera.TextStyle? = nil) -> TruvideoSdkCamera.SnackbarTheme
-}
-public struct SpacingTheme : Swift.Sendable {
-  public let spaceUnit: CoreFoundation.CGFloat
-  public var xxs: CoreFoundation.CGFloat {
-    get
-  }
-  public var xs: CoreFoundation.CGFloat {
-    get
-  }
-  public var sm: CoreFoundation.CGFloat {
-    get
-  }
-  public var md: CoreFoundation.CGFloat {
-    get
-  }
-  public var lg: CoreFoundation.CGFloat {
-    get
-  }
-  public var xl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxxl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxxxl: CoreFoundation.CGFloat {
-    get
-  }
-  public var xxxxxl: CoreFoundation.CGFloat {
-    get
-  }
-  public init(spaceUnit: CoreFoundation.CGFloat = 4)
-  public func x(_ multiple: Swift.Double) -> CoreFoundation.CGFloat
-}
 
 
 
@@ -259,118 +49,8 @@ public struct SpacingTheme : Swift.Sendable {
 
 
 
-extension SwiftUICore.Text {
-  @_Concurrency.MainActor public func style(_ style: TruvideoSdkCamera.TextStyle) -> SwiftUICore.Text
-}
-public struct TextStyle : Swift.Sendable {
-  public let color: SwiftUICore.Color
-  public let decoration: TruvideoSdkCamera.TextStyle.Decoration?
-  public let design: TruvideoSdkCamera.TextStyle.Design?
-  public let fontFamily: TruvideoSdkCamera.TextStyle.FontFamily
-  public let fontSize: CoreFoundation.CGFloat
-  public let kerning: CoreFoundation.CGFloat
-  public let lineSpacing: CoreFoundation.CGFloat
-  public let weight: TruvideoSdkCamera.TextStyle.Weight?
-  public let width: TruvideoSdkCamera.TextStyle.Width?
-  public var fontName: Swift.String {
-    get
-  }
-  public func copyWith(color: SwiftUICore.Color? = nil, decoration: TruvideoSdkCamera.TextStyle.Decoration? = nil, design: TruvideoSdkCamera.TextStyle.Design? = nil, fontFamily: TruvideoSdkCamera.TextStyle.FontFamily? = nil, fontSize: CoreFoundation.CGFloat? = nil, kerning: CoreFoundation.CGFloat? = nil, lineSpacing: CoreFoundation.CGFloat? = nil, weight: TruvideoSdkCamera.TextStyle.Weight? = nil, width: TruvideoSdkCamera.TextStyle.Width? = nil) -> TruvideoSdkCamera.TextStyle
-}
-extension TruvideoSdkCamera.TextStyle {
-  public struct Design : Swift.Hashable, Swift.RawRepresentable, Swift.Sendable {
-    public let rawValue: Swift.String
-    public init(rawValue: Swift.String)
-    public typealias RawValue = Swift.String
-  }
-}
-extension TruvideoSdkCamera.TextStyle.Design {
-  public static let italic: TruvideoSdkCamera.TextStyle.Design
-}
-extension TruvideoSdkCamera.TextStyle {
-  public enum Decoration : Swift.Hashable, Swift.Sendable {
-    case strikethrough
-    case underline
-    public static func == (a: TruvideoSdkCamera.TextStyle.Decoration, b: TruvideoSdkCamera.TextStyle.Decoration) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-}
-extension TruvideoSdkCamera.TextStyle {
-  public struct Width : Swift.Hashable, Swift.RawRepresentable, Swift.Sendable {
-    public let rawValue: Swift.String
-    public init(rawValue: Swift.String)
-    public typealias RawValue = Swift.String
-  }
-}
-extension TruvideoSdkCamera.TextStyle.Width {
-  public static let condensed: TruvideoSdkCamera.TextStyle.Width
-}
-extension TruvideoSdkCamera.TextStyle {
-  public struct Weight : Swift.Hashable, Swift.RawRepresentable, Swift.Sendable {
-    public let rawValue: Swift.String
-    public init(rawValue: Swift.String)
-    public typealias RawValue = Swift.String
-  }
-}
-extension TruvideoSdkCamera.TextStyle.Weight {
-  public static let bold: TruvideoSdkCamera.TextStyle.Weight
-  public static let light: TruvideoSdkCamera.TextStyle.Weight
-  public static let medium: TruvideoSdkCamera.TextStyle.Weight
-  public static let regular: TruvideoSdkCamera.TextStyle.Weight
-  public static let semiBold: TruvideoSdkCamera.TextStyle.Weight
-  public static let xBold: TruvideoSdkCamera.TextStyle.Weight
-}
-extension TruvideoSdkCamera.TextStyle {
-  public struct FontFamily : Swift.RawRepresentable, Swift.Sendable {
-    public let rawValue: Swift.String
-    public static let sanfrancisco: TruvideoSdkCamera.TextStyle.FontFamily
-    public init(rawValue: Swift.String)
-    public typealias RawValue = Swift.String
-  }
-}
-public struct TextTheme : Swift.Sendable {
-  public let largeTitle: TruvideoSdkCamera.TextStyle
-  public let title1: TruvideoSdkCamera.TextStyle
-  public let title2: TruvideoSdkCamera.TextStyle
-  public let title3: TruvideoSdkCamera.TextStyle
-  public let headline: TruvideoSdkCamera.TextStyle
-  public let body: TruvideoSdkCamera.TextStyle
-  public let callout: TruvideoSdkCamera.TextStyle
-  public let subheadline: TruvideoSdkCamera.TextStyle
-  public let footnote: TruvideoSdkCamera.TextStyle
-  public let caption1: TruvideoSdkCamera.TextStyle
-  public let caption2: TruvideoSdkCamera.TextStyle
-  public static let `default`: TruvideoSdkCamera.TextTheme
-  public init(largeTitle: TruvideoSdkCamera.TextStyle, title1: TruvideoSdkCamera.TextStyle, title2: TruvideoSdkCamera.TextStyle, title3: TruvideoSdkCamera.TextStyle, headline: TruvideoSdkCamera.TextStyle, body: TruvideoSdkCamera.TextStyle, callout: TruvideoSdkCamera.TextStyle, subheadline: TruvideoSdkCamera.TextStyle, footnote: TruvideoSdkCamera.TextStyle, caption1: TruvideoSdkCamera.TextStyle, caption2: TruvideoSdkCamera.TextStyle)
-  public func copyWith(largeTitle: TruvideoSdkCamera.TextStyle? = nil, title1: TruvideoSdkCamera.TextStyle? = nil, title2: TruvideoSdkCamera.TextStyle? = nil, title3: TruvideoSdkCamera.TextStyle? = nil, headline: TruvideoSdkCamera.TextStyle? = nil, body: TruvideoSdkCamera.TextStyle? = nil, callout: TruvideoSdkCamera.TextStyle? = nil, subheadline: TruvideoSdkCamera.TextStyle? = nil, footnote: TruvideoSdkCamera.TextStyle? = nil, caption1: TruvideoSdkCamera.TextStyle? = nil, caption2: TruvideoSdkCamera.TextStyle? = nil) -> TruvideoSdkCamera.TextTheme
-}
-public struct Theme : Swift.Sendable {
-  public let buttonTheme: TruvideoSdkCamera.ButtonTheme
-  public let colorScheme: TruvideoSdkCamera.DSColorScheme
-  public let iconTheme: TruvideoSdkCamera.IconTheme
-  public let radiusTheme: TruvideoSdkCamera.RadiusTheme
-  public let sizeTheme: TruvideoSdkCamera.SizeTheme
-  public let snackbarTheme: TruvideoSdkCamera.SnackbarTheme
-  public let spacingTheme: TruvideoSdkCamera.SpacingTheme
-  public let textTheme: TruvideoSdkCamera.TextTheme
-  public static let `default`: TruvideoSdkCamera.Theme
-  public init(buttonTheme: TruvideoSdkCamera.ButtonTheme, colorScheme: TruvideoSdkCamera.DSColorScheme, iconTheme: TruvideoSdkCamera.IconTheme, radiusTheme: TruvideoSdkCamera.RadiusTheme, sizeTheme: TruvideoSdkCamera.SizeTheme, snackbarTheme: TruvideoSdkCamera.SnackbarTheme, spacingTheme: TruvideoSdkCamera.SpacingTheme, textTheme: TruvideoSdkCamera.TextTheme)
-  public func copyWith(buttonTheme: TruvideoSdkCamera.ButtonTheme? = nil, colorScheme: TruvideoSdkCamera.DSColorScheme? = nil, iconTheme: TruvideoSdkCamera.IconTheme? = nil, radiusTheme: TruvideoSdkCamera.RadiusTheme? = nil, snackbarTheme: TruvideoSdkCamera.SnackbarTheme? = nil, spacingTheme: TruvideoSdkCamera.SpacingTheme? = nil, sizeTheme: TruvideoSdkCamera.SizeTheme? = nil, textTheme: TruvideoSdkCamera.TextTheme? = nil) -> TruvideoSdkCamera.Theme
-}
-public struct ThemeEnvironmentKey : SwiftUICore.EnvironmentKey {
-  public static let defaultValue: TruvideoSdkCamera.Theme
-  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
-  public typealias Value = TruvideoSdkCamera.Theme
-}
-extension SwiftUICore.EnvironmentValues {
-  public var theme: TruvideoSdkCamera.Theme {
-    get
-    set
-  }
-}
+
+
 public struct TruVideoError : Foundation.LocalizedError {
   public let column: Swift.Int
   public let line: Swift.Int
@@ -471,7 +151,7 @@ extension SwiftUICore.View {
   @objc convenience public init(backResolutions: [TruvideoSdkCamera.TruvideoSdkCameraResolution], backResolution: TruvideoSdkCamera.TruvideoSdkCameraResolution, flashMode: TruvideoSdkCamera.TruvideoSdkCameraFlashMode, frontResolution: TruvideoSdkCamera.TruvideoSdkCameraResolution, frontResolutions: [TruvideoSdkCamera.TruvideoSdkCameraResolution], imageFormat: TruvideoSdkCamera.TruvideoSdkCameraImageFormat, lensFacing: TruvideoSdkCamera.TruvideoSdkCameraLensFacing, mode: TruvideoSdkCamera.TruvideoSdkCameraMediaMode, orientation: TruvideoSdkCamera.TruvideoSdkCameraOrientation, outputPath: Swift.String)
   @objc deinit
 }
-@objc public enum TruvideoSdkCameraLensFacing : Swift.Int, Swift.Codable, Swift.RawRepresentable {
+@objc public enum TruvideoSdkCameraLensFacing : Swift.Int, Swift.Codable, Swift.RawRepresentable, Swift.Sendable {
   case back
   case front
   public typealias RawValue = Swift.String
@@ -493,7 +173,7 @@ extension SwiftUICore.View {
   public init(from decoder: any Swift.Decoder) throws
   public func encode(to encoder: any Swift.Encoder) throws
 }
-@objc public enum TruvideoSdkCameraImageFormat : Swift.Int, Swift.RawRepresentable {
+@objc public enum TruvideoSdkCameraImageFormat : Swift.Int, Swift.RawRepresentable, Swift.Sendable {
   case jpeg
   case png
   public typealias RawValue = Swift.String
@@ -502,7 +182,7 @@ extension SwiftUICore.View {
   }
   public init?(rawValue: TruvideoSdkCamera.TruvideoSdkCameraImageFormat.RawValue)
 }
-@objc public enum TruvideoSdkCameraOrientation : Swift.Int, Swift.Codable, Swift.RawRepresentable {
+@objc public enum TruvideoSdkCameraOrientation : Swift.Int, Swift.Codable, Swift.RawRepresentable, Swift.Sendable {
   case portrait
   case landscapeLeft
   case landscapeRight
@@ -594,7 +274,7 @@ extension TruvideoSdkCamera.TruvideoSdkCameraMediaMode {
   @available(*, deprecated, message: "Use videoAndPicture(mediaCount:videoDuration:) instead")
   @objc public static func NSVideoAndPicture(mediaCount: Foundation.NSNumber? = nil, videoDuration: Foundation.NSNumber? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
 }
-@objc @_hasMissingDesignatedInitializers @objcMembers final public class TruvideoSdkCameraMediaMode : ObjectiveC.NSObject {
+@objc @_hasMissingDesignatedInitializers @objcMembers final public class TruvideoSdkCameraMediaMode : ObjectiveC.NSObject, Swift.Sendable {
   public static func picture(pictureCount: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
   @objc public static func singlePicture() -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
   public static func singleVideo(videoDuration: Swift.Int? = nil) -> TruvideoSdkCamera.TruvideoSdkCameraMediaMode
@@ -676,8 +356,6 @@ extension SwiftUICore.View {
   
 }
 
-extension TruvideoSdkCamera.PrimaryButtonStyle : Swift.Sendable {}
-extension TruvideoSdkCamera.TextButtonStyle : Swift.Sendable {}
 extension TruvideoSdkCamera.DataLoadStatus : Swift.Equatable {}
 extension TruvideoSdkCamera.DataLoadStatus : Swift.Hashable {}
 extension TruvideoSdkCamera.TruvideoSdkCameraLensFacing : Swift.Equatable {}
