@@ -98,6 +98,18 @@ android {
             keyPassword 'android'
         }
     }
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs += "-Xskip-metadata-version-check"
+    }
+
+    // jspecify + BouncyCastle both ship this multi-release path; MERGE requires a single winner.
+    packaging {
+        resources {
+            pickFirst("META-INF/versions/**/OSGI-INF/MANIFEST.MF")
+        }
+    }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug

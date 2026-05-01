@@ -5,19 +5,18 @@ buildscript {
         compileSdkVersion = 36
         targetSdkVersion = 36
         ndkVersion = "26.1.10909125"
-        // Use a Kotlin Gradle plugin version compatible with React Native 0.77's
-        // Gradle plugin to avoid "KotlinTopLevelExtension, but class was expected"
-        // errors when applying the React Native Gradle plugin. As of RN 0.77,
-        // Kotlin 2.0.21 is the latest supported version.
+        // Stay on RN-friendly Kotlin 2.0.x; app module adds -Xskip-metadata-version-check
+        // so Kotlin 2.2+/2.3–built transitives (Truvideo, OkHttp 5, stdlib 2.3…) still compile.
         kotlinVersion = "2.0.21"
-        TruVideoReactTurboCameraSdk_kotlinVersion = "2.0.21"
+        TruVideoReactTurboCameraSdk_kotlinVersion = "2.2.0"
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        // Explicit AGP ≥8.9.1: androidx.camera 1.6 and related libs require AGP min (metadata check).
+        classpath("com.android.tools.build:gradle:8.9.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
     }

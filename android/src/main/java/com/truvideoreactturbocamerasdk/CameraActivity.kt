@@ -14,7 +14,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.gson.Gson
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.modules.core.DeviceEventManagerModule
-import com.truvideo.sdk.camera.TruvideoSdkCamera
 //import com.truvideo.sdk.camera.model.TruvideoSdkCameraConfiguration
 //import com.truvideo.sdk.camera.model.TruvideoSdkCameraEvent
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraFlashMode
@@ -92,7 +91,7 @@ class CameraActivity : AppCompatActivity() {
   fun getEvent(){
     lifecycleScope.launch {
       repeatOnLifecycle(Lifecycle.State.STARTED) {
-        TruvideoSdkCamera.events.collect { event ->
+        TruvideoSdkCameraAccess.sdk().events.collect { event ->
           Log.d("CameraActivity", "camera event: type=${event.eventType.name}, data=${event.data}")
           val gson = Gson()
           val eventData = mapOf(

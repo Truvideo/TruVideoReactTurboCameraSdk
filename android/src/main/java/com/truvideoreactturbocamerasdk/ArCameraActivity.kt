@@ -6,7 +6,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.truvideo.sdk.camera.TruvideoSdkCamera
 import com.truvideo.sdk.camera.model.TruvideoSdkArCameraConfiguration
 //import com.truvideo.sdk.camera.model.TruvideoSdkCameraMode
 import com.truvideo.sdk.camera.model.TruvideoSdkCameraOrientation
@@ -52,9 +51,9 @@ class ArCameraActivity : AppCompatActivity() {
             finish()
         }
         try {
-            if(TruvideoSdkCamera.isAugmentedRealityInstalled && TruvideoSdkCamera.isAugmentedRealitySupported){
+            if(TruvideoSdkCameraAccess.sdk().isAugmentedRealityInstalled && TruvideoSdkCameraAccess.sdk().isAugmentedRealitySupported){
                 openArCamera(configuration)
-            }else if(TruvideoSdkCamera.isAugmentedRealitySupported){
+            }else if(TruvideoSdkCameraAccess.sdk().isAugmentedRealitySupported){
                 TruVideoReactTurboCameraSdkModule.promise2!!.reject("Exception","Ar Not Supported in Device")
             }else{
                 TruVideoReactTurboCameraSdkModule.promise2!!.reject("Exception","Ar Core App not Installed")
