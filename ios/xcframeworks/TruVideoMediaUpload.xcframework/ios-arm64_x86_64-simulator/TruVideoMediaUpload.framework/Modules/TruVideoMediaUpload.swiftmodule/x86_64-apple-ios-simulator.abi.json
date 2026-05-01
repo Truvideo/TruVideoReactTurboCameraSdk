@@ -9011,6 +9011,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Copyable",
             "printedName": "Copyable",
             "usr": "s:s8CopyableP",
@@ -9147,7 +9154,7 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/DI\/DI.swift",
       "kind": "StringLiteral",
-      "offset": 2561,
+      "offset": 2424,
       "length": 14,
       "value": "\"UploadsStore\""
     },
@@ -9161,147 +9168,147 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 617,
+      "offset": 607,
       "length": 26,
       "value": "\"DATABASE_DELETION_FAILED\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 1111,
+      "offset": 1101,
       "length": 22,
       "value": "\"DATABASE_FIND_FAILED\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 1601,
+      "offset": 1591,
       "length": 26,
       "value": "\"DATABASE_RETRIEVE_FAILED\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 2065,
+      "offset": 2055,
       "length": 22,
       "value": "\"DATABASE_SAVE_FAILED\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 2322,
+      "offset": 2312,
       "length": 27,
       "value": "\"FAILED_TO_FINISH_PRODUCER\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 3363,
+      "offset": 3343,
       "length": 25,
       "value": "\"FAILED_TO_REGISTER_PART\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 3678,
+      "offset": 3658,
       "length": 36,
       "value": "\"FAILED_TO_START_NEW_STREAM_SESSION\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 3956,
+      "offset": 3936,
       "length": 21,
       "value": "\"FAILED_TO_SYNC_PART\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 4228,
+      "offset": 4208,
       "length": 23,
       "value": "\"FAILED_TO_UPLOAD_DATA\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 4488,
+      "offset": 4468,
       "length": 34,
       "value": "\"FAILED_TO_APPEND_CONTENTS_OF_URL\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 4781,
+      "offset": 4761,
       "length": 25,
       "value": "\"FAILED_TO_CANCEL_STREAM\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 4918,
+      "offset": 4898,
       "length": 25,
       "value": "\"FAILED_TO_DELETE_STREAM\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 5056,
+      "offset": 5036,
       "length": 25,
       "value": "\"FAILED_TO_FINISH_STREAM\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 5228,
+      "offset": 5208,
       "length": 18,
       "value": "\"MISSING_MEDIA_ID\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 5368,
+      "offset": 5348,
       "length": 25,
       "value": "\"FAILED_TO_RESUME_STREAM\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 5504,
+      "offset": 5484,
       "length": 24,
       "value": "\"FAILED_TO_RETRY_STREAM\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 5643,
+      "offset": 5623,
       "length": 26,
       "value": "\"FAILED_TO_SUSPEND_STREAM\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 5914,
+      "offset": 5894,
       "length": 25,
       "value": "\"FAILED_TO_CREATE_STREAM\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Error\/ErrorReason.swift",
       "kind": "StringLiteral",
-      "offset": 6068,
+      "offset": 6048,
       "length": 28,
       "value": "\"FAILED_TO_RETRIEVE_STREAMS\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/Emitter\/EventEmitter.swift",
       "kind": "Array",
-      "offset": 10928,
+      "offset": 10918,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/Emitter\/EventEmitter.swift",
       "kind": "IntegerLiteral",
-      "offset": 11056,
+      "offset": 11046,
       "length": 1,
       "value": "1"
     },
@@ -9441,98 +9448,98 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "Dictionary",
-      "offset": 1728,
+      "offset": 1652,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "IntegerLiteral",
-      "offset": 1767,
+      "offset": 1691,
       "length": 3,
       "value": "120"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 7015,
+      "offset": 6939,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 7051,
+      "offset": 6975,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "Dictionary",
-      "offset": 7091,
+      "offset": 7015,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "Dictionary",
-      "offset": 7133,
+      "offset": 7057,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "StringLiteral",
-      "offset": 7166,
+      "offset": 7090,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "IntegerLiteral",
-      "offset": 13956,
+      "offset": 13880,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "IntegerLiteral",
-      "offset": 13960,
+      "offset": 13884,
       "length": 5,
       "value": "1024"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "IntegerLiteral",
-      "offset": 13968,
+      "offset": 13892,
       "length": 5,
       "value": "1024"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "Array",
-      "offset": 23014,
+      "offset": 22938,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "Array",
-      "offset": 23116,
+      "offset": 23040,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "IntegerLiteral",
-      "offset": 23633,
+      "offset": 23557,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/Core\/MediaUpload\/Sources\/Stream\/MUStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 34894,
+      "offset": 34662,
       "length": 5,
       "value": "false"
     },
