@@ -253,6 +253,23 @@ import Combine
             resolve(cameraResult.data)
         }
     }
+
+    @objc public func getCameraInformation(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+        do {
+            let cameraInfo = TruvideoSdkCamera.camera.getTruvideoSdkCameraInformation()
+            let infoMap = convertCameraInformationToDictionary(cameraInfo)
+            let jsonData = try JSONSerialization.data(withJSONObject: infoMap, options: [])
+
+            guard let jsonString = String(data: jsonData, encoding: .utf8) else {
+                reject("CAMERA_ERROR", "Failed to get camera information", nil)
+                return
+            }
+
+            resolve(jsonString)
+        } catch {
+            reject("CAMERA_ERROR", error.localizedDescription, error)
+        }
+    }
     func initiateScannerCamera(viewController: UIViewController, _ completion: @escaping (_ cameraResult: TruvideoSdkCameraScannerCode) -> Void) {
         DispatchQueue.main.async {
             // FIXED: Scanner camera functionality commented out - not available in new SDK version
@@ -721,6 +738,72 @@ import Combine
 
     func convertMediaArrayToDictionary(mediaArray: [TruvideoSdkCameraMedia]) -> [[String: Any]] {
         return mediaArray.map { convertMediaToDictionary(media: $0) }
+    }
+
+    private func convertCameraInformationToDictionary(
+        _ information: TruvideoSdkCameraInformation
+    ) -> [String: Any] {
+        var data: [String: Any] = [:]
+        data["frontCamera"] = convertCameraDeviceToDictionary(information.frontCamera)
+        data["backCamera"] = convertCameraDeviceToDictionary(information.backCamera)
+        return data
+    }
+
+    private func convertCameraDeviceToDictionary(
+        _ camera: TruvideoSdkCameraDevice?
+    ) -> [String: Any]? {
+        guard let camera else { return nil }
+
+        return [
+            "id": camera.id,
+            "lensFacing": convertLensTOString(lensFacing: camera.lensFacing),
+            "resolutions": camera.resolutions.map { convertCameraResolutionToDictionary($0) },
+            "withFlash": camera.withFlash,
+            "isTapToFocusEnabled": camera.isTapToFocusEnabled,
+            "sensorOrientation": camera.sensorOrientation,
+            "sensorSize": [
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            ],
+            "isLogicalCamera": false
+        ]
+    }
+
+    private func convertCameraResolutionToDictionary(
+        _ resolution: TruvideoSdkCameraResolution
+    ) -> [String: Int] {
+        let resolutionString = resolution.rawValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        let components = resolutionString.lowercased().split(separator: "x")
+
+        if components.count == 2,
+           let width = Int(components[0]),
+           let height = Int(components[1]) {
+            return [
+                "width": width,
+                "height": height
+            ]
+        }
+
+        let (width, height) = resolutionDimensions(fromPreset: resolutionString)
+        return [
+            "width": width,
+            "height": height
+        ]
+    }
+
+    private func resolutionDimensions(fromPreset preset: String) -> (Int, Int) {
+        switch preset.lowercased() {
+        case "sd640x480":
+            return (640, 480)
+        case "hd1280x720":
+            return (1280, 720)
+        case "hd1920x1080":
+            return (1920, 1080)
+        default:
+            return (0, 0)
+        }
     }
     //self.sendEvent(withName: "onComplete", body: mainResponse)
     private func sendEvent(withName name: String, body: [String: Any]) {

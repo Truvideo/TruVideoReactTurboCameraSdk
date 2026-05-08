@@ -99,6 +99,19 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     activity.startActivity(Intent(activity, ScannerActivity::class.java))
   }
 
+  override fun getCameraInformation(promise: Promise) {
+    try {
+      val info = TruvideoSdkCameraAccess.sdk().information
+      promise.resolve(info.toJson())
+    } catch (e: Exception) {
+      promise.reject(
+        "CAMERA_ERROR",
+        e.message ?: "Failed to get camera information",
+        e
+      )
+    }
+  }
+
   companion object {
     private const val VERSION_CAMERA_ASSET = "version-camera.properties"
 

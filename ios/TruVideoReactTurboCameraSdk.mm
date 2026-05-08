@@ -53,6 +53,11 @@ RCT_EXPORT_MODULE()
   [truvideo initScanerScreenWithConfiguration:configuration resolve:resolve reject:reject];
 }
 
+- (void)getCameraInformation:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+  TruVideoReactCameraSdkClass *truvideo = [[TruVideoReactCameraSdkClass alloc] init];
+  [truvideo getCameraInformationWithResolve:resolve reject:reject];
+}
+
 
 
 

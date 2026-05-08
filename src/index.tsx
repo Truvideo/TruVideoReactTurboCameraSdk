@@ -102,6 +102,10 @@ export function initScanerScreen(): Promise<string> {
   );
 }
 
+export function getCameraInformation(): Promise<string> {
+  return TruVideoReactTurboCameraSdk.getCameraInformation();
+}
+
 export function version(): Promise<string> {
   return TruVideoReactTurboCameraSdk.version();
 }
