@@ -7,6 +7,7 @@ import java.util.Properties
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
+import org.json.JSONObject
 @ReactModule(name = TruVideoReactTurboCameraSdkModule.NAME)
 class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
   NativeTruVideoReactTurboCameraSdkSpec(reactContext) {
@@ -101,8 +102,13 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
 
   override fun getCameraInformation(promise: Promise) {
     try {
-      val info = TruvideoSdkCameraAccess.sdk().information
-      promise.resolve(info.toJson())
+      val info = readCameraInformationCompat()
+      val payload = when (info) {
+        null -> "{}"
+        is String -> info
+        else -> JSONObject.wrap(info)?.toString() ?: "{}"
+      }
+      promise.resolve(payload)
     } catch (e: Exception) {
       promise.reject(
         "CAMERA_ERROR",
@@ -110,6 +116,34 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
         e
       )
     }
+  }
+
+  private fun readCameraInformationCompat(): Any? {
+    val sdk = TruvideoSdkCameraAccess.sdk()
+
+    val methodCandidates = listOf(
+      "getInformation",
+      "information",
+      "getCameraInformation",
+      "cameraInformation"
+    )
+    for (methodName in methodCandidates) {
+      runCatching {
+        val method = sdk.javaClass.methods.firstOrNull { it.name == methodName && it.parameterCount == 0 }
+        method?.invoke(sdk)
+      }.getOrNull()?.let { return it }
+    }
+
+    val fieldCandidates = listOf("information", "cameraInformation")
+    for (fieldName in fieldCandidates) {
+      runCatching {
+        val field = sdk.javaClass.getDeclaredField(fieldName)
+        field.isAccessible = true
+        field.get(sdk)
+      }.getOrNull()?.let { return it }
+    }
+
+    throw IllegalStateException("Camera information API is not available in current SDK version")
   }
 
   companion object {
