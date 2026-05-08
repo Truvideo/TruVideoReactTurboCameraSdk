@@ -32,6 +32,14 @@ if (isNewArchitectureEnabled()) {
   apply plugin: "com.facebook.react"
 }
 
+// Apply early, project-wide exclusion so consuming apps don't need packaging hacks.
+// jspecify is annotation-only and can be safely excluded from runtime classpaths.
+rootProject.allprojects {
+  configurations.configureEach {
+    exclude group: "org.jspecify", module: "jspecify"
+  }
+}
+
 def getExtOrDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["TruVideoReactTurboCameraSdk_" + name]
 }
