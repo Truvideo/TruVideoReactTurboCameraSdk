@@ -2217,6 +2217,57 @@
       },
       {
         "kind": "Import",
+        "name": "ffmpegkit",
+        "printedName": "ffmpegkit",
+        "declKind": "Import",
+        "moduleName": "TruvideoSdkCamera",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "TruVideoFoundation",
+        "printedName": "TruVideoFoundation",
+        "declKind": "Import",
+        "moduleName": "TruvideoSdkCamera",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Utilities",
+        "printedName": "Utilities",
+        "declKind": "Import",
+        "moduleName": "TruvideoSdkCamera",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TruvideoSdkCamera",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "TruVideoFoundation",
+        "printedName": "TruVideoFoundation",
+        "declKind": "Import",
+        "moduleName": "TruvideoSdkCamera",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "SwiftUI",
         "printedName": "SwiftUI",
         "declKind": "Import",
@@ -16084,6 +16135,13 @@
       "value": "false"
     },
     {
+      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Views\/Camera\/Camera.swift",
+      "kind": "BooleanLiteral",
+      "offset": 8616,
+      "length": 5,
+      "value": "false"
+    },
+    {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Views\/Camera\/Accesibility\/CameraIpad+AccessibilityLabel.swift",
       "kind": "StringLiteral",
       "offset": 555,
@@ -16170,7 +16228,14 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Views\/Camera\/CameraIpad.swift",
       "kind": "BooleanLiteral",
-      "offset": 6785,
+      "offset": 4511,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Views\/Camera\/CameraIpad.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6891,
       "length": 5,
       "value": "false"
     },
@@ -18144,70 +18209,70 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 14807,
+      "offset": 14850,
+      "length": 20,
+      "value": "\"UnableToPauseVideo\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
+      "kind": "StringLiteral",
+      "offset": 14898,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
+      "kind": "StringLiteral",
+      "offset": 15100,
       "length": 9,
       "value": "\"Unknown\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 14844,
+      "offset": 15137,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 15075,
-      "length": 18,
-      "value": "\"UploadOperations\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
-      "kind": "StringLiteral",
-      "offset": 15121,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
-      "kind": "StringLiteral",
-      "offset": 15417,
+      "offset": 15433,
       "length": 19,
       "value": "\"VideoDurationZero\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 15464,
+      "offset": 15480,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 15754,
+      "offset": 15770,
       "length": 24,
       "value": "\"WeCouldNotTakeThePhoto\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 15806,
+      "offset": 15822,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 16014,
+      "offset": 16030,
       "length": 5,
       "value": "\"Yes\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/I18N\/Localizations.swift",
       "kind": "StringLiteral",
-      "offset": 16047,
+      "offset": 16063,
       "length": 2,
       "value": "\"\""
     },
@@ -18231,6 +18296,13 @@
       "offset": 1733,
       "length": 1,
       "value": "0"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Composer\/Error\/MediaComposerErrorReason.swift",
+      "kind": "StringLiteral",
+      "offset": 779,
+      "length": 16,
+      "value": "\"COMPOSE_FAILED\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Deprecated\/Camera\/UI\/Components\/MediaCounter.swift",
@@ -18312,21 +18384,21 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Processors\/Movie\/MovieOutputProcessor.swift",
       "kind": "Array",
-      "offset": 1671,
+      "offset": 1618,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Processors\/Movie\/MovieOutputProcessor.swift",
       "kind": "IntegerLiteral",
-      "offset": 1880,
+      "offset": 1827,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Processors\/Movie\/MovieOutputProcessor.swift",
       "kind": "Array",
-      "offset": 2123,
+      "offset": 2165,
       "length": 2,
       "value": "[]"
     },
@@ -18406,13 +18478,6 @@
       "offset": 455,
       "length": 1,
       "value": "0"
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Views\/Camera\/Components\/Buttons\/Preset\/PresetButton.swift",
-      "kind": "BooleanLiteral",
-      "offset": 748,
-      "length": 5,
-      "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Views\/Camera\/Components\/Buttons\/Record\/RecordButton.swift",
@@ -19775,63 +19840,63 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 8061,
+      "offset": 8060,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 18053,
+      "offset": 18052,
       "length": 5,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 23183,
+      "offset": 23182,
       "length": 2,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 26885,
+      "offset": 26884,
       "length": 3,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 29698,
+      "offset": 29697,
       "length": 13,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 29986,
+      "offset": 29985,
       "length": 14,
       "value": "2"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 38932,
+      "offset": 38931,
       "length": 11,
       "value": "\"sd640x480\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 39216,
+      "offset": 39215,
       "length": 12,
       "value": "\"hd1280x720\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/External\/Configuration\/TruvideoSdkCameraConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 39533,
+      "offset": 39532,
       "length": 13,
       "value": "\"hd1920x1080\""
     },
@@ -20028,20 +20093,20 @@
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Version.swift",
       "kind": "StringLiteral",
       "offset": 119,
-      "length": 8,
-      "value": "\"79.0.2\""
+      "length": 7,
+      "value": "\"1.0.1\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Version.swift",
       "kind": "StringLiteral",
-      "offset": 149,
+      "offset": 148,
       "length": 6,
       "value": "\"PROD\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Version.swift",
       "kind": "StringLiteral",
-      "offset": 177,
+      "offset": 176,
       "length": 3,
       "value": "\"1\""
     },
@@ -20076,84 +20141,84 @@
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "IntegerLiteral",
-      "offset": 7868,
+      "offset": 7662,
       "length": 1,
       "value": "6"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "IntegerLiteral",
-      "offset": 8286,
+      "offset": 8080,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 8712,
+      "offset": 8506,
       "length": 29,
       "value": "\"com.truvideo.devicePosition\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 9171,
+      "offset": 8965,
       "length": 28,
       "value": "\"com.truvideo.newFocusPoint\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 9614,
+      "offset": 9408,
       "length": 26,
       "value": "\"com.truvideo.newPosition\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 10117,
+      "offset": 9911,
       "length": 28,
       "value": "\"com.truvideo.oldFocusPoint\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 10579,
+      "offset": 10373,
       "length": 26,
       "value": "\"com.truvideo.oldPosition\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 11089,
+      "offset": 10883,
       "length": 40,
       "value": "\"com.truvideo.deviceDidChangeFocusPoint\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 11571,
+      "offset": 11365,
       "length": 38,
       "value": "\"com.truvideo.deviceDidChangePosition\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 12042,
+      "offset": 11836,
       "length": 41,
       "value": "\"com.truvideo.deviceWillChangeFocusPoint\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "StringLiteral",
-      "offset": 12548,
+      "offset": 12342,
       "length": 39,
       "value": "\"com.truvideo.deviceWillChangePosition\""
     },
     {
       "filePath": "\/Users\/runner\/work\/truvideo-ios-sdk\/truvideo-ios-sdk\/Libraries\/Plugins\/External\/Camera\/Sources\/Internal\/Devices\/Video\/VideoDevice.swift",
       "kind": "IntegerLiteral",
-      "offset": 29759,
+      "offset": 29553,
       "length": 2,
       "value": "10"
     },
