@@ -1,6 +1,6 @@
 {
   "name": "@trunpm/truvideo-react-turbo-camera-sdk",
-  "version": "2.3.1",
+  "version": "2.3.1-beta-4",
   "description": "none",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",

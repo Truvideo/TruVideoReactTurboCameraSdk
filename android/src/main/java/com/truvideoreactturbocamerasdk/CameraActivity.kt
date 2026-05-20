@@ -245,6 +245,7 @@ class CameraActivity : AppCompatActivity() {
           val mediaLimit : Int? = jsonMode.optString("mediaLimit").intOrNull()
           val videoLimit : Int? = jsonMode.optString("videoLimit").intOrNull()
           val imageLimit : Int? = jsonMode.optString("imageLimit").intOrNull()
+          val autoClose = jsonMode.optBoolean("autoClose", true)
 
           mode = when(jsonMode.getString("mode")) {
 
@@ -284,18 +285,18 @@ class CameraActivity : AppCompatActivity() {
               )
 
               "singleImage" ->
-                  TruvideoSdkCameraMode.SingleImage(autoClose = true)
+                  TruvideoSdkCameraMode.SingleImage(autoClose = autoClose)
 
               "singleVideo" ->
                   TruvideoSdkCameraMode.SingleVideo(
                       durationLimit = videoDurationLimit,
-                      autoClose = true
+                      autoClose = autoClose
                   )
 
               "singleVideoOrImage" ->
                   TruvideoSdkCameraMode.SingleVideoOrImage(
                       videoDurationLimit = videoDurationLimit,
-                      autoClose = true
+                      autoClose = autoClose
                   )
 
               else -> TruvideoSdkCameraMode.VideoAndImage() // Default fallback

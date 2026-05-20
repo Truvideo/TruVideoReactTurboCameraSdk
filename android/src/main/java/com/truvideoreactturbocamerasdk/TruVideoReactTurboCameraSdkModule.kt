@@ -7,7 +7,7 @@ import java.util.Properties
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
-import org.json.JSONObject
+import com.truvideo.sdk.camera.model.TruvideoSdkCameraInformation
 @ReactModule(name = TruVideoReactTurboCameraSdkModule.NAME)
 class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
   NativeTruVideoReactTurboCameraSdkSpec(reactContext) {
@@ -102,12 +102,7 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
 
   override fun getCameraInformation(promise: Promise) {
     try {
-      val info = readCameraInformationCompat()
-      val payload = when (info) {
-        null -> "{}"
-        is String -> info
-        else -> JSONObject.wrap(info)?.toString() ?: "{}"
-      }
+      val payload = readCameraInformationJson()
       promise.resolve(payload)
     } catch (e: Exception) {
       promise.reject(
@@ -118,8 +113,33 @@ class TruVideoReactTurboCameraSdkModule(reactContext: ReactApplicationContext) :
     }
   }
 
+  /**
+   * Kotlin SDK models expose [TruvideoSdkCameraInformation.toJson]; [JSONObject.wrap] returns empty objects.
+   */
+  private fun readCameraInformationJson(): String {
+    val info = readCameraInformationCompat() ?: return "{}"
+    if (info is String) {
+      return info.ifBlank { "{}" }
+    }
+    if (info is TruvideoSdkCameraInformation) {
+      return info.toJson()
+    }
+    runCatching {
+      val toJson = info.javaClass.methods.firstOrNull { it.name == "toJson" && it.parameterCount == 0 }
+      val json = toJson?.invoke(info) as? String
+      if (!json.isNullOrBlank()) {
+        return json
+      }
+    }
+    throw IllegalStateException("Camera information could not be serialized to JSON")
+  }
+
   private fun readCameraInformationCompat(): Any? {
     val sdk = TruvideoSdkCameraAccess.sdk()
+
+    runCatching {
+      return sdk.getInformation()
+    }
 
     val methodCandidates = listOf(
       "getInformation",
